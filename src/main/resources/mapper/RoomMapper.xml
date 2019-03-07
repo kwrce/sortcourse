@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.kwrcee.sortcourse.manage.mapper.RoomMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap id="BaseResultMap" type="top.kwrcee.sortcourse.manage.entities.Room">
+        <result column="room_id" property="roomId" jdbcType="DECIMAL"/>
+        <result column="room_name" property="roomName" jdbcType="VARCHAR"/>
+        <result column="room_num" property="roomNum" jdbcType="VARCHAR"/>
+        <result column="location" property="location" jdbcType="VARCHAR"/>
+        <result column="floor" property="floor" jdbcType="DECIMAL"/>
+        <result column="usage_status" property="usageStatus" jdbcType="VARCHAR"/>
+        <result column="manager" property="manager" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        cla.room_id,
+        cla.room_name,
+        cla.room_num,
+        cla.location,
+        cla.floor,
+        cla.usage_status,
+        cla.manager
+    </sql>
+    <sql id="Base_Column_List_No_Primary_key">
+        room_name,
+        room_num,
+        location,
+        floor,
+        usage_status,
+        manager
+    </sql>
+    <select id="getRooms" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM classroom cla
+    </select>
+
+    <update id="saveRoom">
+        UPDATE classroom clm
+        SET clm.croom_name = #{roomName}
+        ,clm.room_num = #{roomNum}
+        , clm.croom_name = #{croomName}
+        , clm.location = #{location}
+        , clm.floor = #{floor}
+        , clm.usage_status = #{usageStatus}
+        , clm.manager = #{manager}
+        WHERE clm.croom_id = #{roomId}
+    </update>
+
+    <insert id="addRoom" parameterType="top.kwrcee.sortcourse.manage.entities.Room">
+        INSERT INTO classroom( <include refid="Base_Column_List_No_Primary_key"/> )
+        VALUES (#{roomName})
+    </insert>
+
+    <select id="selectOneRoom" resultMap="BaseResultMap">
+        SELECT CROOM_ID,CROOM_NAME
+        FROM classroom cl
+        WHERE cl.croom_id = #{id}
+    </select>
+
+    <delete id="delete">
+        DELETE FROM classroom WHERE croom_id = #{id}
+    </delete>
+</mapper>

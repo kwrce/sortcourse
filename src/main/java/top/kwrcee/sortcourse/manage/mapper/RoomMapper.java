@@ -1,6 +1,8 @@
 package top.kwrcee.sortcourse.manage.mapper;
 
 
+import io.choerodon.mybatis.common.BaseMapper;
+import io.choerodon.mybatis.service.BaseService;
 import org.apache.ibatis.annotations.Mapper;
 import top.kwrcee.sortcourse.manage.entities.Room;
 
@@ -11,17 +13,8 @@ import java.util.List;
  *
  * @author guangrui.liu@hand-china.com 2019-01-29 14:11:23
  */
-@Mapper
-public interface RoomMapper {
 
-    List<Room> getRooms();
+public interface RoomMapper extends BaseMapper<Room> {
 
-    Integer saveRoom(Room room);
-
-    Integer addRoom(Room room);
-
-    Room selectOneRoom(Long id);
-
-    Integer delete(Long id);
 }
 

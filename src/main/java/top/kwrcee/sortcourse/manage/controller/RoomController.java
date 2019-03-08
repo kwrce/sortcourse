@@ -1,18 +1,17 @@
 package top.kwrcee.sortcourse.manage.controller;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.apache.ibatis.annotations.Delete;
+//import com.github.pagehelper.PageHelper;
+//import com.github.pagehelper.PageInfo;
+import io.choerodon.core.domain.Page;
+import io.choerodon.mybatis.pagehelper.PageHelper;
+import io.choerodon.mybatis.pagehelper.domain.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import top.kwrcee.sortcourse.manage.entities.Department;
 import top.kwrcee.sortcourse.manage.entities.Room;
 import top.kwrcee.sortcourse.manage.service.RoomService;
 
@@ -33,17 +32,25 @@ public class RoomController {
     /**
      * 列表
      */
+//    @GetMapping("/rooms")
+//    public String list(Model model, HttpServletRequest request){
+//        String pages = request.getParameter("page");
+//        String pageSizes = request.getParameter("pageSize");
+//        pages = pages == null || pages.trim().length() == 0 ? "0":pages;
+//        pageSizes = pageSizes == null || pageSizes.trim().length() == 0 ? "10":pageSizes;
+//        Integer page = Integer.parseInt(pages);
+//        Integer pageSize = Integer.parseInt(pageSizes);
+//        PageHelper.startPage(page+1,pageSize);//设置分页的起始码以及页面大小 List agentList=agentService.getAgentLists();
+//        List<Room> rooms = roomService.selectAll();
+//        PageInfo pageInfo = new PageInfo(rooms);//传入list就可以l
+//        model.addAttribute("pageInfo",pageInfo);
+//        return "admin/index/room-list";
+//    }
+
     @GetMapping("/rooms")
-    public String list(Model model, HttpServletRequest request){
-        String pages = request.getParameter("page");
-        String pageSizes = request.getParameter("pageSize");
-        pages = pages == null || pages.trim().length() == 0 ? "0":pages;
-        pageSizes = pageSizes == null || pageSizes.trim().length() == 0 ? "10":pageSizes;
-        Integer page = Integer.parseInt(pages);
-        Integer pageSize = Integer.parseInt(pageSizes);
-        PageHelper.startPage(page+1,pageSize);//设置分页的起始码以及页面大小 List agentList=agentService.getAgentLists();
-        List<Room> rooms = roomService.selectRooms();
-        PageInfo pageInfo = new PageInfo(rooms);//传入list就可以l
+    public String search(Model model, PageRequest pageRequest,Room room){
+        pageRequest.setSize(10);
+        Page<Room> pageInfo=roomService.pageRoomList(pageRequest,room);
         model.addAttribute("pageInfo",pageInfo);
         return "admin/index/room-list";
     }
@@ -54,8 +61,7 @@ public class RoomController {
      */
     @PostMapping("/room")
     public String addRoom(Room room){
-        System.out.println(room);
-        roomService.add(room);
+        roomService.insert(room);
         return "redirect:/rooms";
     }
 
@@ -68,7 +74,7 @@ public class RoomController {
     @ResponseBody
     public ResponseEntity<String> deleteRoom(@PathVariable("id")Long id){
         System.out.println("has deleted");
-        roomService.delete(id);
+        roomService.deleteByPrimaryKey(id);
         return ResponseEntity.ok("success");
     }
     /**
@@ -79,7 +85,7 @@ public class RoomController {
     @PostMapping("/rooms/delete")
     @ResponseBody
     public ResponseEntity<List<Room>> deleteRooms(List<Room> rooms){
-        roomService.deleteRooms(rooms);
+        roomService.deleteList(rooms);
         return ResponseEntity.ok(rooms);
     }
     /**
@@ -90,7 +96,7 @@ public class RoomController {
      */
     @GetMapping("/room/{id}")
     public String toEditPage(@PathVariable("id") Long id,Model model){
-        Room room = roomService.selectOneRoom(id) ;
+        Room room = roomService.selectByPrimaryKey(id) ;
         model.addAttribute("room",room);
         return "room/add";
     }
@@ -102,7 +108,7 @@ public class RoomController {
     @PutMapping("/room")
     public String updateRoom(Room room){
         System.out.println(room);
-        roomService.save(room);
+        roomService.updateByPrimaryKey(room);
         return "redirect:/rooms";
     }
     /**

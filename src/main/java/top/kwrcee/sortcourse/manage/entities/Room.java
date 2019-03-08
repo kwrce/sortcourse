@@ -1,12 +1,22 @@
 package top.kwrcee.sortcourse.manage.entities;
 
+import io.choerodon.mybatis.annotation.ModifyAudit;
+import io.choerodon.mybatis.annotation.VersionAudit;
+import io.choerodon.mybatis.domain.AuditDomain;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * 
  *
  * @author guangrui.liu@hand-china.com 2019-01-29 14:11:23
  */
-
-public class Room {
+@VersionAudit
+@ModifyAudit
+@Table(name = "classroom")
+public class Room extends AuditDomain {
     public static final String FIELD_ROOM_ID = "roomId";
     public static final String FIELD_ROOM_NAME = "roomName";
     public static final String FIELD_ROOM_NUM = "roomNum";
@@ -22,7 +32,8 @@ public class Room {
 //
 // 数据库字段
 // ------------------------------------------------------------------------------
-
+    @Id
+    @GeneratedValue
     private Long roomId;
     private String roomName;
     private String roomNum;

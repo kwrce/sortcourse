@@ -70,8 +70,8 @@
 									<td><button class="layui-btn layui-btn-mini layui-btn-normal">正常</button></td>
 									<td>
 										<div class="layui-inline">
-											<button class="layui-btn layui-btn-small layui-btn-normal go-btn" th:attr="data-id=${room.roomId},data-list=@{/rooms},data-url= @{/templates/admin/room/} + ${room.roomId}" data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe642;</i></button>
-											<button class="layui-btn layui-btn-small layui-btn-danger del-btn" th:attr="data-id=${room.roomId},data-url= @{/templates/admin/room/} + ${room.roomId}" data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe640;</i></button>
+											<button class="layui-btn layui-btn-small layui-btn-normal go-btn" th:attr="data-id=${room.roomId},data-list=@{/rooms},data-url= @{/room/} + ${room.roomId}" data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe642;</i></button>
+											<button class="layui-btn layui-btn-small layui-btn-danger del-btn" th:attr="data-id=${room.roomId},data-url= @{/room/} + ${room.roomId}" data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe640;</i></button>
 										</div>
 									</td>
 								</tr>

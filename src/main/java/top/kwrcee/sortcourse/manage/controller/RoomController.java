@@ -1,5 +1,6 @@
 package top.kwrcee.sortcourse.manage.controller;
 
+import java.security.PrivateKey;
 import java.util.List;
 
 //import com.github.pagehelper.PageHelper;
@@ -13,7 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import top.kwrcee.sortcourse.manage.entities.Room;
+import top.kwrcee.sortcourse.manage.entities.ValueSet;
 import top.kwrcee.sortcourse.manage.service.RoomService;
+import top.kwrcee.sortcourse.manage.service.ValueSetService;
+import top.kwrcee.sortcourse.manage.utils.Constants;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,7 +32,8 @@ public class RoomController {
 
     @Autowired
     private RoomService roomService;
-
+    @Autowired
+    private ValueSetService valueSetService;
     /**
      * 列表
      */
@@ -52,7 +57,7 @@ public class RoomController {
         pageRequest.setSize(10);
         Page<Room> pageInfo=roomService.pageRoomList(pageRequest,room);
         model.addAttribute("pageInfo",pageInfo);
-        return "admin/index/room-list";
+        return "admin/room/room-list";
     }
     /**
      * 教室添加
@@ -98,7 +103,10 @@ public class RoomController {
     public String toEditPage(@PathVariable("id") Long id,Model model){
         Room room = roomService.selectByPrimaryKey(id) ;
         model.addAttribute("room",room);
-        return "room/add";
+        ValueSet valueSet =new ValueSet();
+        valueSet.setName(Constants.ValueSet.BUILDING_NAME);
+        model.addAttribute("buildings",valueSetService.select(valueSet));
+        return "admin/room/room-detail";
     }
     /**
      * 教室更新

@@ -111,13 +111,11 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 	$('#table-list').on('click', '.del-btn', function() {
 		var url=$(this).attr('data-url');
 		var id = $(this).attr('data-id');
-		var that =this;
+		var urlList = $(this).attr('data-list');
 		dialog.confirm({
 			message:'您确定要进行删除吗？',
 			success:function(){
-				//windows.location.href=url;
-				//window.location.href=url;
-				console.log(url)
+				//console.log(url)
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -126,10 +124,11 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
                     dataType: "json",
                     success: function(){
                         layer.msg('确定了')
-						console.log('成功执行这里')
                     }
                 });
-                layer.msg('已删除')
+                layer.msg('已删除');
+				console.log('123'+url);
+                window.location.reload();
 			},
 			cancel:function(){
 				layer.msg('已取消')

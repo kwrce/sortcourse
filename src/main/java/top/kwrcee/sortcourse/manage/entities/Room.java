@@ -22,8 +22,9 @@ public class Room extends AuditDomain {
     public static final String FIELD_ROOM_NUM = "roomNum";
     public static final String FIELD_LOCATION = "location";
     public static final String FIELD_FLOOR = "floor";
-    public static final String FIELD_USAGE_STATUS = "usageStatus";
+    public static final String FIELD_USAGE_STATUS_FLAG = "usageStatusFlag";
     public static final String FIELD_MANAGER = "manager";
+    public static final String FIELD_REMARK = "remark";
 
 //
 // 业务方法(按public protected private顺序排列)
@@ -39,8 +40,9 @@ public class Room extends AuditDomain {
     private String roomNum;
     private String location;
     private String floor;
-    private String usageStatus;
+    private Integer usageStatusFlag;
     private String manager;
+    private String remark;
 
 //
 // 非数据库字段
@@ -59,8 +61,9 @@ public class Room extends AuditDomain {
                 ", roomNum='" + roomNum + '\'' +
                 ", location='" + location + '\'' +
                 ", floor='" + floor + '\'' +
-                ", usageStatus='" + usageStatus + '\'' +
+                ", usageStatusFlag=" + usageStatusFlag +
                 ", manager='" + manager + '\'' +
+                ", remark='" + remark + '\'' +
                 '}';
     }
 
@@ -88,12 +91,12 @@ public class Room extends AuditDomain {
         this.floor = floor;
     }
 
-    public String getUsageStatus() {
-        return usageStatus;
+    public Integer getUsageStatusFlag() {
+        return usageStatusFlag;
     }
 
-    public void setUsageStatus(String usageStatus) {
-        this.usageStatus = usageStatus;
+    public void setUsageStatusFlag(Integer usageStatusFlag) {
+        this.usageStatusFlag = usageStatusFlag;
     }
 
     public String getManager() {
@@ -118,5 +121,13 @@ public class Room extends AuditDomain {
 
     public void setRoomName(String roomName) {
         this.roomName = roomName;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

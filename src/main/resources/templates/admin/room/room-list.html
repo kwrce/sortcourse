@@ -14,22 +14,24 @@
 	<body>
 		<div class="wrap-container clearfix">
 				<div class="column-content-detail">
-					<form class="layui-form" id="showForm" action="">
+					<form class="layui-form" id="showForm" th:action="@{/rooms}">
 						<div class="layui-form-item">
 							<div class="layui-inline tool-btn">
-								<button class="layui-btn layui-btn-small layui-btn-normal addBtn" data-url="article-add.html"><i class="layui-icon">&#xe654;</i></button>
+								<button class="layui-btn layui-btn-small layui-btn-normal addBtn" th:attr="data-url=@{/room}" data-url="article-add.html"><i class="layui-icon">&#xe654;</i></button>
 								<button class="layui-btn layui-btn-small layui-btn-danger delBtn" th:attr="data-url=@{/rooms/delete}" data-url="article-add.html"><i class="layui-icon">&#xe640;</i></button>
 								<button class="layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs" data-url="article-add.html"><i class="iconfont">&#xe656;</i></button>
 							</div>
 							<div class="layui-inline">
-								<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+								<input type="text" name="roomName" placeholder="请输入教室名称" autocomplete="off" class="layui-input">
 							</div>
 							<div class="layui-inline">
-								<select name="states" lay-filter="status">
-									<option value="">请选择一个状态</option>
-									<option value="010">正常</option>
-									<option value="021">停止</option>
-									<option value="0571">删除</option>
+								<select name="location" lay-verify="required">
+									<option>请选择楼号</option>
+									<optgroup label="南校区">
+										<option th:each="building : ${buildings}" th:value="${building.id}"
+												th:text="${building.value}" th:attr="selected=${room!=null}?${room.location==building.id}:false">
+										</option>
+									</optgroup>
 								</select>
 							</div>
 							<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
@@ -62,7 +64,7 @@
 							<tbody>
 								<tr th:each="room:${pageInfo.content}">
 									<td><input type="checkbox" name="" value="1" lay-skin="primary" data-id="1"></td>
-									<td class="hidden-xs" th:text="${room.roomId}"></td>
+									<td class="hidden-xs" th:name="id" th:value="${room.roomId}" th:text="${room.roomId}"></td>
 									<td class="hidden-xs" th:text="${room.roomName}"></td>
 									<td>玩具</td>
 									<td class="hidden-xs">1989-10-14</td>

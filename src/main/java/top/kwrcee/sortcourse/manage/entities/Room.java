@@ -38,7 +38,7 @@ public class Room extends AuditDomain {
     private Long roomId;
     private String roomName;
     private String roomNum;
-    private String location;
+    private Long location;
     private String floor;
     private Integer usageStatusFlag;
     private String manager;
@@ -75,11 +75,11 @@ public class Room extends AuditDomain {
         this.roomNum = roomNum;
     }
 
-    public String getLocation() {
+    public Long getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Long location) {
         this.location = location;
     }
 

@@ -20,13 +20,13 @@ public class RoomServiceImpl extends BaseServiceImpl<Room> implements RoomServic
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer deleteList(List<Room> rooms) {
-        rooms.forEach(room -> roomMapper.deleteByPrimaryKey(room.getRoomId()));
+    public Integer deleteList(List<Long> ids) {
+        ids.forEach(id -> roomMapper.deleteByPrimaryKey(id));
         return 1;
     }
 
     @Override
     public Page<Room> pageRoomList(PageRequest pageRequest, Room room) {
-        return PageHelper.doPageAndSort(pageRequest,()->roomMapper.select(room));
+        return PageHelper.doPageAndSort(pageRequest,()->roomMapper.selectByRoom(room));
     }
 }

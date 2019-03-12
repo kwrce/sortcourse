@@ -25,8 +25,9 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 	$('.addBtn').click(function() {
 		var url=$(this).attr('data-url');
 		//将iframeObj传递给父级窗口,执行操作完成刷新
-		parent.page("菜单添加", url, iframeObj, w = "700px", h = "620px");
-		return false;
+		//parent.page("菜单添加", url, iframeObj, w = "700px", h = "620px");
+        window.location.href=url;
+        return false;
 
 	}).mouseenter(function() {
 
@@ -64,17 +65,19 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 				//console.log($("#table-list").find("input[name ='id']"));
                 //$("#table-list").find("input[name ='id']")
 				//获取所有id
-                $("#table-list").find("input[name ='id']").each(function () {
-					console.log($(this).val());
-					dataSource.push({roomId:$(this).val()});
+                $("#table-list").find("td[name ='id']").each(function () {
+					console.log($(this).attr("value"));
+					dataSource.push($(this).attr("value"));
                 });
-                //转换为json串
-				change.push({rooms:dataSource});
-                var str=JSON.stringify(change);
+                // console.log(dataSource);
+                // //转换为json串
+				// change.push({rooms:dataSource});
+                var str=JSON.stringify(dataSource);
+                console.log("批量删除之前的数据："+str)
                 $.ajax({
                     type: "POST",
                     url: url,
-                    data: {"rooms":[{"roomId":1},{"roomId":2}]},
+                    data: str,
                     dataType: "json",
                     success: function (data) {
                         // $('#resText').empty();   //清空resText里面的所有内容
@@ -104,7 +107,8 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 	$('#table-list').on('click', '.add-btn', function() {
 		var url=$(this).attr('data-url');
 		//将iframeObj传递给父级窗口
-		parent.page("菜单添加", url, iframeObj, w = "700px", h = "620px");
+		//parent.page("菜单添加", url, iframeObj, w = "700px", h = "620px");
+		window.location.href=url;
 		return false;
 	})
 	//列表删除

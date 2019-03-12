@@ -15,6 +15,11 @@ import java.util.List;
  */
 
 public interface RoomMapper extends BaseMapper<Room> {
-
+    /**
+     * 分页模糊查询教室信息
+     * @param room
+     * @return
+     */
+    List<Room> selectByRoom(Room room);
 }
 

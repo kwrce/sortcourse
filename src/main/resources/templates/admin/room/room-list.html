@@ -22,19 +22,20 @@
 								<button class="layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs" data-url="article-add.html"><i class="iconfont">&#xe656;</i></button>
 							</div>
 							<div class="layui-inline">
-								<input type="text" name="roomName" placeholder="请输入教室名称" autocomplete="off" class="layui-input">
+								<input type="text" th:value="${room!=null}?${room.roomName}" name="roomName" placeholder="请输入教室名称" autocomplete="off" class="layui-input">
 							</div>
 							<div class="layui-inline">
-								<select name="location" lay-verify="required">
-									<option>请选择楼号</option>
+								<select name="location">
+									<option value="">请选择楼号</option>
 									<optgroup label="南校区">
 										<option th:each="building : ${buildings}" th:value="${building.id}"
-												th:text="${building.value}" th:attr="selected=${room!=null}?${room.location==building.id}:false">
+												th:text="${building.value}" th:attr="selected=${room != null}?${room.location==building.id}:false">
 										</option>
 									</optgroup>
 								</select>
 							</div>
 							<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+							<button class="layui-btn layui-btn-warm" type="reset">重置</button>
 						</div>
 					</form>
 					<div class="layui-form" id="table-list">
@@ -54,8 +55,8 @@
 									<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
 									<th class="hidden-xs">ID</th>
 									<th class="hidden-xs">教室名称</th>
-									<th>管理人员</th>
-									<th class="hidden-xs">创建时间</th>
+									<th class="hidden-xs">教室编号</th>
+									<th class="hidden-xs">管理人员</th>
 									<th class="hidden-xs">修改时间</th>
 									<th>状态</th>
 									<th>操作</th>
@@ -66,10 +67,13 @@
 									<td><input type="checkbox" name="" value="1" lay-skin="primary" data-id="1"></td>
 									<td class="hidden-xs" th:name="id" th:value="${room.roomId}" th:text="${room.roomId}"></td>
 									<td class="hidden-xs" th:text="${room.roomName}"></td>
-									<td>玩具</td>
-									<td class="hidden-xs">1989-10-14</td>
-									<td class="hidden-xs">1989-10-14</td>
-									<td><button class="layui-btn layui-btn-mini layui-btn-normal">正常</button></td>
+									<td class="hidden-xs" th:text="${room.roomNum}">xxx</td>
+									<td class="hidden-xs" th:text="${room.manager}"></td>
+									<td class="hidden-xs" th:text="${room.lastUpdateDate}">yyyy-MM-dd</td>
+									<td>
+										<button th:if="${room.usageStatusFlag==1}" class="layui-btn layui-btn-mini layui-btn-normal">正常</button>
+										<button th:if="${room.usageStatusFlag==0}" class="layui-btn layui-btn-mini layui-btn-danger">禁用</button>
+									</td>
 									<td>
 										<div class="layui-inline">
 											<button class="layui-btn layui-btn-small layui-btn-normal go-btn" th:attr="data-id=${room.roomId},data-list=@{/rooms},data-url= @{/room/} + ${room.roomId}" data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe642;</i></button>

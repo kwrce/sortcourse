@@ -111,9 +111,6 @@ public class RoomController {
     public String updateRoom(Room room){
         System.out.println(room);
         Integer flag=roomService.updateByPrimaryKey(room);
-        if (flag>0){
-            System.out.println("ss");
-        }
         return "redirect:/rooms";
     }
     /**

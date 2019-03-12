@@ -31,18 +31,18 @@
         <where>
             <if test="roomName != null and roomName !='' ">
                 <bind name="roomName" value="'%'+ roomName +'%'"/>
-                rm.room_name like #{roomName,jdbcType=VARCHAR}
+                and rm.room_name like #{roomName,jdbcType=VARCHAR}
             </if>
             <if test="roomNum != null and roomNum !='' ">
                 <bind name="roomNum" value="'%'+ roomNum +'%'"/>
-                rm.room_num like #{roomNum,jdbcType=VARCHAR}
+                and rm.room_num like #{roomNum,jdbcType=VARCHAR}
             </if>
             <if test="manager != null and manager !='' ">
                 <bind name="manager" value="'%'+ manager +'%'"/>
-                rm.manager like #{manager,jdbcType=VARCHAR}
+                and rm.manager like #{manager,jdbcType=VARCHAR}
             </if>
             <if test="location != null and location !='' ">
-                rm.location like #{location,jdbcType=VARCHAR}
+                and rm.location = #{location,jdbcType=VARCHAR}
             </if>
         </where>
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.kwrcee.sortcourse.manage.mapper.ClassDtoMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap id="BaseResultMap" type="top.kwrcee.sortcourse.manage.entities.ClassDto">
+        <result column="class_id" property="classId" jdbcType="DECIMAL"/>
+        <result column="major" property="major" jdbcType="VARCHAR"/>
+        <result column="class_name" property="className" jdbcType="VARCHAR"/>
+        <result column="institute" property="institute" jdbcType="VARCHAR"/>
+        <result column="class_master" property="classMaster" jdbcType="VARCHAR"/>
+        <result column="student_quantity" property="studentQuantity" jdbcType="DECIMAL"/>
+        <result column="usage_status_flag" property="usageStatusFlag" jdbcType="DECIMAL"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        rm
+    </sql>
+    <select id="selectByClassDto" resultMap="BaseResultMap">
+        select
+               cd.class_id,
+               cd.major,
+               cd.class_name,
+               cd.institute,
+               cd.class_master,
+               cd.student_quantity,
+               cd.usage_status_flag
+        from class_dto cd
+        <where>
+            <if test="major != null and major !='' ">
+                <bind name="major" value="'%'+ major +'%'"/>
+                and cd.major like #{major,jdbcType=VARCHAR}
+            </if>
+            <if test="className != null and className !='' ">
+                <bind name="className" value="'%'+ className +'%'"/>
+                and cd.className like #{className,jdbcType=VARCHAR}
+            </if>
+            <if test="institute != null and institute !='' ">
+                <bind name="institute" value="'%'+ institute +'%'"/>
+                and cd.institute like #{institute,jdbcType=VARCHAR}
+            </if>
+            <if test="classMaster != null and classMaster !='' ">
+                <bind name="classMaster" value="'%'+ classMaster +'%'"/>
+                and cd.class_master like #{classMaster,jdbcType=VARCHAR}
+            </if>
+            <if test="studentQuantity != null and studentQuantity !='' ">
+                <bind name="studentQuantity" value="'%'+ studentQuantity +'%'"/>
+                and cd.student_quantity like #{studentQuantity,jdbcType=DECIMAL}
+            </if>
+            <if test="usageStatusFlag != null ">
+                and cd.usage_status_flag = #{usageStatusFlag,jdbcType=DECIMAL}
+            </if>
+        </where>
+
+    </select>
+</mapper>

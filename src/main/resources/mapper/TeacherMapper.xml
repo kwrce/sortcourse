@@ -25,6 +25,9 @@
                t.usage_status_flag
         from teacher t
         <where>
+            <if test="teacherId != null">
+                and t.teacher_id = #{teacherId,jdbcType=DECIMAL}
+            </if>
             <if test="teacherName != null and teacherName !='' ">
                 <bind name="teacherName" value="'%'+ teacherName +'%'"/>
                 and t.teacher_name like #{teacherName,jdbcType=VARCHAR}

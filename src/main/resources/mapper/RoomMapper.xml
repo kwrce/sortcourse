@@ -10,7 +10,7 @@
         <result column="room_num" property="roomNum" jdbcType="VARCHAR"/>
         <result column="location" property="location" jdbcType="DECIMAL"/>
         <result column="floor" property="floor" jdbcType="DECIMAL"/>
-        <result column="usage_status_flag" property="usageStatusFlag" jdbcType="VARCHAR"/>
+        <result column="usage_status_flag" property="usageStatusFlag" jdbcType="DECIMAL"/>
         <result column="manager" property="manager" jdbcType="VARCHAR"/>
         <result column="remark" property="remark" jdbcType="VARCHAR"/>
     </resultMap>

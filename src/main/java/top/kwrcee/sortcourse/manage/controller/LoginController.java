@@ -1,32 +1,59 @@
 package top.kwrcee.sortcourse.manage.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import top.kwrcee.sortcourse.manage.entities.SysUser;
+import top.kwrcee.sortcourse.manage.service.SysPermissionService;
+import top.kwrcee.sortcourse.manage.service.SysRoleService;
+import top.kwrcee.sortcourse.manage.service.SysUserService;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/")
 public class LoginController {
 
     //@RequestMapping(value = "/user/login" ,method = RequestMethod.POST)
-    @PostMapping("/user/login")
-    public String login(@RequestParam("username")  String username,
-                        @RequestParam("password")  String password,
-                        Map<String ,Object> map,
-                        HttpSession session){
-        if(!StringUtils.isEmpty(username)&"1234".equals(password)){
-            System.out.println("登录成功");
-            session.setAttribute("loginUser",username);
-            return "redirect:/main.html";
-        }
-        else{
-            //登录失败
-            map.put("msg","用户密码错误");
-            return "login";
-        }
+    @Autowired
+    private SysUserService sysUserService;
+    @Autowired
+    private SysRoleService sysRoleService;
+    @Autowired
+    private SysPermissionService sysPermissionService;
 
+    @RequestMapping("login")
+    public String login(Model model){
+        return "login";
     }
+
+    @RequestMapping("login-error")
+    public String loginError(Model model){
+        model.addAttribute("msg", "密码错误");
+        return "login";
+    }
+
+    @RequestMapping("dashboard")
+    public String main(){
+        return "dashboard";
+    }
+
+    /**
+     * 将用户信息刷新到缓存
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("test")
+    public String test(){
+        SysUser sysUser =new SysUser();
+        sysUser.setUsername("admin");
+        return "sysUserService:"+sysUserService.selectAll().toString()+"/" +
+                "SysRoleService:"+sysRoleService.selectAll().toString()+"/" +
+                "sysPermissionService:"+sysPermissionService.selectAll().toString()+"/" +
+                "sysUserService_INFO:"+sysUserService.selectOne(sysUser);
+    }
+
 }

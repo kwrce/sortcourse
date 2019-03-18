@@ -1,0 +1,56 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /lzwl
+  tomcat:
+    uri-encoding: UTF-8
+
+jdbc:
+  type: mysql
+logging:
+  level:
+    com.netflix.discovery: ${LOGGING_LVELE:warn}
+    org.apache.ibatis: ${LOGGING_LVELE:debug}
+    io.choerodon: ${LOGGING_LVELE:debug}
+    com:
+      wcc:
+        usingthymeleaf:
+          mapper: DEBUG
+    root: info
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} [%thread][%level] %logger- %msg%n'
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  type-aliases-package: top.kwrcee.sortcourse
+
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: root
+    url: jdbc:mysql://localhost:3306/lzwl?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE&serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: root
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  messages:
+    basename: i18n.login
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+    mode: HTML5
+  cache:
+    type: redis
+    redis:
+      cache-null-values: false
+      time-to-live: 1000000ms
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 5
+console-available: true

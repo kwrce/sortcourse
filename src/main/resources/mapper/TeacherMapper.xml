@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.kwrcee.sortcourse.manage.mapper.TeacherMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap id="BaseResultMap" type="top.kwrcee.sortcourse.manage.entities.Teacher">
+        <result column="teacher_id" property="teacherId" jdbcType="DECIMAL"/>
+        <result column="teacher_name" property="teacherName" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="DECIMAL"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="usage_status_flag" property="usageStatusFlag" jdbcType="DECIMAL"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        rm
+    </sql>
+    <select id="selectByTeacher" resultMap="BaseResultMap">
+        select
+               t.teacher_id,
+               t.teacher_name,
+               t.gender,
+               t.phone,
+               t.email,
+               t.usage_status_flag
+        from teacher t
+        <where>
+            <if test="teacherName != null and teacherName !='' ">
+                <bind name="teacherName" value="'%'+ teacherName +'%'"/>
+                and t.teacher_name like #{teacherName,jdbcType=VARCHAR}
+            </if>
+            <if test="gender != null ">
+                and t.gender like #{gender,jdbcType=DECIMAL}
+            </if>
+            <if test="phone != null and phone !='' ">
+                <bind name="phone" value="'%'+ phone +'%'"/>
+                and t.phone like #{phone,jdbcType=VARCHAR}
+            </if>
+            <if test="email != null and email !='' ">
+                <bind name="email" value="'%'+ email +'%'"/>
+                and t.email like #{email,jdbcType=VARCHAR}
+            </if>
+            <if test="usageStatusFlag != null ">
+                and t.usage_status_flag = #{usageStatusFlag,jdbcType=DECIMAL}
+            </if>
+        </where>
+
+    </select>
+</mapper>

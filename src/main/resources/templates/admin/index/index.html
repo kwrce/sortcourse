@@ -8,6 +8,10 @@
 		<title>网站后台管理模版</title>
 		<link rel="stylesheet" type="text/css" th:href="@{/admin/layui/css/layui.css}" href="../../../static/admin/layui/css/layui.css"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/admin/css/admin.css}" href="../../../static/admin/css/admin.css"/>
+		<script>
+			var baseContext='[[${#httpServletRequest.getContextPath()}]]'
+			console.log(baseContext)
+		</script>
 	</head>
 	<body>
 		<div class="main-layout" id='main-layout'>
@@ -26,7 +30,8 @@
 				  <li class="layui-nav-item">
 				    <a href="javascript:;"><i class="iconfont">&#xe608;</i>内容管理</a>
 				    <dl class="layui-nav-child">
-				      <dd><a href="javascript:;" th:attr="data-url=@{/rooms}" data-url="article-list.html" data-id='3' data-text="教室管理"><span class="l-line"></span>教室管理</a></dd>
+				      <dd><a href="javascript:;" th:attr="data-url=@{/manage-room/rooms}" data-url="article-list.html" data-id='3' data-text="教室管理"><span class="l-line"></span>教室管理</a></dd>
+				      <dd><a href="javascript:;" th:attr="data-url=@{/manage-teacher/teachers}" data-url="article-list.html" data-id='100' data-text="教师管理"><span class="l-line"></span>教师管理</a></dd>
 				      <dd><a href="javascript:;" data-url="danye-list.html" data-id='9' data-text="单页管理"><span class="l-line"></span>单页管理</a></dd>
 				    </dl>
 				  </li>
@@ -97,7 +102,7 @@
 		</div>
 		<script type="text/javascript">
 			var scope={
-				link:'./welcome.html'
+				link:'./welcome'
 			}
 		</script>
 		<script src="../../../static/admin/layui/layui.js" th:src="@{/admin/layui/layui.js}" type="text/javascript" charset="utf-8"></script>

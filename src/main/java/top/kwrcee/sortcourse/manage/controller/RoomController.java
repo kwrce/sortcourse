@@ -8,6 +8,7 @@ import io.choerodon.mybatis.pagehelper.domain.PageRequest;
 import io.choerodon.mybatis.pagehelper.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2019-01-29 14:11:23
  */
 @Controller
+@RequestMapping("/manage-room")
 public class RoomController {
 
     @Autowired
@@ -40,6 +42,7 @@ public class RoomController {
      * @param room
      * @return
      */
+    @PreAuthorize("hasAuthority('"+Constants.AuthorityPermission.ROOM_LIST+"')")
     @GetMapping("/rooms")
     public String search(Model model, @SortDefault(value = Room.FIELD_ROOM_ID,
             direction = Sort.Direction.DESC) PageRequest pageRequest, Room room){
@@ -57,10 +60,11 @@ public class RoomController {
      * @param room
      * @return
      */
+    @PreAuthorize("hasAuthority('add-room')")
     @PostMapping("/room")
     public String addRoom(Room room){
         roomService.insert(room);
-        return "redirect:/rooms";
+        return "redirect:/manage-room/rooms";
     }
 
     /**
@@ -70,6 +74,7 @@ public class RoomController {
      */
     @DeleteMapping("/room/{id}")
     @ResponseBody
+    //@PreAuthorize("hasAuthority('delete-room')")
     public ResponseEntity<String> deleteRoom(@PathVariable("id")Long id){
         System.out.println("has deleted");
         roomService.deleteByPrimaryKey(id);
@@ -92,6 +97,7 @@ public class RoomController {
      * @param model
      * @return
      */
+    @PreAuthorize("hasAuthority('update-room')")
     @GetMapping("/room/{id}")
     public String toEditPage(@PathVariable("id") Long id,Model model){
         Room room = roomService.selectByPrimaryKey(id) ;
@@ -107,17 +113,19 @@ public class RoomController {
      * @param room
      * @return
      */
+    @PreAuthorize("hasAuthority('update-room')")
     @PutMapping("/room")
     public String updateRoom(Room room){
         System.out.println(room);
         Integer flag=roomService.updateByPrimaryKey(room);
-        return "redirect:/rooms";
+        return "redirect:/manage-room/rooms";
     }
     /**
      * 去添加界面
      * @param model
      * @return
      */
+    @PreAuthorize("hasAuthority('add-room')")
     @GetMapping("/room")
     public String toAddPage(Model model){
         ValueSet valueSet =new ValueSet();

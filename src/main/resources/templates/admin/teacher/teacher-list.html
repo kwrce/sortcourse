@@ -17,26 +17,18 @@
 	<body>
 		<div class="wrap-container clearfix">
 				<div class="column-content-detail">
-					<form class="layui-form" id="showForm" th:action="@{/manage-room/rooms}">
+					<form class="layui-form" id="showForm" th:action="@{/manage-teacher/teachers}">
 						<div class="layui-form-item">
 							<div class="layui-inline tool-btn">
-								<button class="layui-btn layui-btn-small layui-btn-normal addBtn" th:attr="data-url=@{/manage-room/room}" data-url="article-add.html"><i class="layui-icon">&#xe654;</i></button>
-								<button class="layui-btn layui-btn-small layui-btn-danger delBtn" th:attr="data-url=@{/manage-room/rooms/delete}" data-url="article-add.html"><i class="layui-icon">&#xe640;</i></button>
+								<button class="layui-btn layui-btn-small layui-btn-normal addBtn" th:attr="data-url=@{/manage-teacher/teacher}" data-url="article-add.html"><i class="layui-icon">&#xe654;</i></button>
+								<button class="layui-btn layui-btn-small layui-btn-danger delBtn" th:attr="data-url=@{/manage-teacher/teachers/delete}" data-url="article-add.html"><i class="layui-icon">&#xe640;</i></button>
 								<button class="layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs" data-url="article-add.html"><i class="iconfont">&#xe656;</i></button>
 							</div>
 							<div class="layui-inline">
-								<input type="text" th:value="${room!=null}?${room.roomName}" name="roomName" placeholder="请输入教室名称" autocomplete="off" class="layui-input">
+								<input type="text" th:value="${teacher!=null}?${teacher.teacherName}" name="teacherName" placeholder="请输入教师名称" autocomplete="off" class="layui-input">
 							</div>
 							<div class="layui-inline">
-								<select name="location">
-									<option value="">请选择楼号</option>
-									<option value="">请选择楼号</option>
-									<optgroup label="南校区">
-										<option th:each="building : ${buildings}" th:value="${building.id}"
-												th:text="${building.value}" th:attr="selected=${room != null}?${room.location==building.id}:false">
-										</option>
-									</optgroup>
-								</select>
+								<input type="text" th:value="${teacher!=null}?${teacher.teacherId}" name="teacherId" placeholder="请输入教师编号" autocomplete="off" class="layui-input">
 							</div>
 							<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
 							<button class="layui-btn layui-btn-warm" type="reset">重置</button>
@@ -58,30 +50,30 @@
 								<tr>
 									<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
 									<th class="hidden-xs">ID</th>
-									<th class="hidden-xs">教室名称</th>
-									<th class="hidden-xs">教室编号</th>
-									<th class="hidden-xs">管理人员</th>
-									<th class="hidden-xs">修改时间</th>
+									<th class="hidden-xs">教师名称</th>
+									<th class="hidden-xs">教师性别</th>
+									<th class="hidden-xs">电话</th>
+									<th class="hidden-xs">邮箱</th>
 									<th>状态</th>
 									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="room:${pageInfo.content}">
+								<tr th:each="teacher:${pageInfo.content}">
 									<td><input type="checkbox" name="" value="1" lay-skin="primary" data-id="1"></td>
-									<td class="hidden-xs" th:name="id" th:value="${room.roomId}" th:text="${room.roomId}"></td>
-									<td class="hidden-xs" th:text="${room.roomName}"></td>
-									<td class="hidden-xs" th:text="${room.roomNum}">xxx</td>
-									<td class="hidden-xs" th:text="${room.manager}"></td>
-									<td class="hidden-xs" th:text="${room.lastUpdateDate}">yyyy-MM-dd</td>
+									<td class="hidden-xs" th:name="id" th:value="${teacher.teacherId}" th:text="${teacher.teacherId}"></td>
+									<td class="hidden-xs" th:text="${teacher.teacherName}"></td>
+									<td class="hidden-xs" th:text="${teacher.gender} ==1 ? '男' : '女'">xxx</td>
+									<td class="hidden-xs" th:text="${teacher.phone}"></td>
+									<td class="hidden-xs" th:text="${teacher.email}">xxx</td>
 									<td>
-										<button th:if="${room.usageStatusFlag==1}" class="layui-btn layui-btn-mini layui-btn-normal">正常</button>
-										<button th:if="${room.usageStatusFlag==0}" class="layui-btn layui-btn-mini layui-btn-danger">禁用</button>
+										<button th:if="${teacher.usageStatusFlag==1}" class="layui-btn layui-btn-mini layui-btn-normal">正常</button>
+										<button th:if="${teacher.usageStatusFlag==0}" class="layui-btn layui-btn-mini layui-btn-danger">禁用</button>
 									</td>
 									<td>
 										<div class="layui-inline">
-											<button class="layui-btn layui-btn-small layui-btn-normal go-btn" th:attr="data-id=${room.roomId},data-list=@{/manage-room/rooms},data-url= @{/manage-room/room/} + ${room.roomId}" data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe642;</i></button>
-											<button class="layui-btn layui-btn-small layui-btn-danger del-btn" th:attr="data-id=${room.roomId},data-url= @{/manage-room/room/} + ${room.roomId}" data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe640;</i></button>
+											<button class="layui-btn layui-btn-small layui-btn-normal go-btn" th:attr="data-id=${teacher.teacherId},data-list=@{/manage-teacher/teachers},data-url= @{/manage-teacher/teacher/} + ${teacher.teacherId}" data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe642;</i></button>
+											<button class="layui-btn layui-btn-small layui-btn-danger del-btn" th:attr="data-id=${teacher.teacherId},data-url= @{/manage-teacher/teacher/} + ${teacher.teacherId}" data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe640;</i></button>
 										</div>
 									</td>
 								</tr>
@@ -92,14 +84,14 @@
 					<div class="pager layui-clear" style="text-align: center;">
 						<ul class="pagination"> <!-- 上一页 -->
 							<li th:if="${pageInfo.number == 0}"><span>◁</span></li>
-							<li th:if="${pageInfo.number > 0}"><a th:href="@{/manage-room/rooms(page=${pageInfo.number - 1})}">◁</a></li>
+							<li th:if="${pageInfo.number > 0}"><a th:href="@{/manage-teacher/teachers(page=${pageInfo.number - 1})}">◁</a></li>
 							<!-- 首页 -->
 							<li th:if="${pageInfo.number == 0}" class="active"><span>1</span></li>
-							<li th:if="${pageInfo.number > 0}"><a th:href="@{/manage-room/rooms(page=0)}">1</a></li>
+							<li th:if="${pageInfo.number > 0}"><a th:href="@{/manage-teacher/teachers(page=0)}">1</a></li>
 							<th:block th:if="${pageInfo.totalPages>1 && pageInfo.totalPages<=10}"
 									  th:each="i : ${#numbers.sequence(2,pageInfo.totalPages -1)}">
 								<li th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
-								<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-room/rooms(page=${i -1})}"
+								<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-teacher/teachers(page=${i -1})}"
 															  th:text="${i}">页码</a>
 								</li>
 							</th:block>
@@ -107,7 +99,7 @@
 								<th:block th:if="${(pageInfo.number - (5/2)) <= 2}"
 										  th:each="i : ${#numbers.sequence(2,2 + 5 -1)}">
 									<li th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
-									<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-room/rooms(page=${i -1})}"
+									<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-teacher/teachers(page=${i -1})}"
 																  th:text="${i}">页码</a></li>
 								</th:block> <!-- ... -->
 								<li th:if="${(pageInfo.number - (5/2))>2}"><span>...</span></li>
@@ -115,7 +107,7 @@
 										th:if="${((pageInfo.number - (5/2))>2) && ((pageInfo.number+(5/2)-(5%2==0?1:0)) < (pageInfo.totalPages -1))}"
 										th:each="i : ${#numbers.sequence(pageInfo.number - (5/2),pageInfo.number+(5/2)-(5%2==0?1:0))}">
 									<li th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
-									<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-room/rooms(page=${i -1})}"
+									<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-teacher/teachers(page=${i -1})}"
 																  th:text="${i}">页码</a></li>
 								</th:block> <!-- ... -->
 								<li th:if="${(pageInfo.number+(5/2)-(5%2==0?1:0)) < (pageInfo.totalPages - 1)}">
@@ -124,17 +116,17 @@
 										th:if="${(pageInfo.number+(5/2)-(5%2==0?1:0)) >= (pageInfo.totalPages - 1)}"
 										th:each="i : ${#numbers.sequence(pageInfo.totalPages - 5,pageInfo.totalPages -1)}">
 									<li th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
-									<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-room/rooms(page=${i -1})}"
+									<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-teacher/teachers(page=${i -1})}"
 																  th:text="${i}">页码</a></li>
 								</th:block>
 							</th:block> <!-- 最后一页 -->
 							<li th:if="${pageInfo.totalPages>1 && pageInfo.number == pageInfo.totalPages -1}" class="active"><span
 									th:text="${pageInfo.totalPages}">页码</span></li>
 							<li th:if="${pageInfo.totalPages>1 && pageInfo.number != pageInfo.totalPages -1}"><a
-									th:href="@{/manage-room/rooms(page=${pageInfo.totalPages -1})}" th:text="${pageInfo.totalPages}">页码</a></li>
+									th:href="@{/manage-teacher/teachers(page=${pageInfo.totalPages -1})}" th:text="${pageInfo.totalPages}">页码</a></li>
 							<!-- 下一页 -->
 							<li th:if="${pageInfo.number +1>= pageInfo.totalPages}"><span>▷</span></li>
-							<li th:if="${pageInfo.number +1< pageInfo.totalPages}"><a th:href="@{/manage-room/rooms(page=${pageInfo.number +1})}">▷</a>
+							<li th:if="${pageInfo.number +1< pageInfo.totalPages}"><a th:href="@{/manage-teacher/teachers(page=${pageInfo.number +1})}">▷</a>
 							</li>
 						</ul>
 					</div>

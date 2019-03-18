@@ -12,67 +12,48 @@
 </head>
 <body>
 <div class="page-content-wrap">
-    <form class="layui-form" th:action="@{/room-manage/room}" method="post">
+    <form class="layui-form" th:action="@{/manage-teacher/teacher}" method="post">
         <div class="layui-tab" style="margin: 0;">
             <ul class="layui-tab-title">
-                <li><a th:href="@{/manage-room/rooms}" href="article-list.html">教室列表</a></li>
-                <li class="layui-this">教室信息添加</li>
-
+                <li><a th:href="@{/manage-teacher/teachers}" href="article-list.html">教师列表</a></li>
+                <li class="layui-this">教师信息修改</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item"></div>
                 <div class="layui-tab-item layui-show">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">教室名称：</label>
+                        <label class="layui-form-label">教师名称：</label>
                         <div class="layui-input-block">
-                            <input type="text" name="roomName" required lay-verify="required" placeholder="请输入教室名称"
+                            <input type="text" name="teacherName" required lay-verify="required" placeholder="请输入教师名称"
                                    autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">楼号：</label>
+                        <label class="layui-form-label">性别：</label>
                         <div class="layui-input-block">
-                            <select name="location" lay-verify="required">
-                                <option value="" selected="">请选择楼号</option>
-                                <optgroup label="南校区">
-                                    <option th:each="building : ${buildings}" th:value="${building.id}"
-                                            th:text="${building.value}"></option>
-                                </optgroup>
-                            </select>
+                            <input type="radio" name="gender" checked value="1" title="男">
+                            <input type="radio" name="gender" value="0" title="女">
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">楼层：</label>
+                        <label class="layui-form-label">电话：</label>
                         <div class="layui-input-block">
-                            <input type="number" name="floor" required lay-verify="required" placeholder="请输入教室所在楼层"
-                                   autocomplete="off" class="layui-input">
+                            <input type="number" name="phone"  placeholder="请输入教师电话"
+                                   autocomplete="off" class="layui-input" >
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">教室编号：</label>
+                        <label class="layui-form-label">邮箱：</label>
                         <div class="layui-input-block">
-                            <input type="text" name="roomNum" required lay-verify="required" placeholder="请输入教室编号"
-                                   autocomplete="off" class="layui-input">
+                            <input type="text" name="email"  placeholder="请输入教师邮箱"
+                                   autocomplete="off" class="layui-input" >
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">启用：</label>
                         <div class="layui-input-block">
-                            <input type="radio" name="usageStatusFlag" value="1" title="正常" checked>
+                            <input type="radio" name="usageStatusFlag" checked value="1" title="正常">
                             <input type="radio" name="usageStatusFlag" value="0" title="禁用">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">管理人员：</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="manager" placeholder="请输入管理人员" autocomplete="off"
-                                   class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">描述：</label>
-                        <div class="layui-input-block">
-                            <textarea placeholder="请输入内容" name="remark" class="layui-textarea"></textarea>
                         </div>
                     </div>
                 </div>

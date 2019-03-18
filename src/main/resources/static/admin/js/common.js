@@ -1,3 +1,4 @@
+
 layui.config({
 	base: 'admin/js/module/'
 }).extend({
@@ -116,10 +117,15 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 		var url=$(this).attr('data-url');
 		var id = $(this).attr('data-id');
 		var urlList = $(this).attr('data-list');
+        var token =$("meta[name='_csrf']").attr("content");
+        var header=$("meta[name='_csrf_header']").attr("content");
 		dialog.confirm({
 			message:'您确定要进行删除吗？',
 			success:function(){
 				//console.log(url)
+                $(document).ajaxSend(function(e,xhr,options){
+                    xhr.setRequestHeader(header, token);
+                });
                 $.ajax({
                     type: "POST",
                     url: url,

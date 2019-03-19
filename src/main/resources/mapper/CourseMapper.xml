@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.kwrcee.sortcourse.manage.mapper.CourseMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap id="BaseResultMap" type="top.kwrcee.sortcourse.manage.entities.Course">
+        <result column="course_id" property="courseId" jdbcType="DECIMAL"/>
+        <result column="course_name" property="courseName" jdbcType="VARCHAR"/>
+        <result column="teacher_id" property="teacherId" jdbcType="DECIMAL"/>
+        <result column="class_id" property="classId" jdbcType="DECIMAL"/>
+        <result column="room_id" property="roomId" jdbcType="DECIMAL"/>
+        <result column="usage_status_flag" property="usageStatusFlag" jdbcType="DECIMAL"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        rm
+    </sql>
+    <select id="selectByCourse" parameterType="top.kwrcee.sortcourse.manage.entities.Course" resultType="top.kwrcee.sortcourse.manage.vo.CourseVO">
+        select
+               co.course_id,
+               co.course_name,
+               co.teacher_id,
+               co.room_id,
+               co.class_id,
+               co.usage_status_flag,
+               th.teacher_name,
+               rm.room_num,
+               cd.class_name,
+               cd.major
+        from course co
+        left join teacher th on th.teacher_id=co.teacher_id
+        left join classroom rm on rm.room_id = co.room_id
+        left join class_dto cd on cd.class_id = co.class_id
+        <where>
+            <if test="courseId != null">
+                and co.course_id = #{course.courseId,jdbcType=DECIMAL}
+            </if>
+            <if test="courseName != null and courseName !='' ">
+                <bind name="courseName" value="'%'+ courseName +'%'"/>
+                and co.course_name like #{course.courseName,jdbcType=VARCHAR}
+            </if>
+            <if test="teacherId != null">
+                and co.teacher_id = #{course.teacherId,jdbcType=DECIMAL}
+            </if>
+            <if test="courseId != null">
+                and co.room_id = #{course.roomId,jdbcType=DECIMAL}
+            </if>
+            <if test="courseId != null">
+                and co.class_id = #{course.classId,jdbcType=DECIMAL}
+            </if>
+            <if test="usageStatusFlag != null ">
+                and co.usage_status_flag = #{course.usageStatusFlag,jdbcType=DECIMAL}
+            </if>
+        </where>
+
+    </select>
+</mapper>

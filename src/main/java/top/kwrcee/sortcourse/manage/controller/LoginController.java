@@ -17,7 +17,6 @@ import java.util.Map;
 @RequestMapping("/")
 public class LoginController {
 
-    //@RequestMapping(value = "/user/login" ,method = RequestMethod.POST)
     @Autowired
     private SysUserService sysUserService;
     @Autowired

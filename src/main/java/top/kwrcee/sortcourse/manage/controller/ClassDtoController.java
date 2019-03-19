@@ -38,7 +38,7 @@ public class ClassDtoController {
      * @param classDto
      * @return
      */
-    @PreAuthorize("hasAuthority('"+Constants.AuthorityPermission.ROOM_LIST+"')")
+    @PreAuthorize("hasAuthority('list-classDto')")
     @GetMapping("/classDtos")
     public String search(Model model, @SortDefault(value = ClassDto.FIELD_CLASS_ID,
             direction = Sort.Direction.DESC) PageRequest pageRequest, ClassDto classDto){

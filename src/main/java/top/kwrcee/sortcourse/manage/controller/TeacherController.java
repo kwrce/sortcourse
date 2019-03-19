@@ -40,7 +40,7 @@ public class TeacherController {
      * @param teacher
      * @return
      */
-    @PreAuthorize("hasAuthority('"+Constants.AuthorityPermission.ROOM_LIST+"')")
+    @PreAuthorize("hasAuthority('list-teacher')")
     @GetMapping("/teachers")
     public String search(Model model, @SortDefault(value = Teacher.FIELD_TEACHER_ID,
             direction = Sort.Direction.DESC) PageRequest pageRequest, Teacher teacher){
@@ -108,9 +108,6 @@ public class TeacherController {
     @GetMapping("/teacher")
     public String toAddPage(Model model){
         ValueSet valueSet =new ValueSet();
-        //查询楼层值集
-        valueSet.setName(Constants.ValueSet.BUILDING_NAME);
-        model.addAttribute("buildings",valueSetService.select(valueSet));
         return "admin/teacher/teacher-add";
     }
 

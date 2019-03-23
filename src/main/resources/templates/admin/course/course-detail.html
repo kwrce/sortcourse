@@ -58,6 +58,13 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
+                        <label class="layui-form-label">一周内的课程数：</label>
+                        <div class="layui-input-block">
+                            <input type="number" name="courseQuantity"  placeholder="请输入课程数"
+                                   autocomplete="off" class="layui-input" th:value="${course.courseQuantity}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
                         <label class="layui-form-label">启用：</label>
                         <div class="layui-input-block">
                             <input type="radio" name="usageStatusFlag" th:checked="${course!=null}?${course.usageStatusFlag==1}" value="1" title="正常">

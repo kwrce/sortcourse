@@ -17,6 +17,8 @@ import top.kwrcee.sortcourse.manage.service.ValueSetService;
 import top.kwrcee.sortcourse.manage.utils.Constants;
 import top.kwrcee.sortcourse.manage.vo.CourseVO;
 
+import java.util.List;
+
 /**
  *  管理 API
  *
@@ -41,7 +43,7 @@ public class CourseController {
      */
     @PreAuthorize("hasAuthority('list-course')")
     @GetMapping("/courses")
-    public String search(Model model, @SortDefault(value = Course.FIELD_COURSE_ID,
+    public String search(Model model, @SortDefault(value = Course.FIELD_COURSE_NUM,
             direction = Sort.Direction.DESC) PageRequest pageRequest, Course course){
         pageRequest.setSize(10);
         Page<CourseVO> pageInfo=courseService.pageCourseList(pageRequest,course);
@@ -56,34 +58,37 @@ public class CourseController {
     @PreAuthorize("hasAuthority('add-course')")
     @PostMapping("/course")
     public String addCourse(Course course){
-        courseService.insert(course);
+        courseService.insertCourse(course);
         return "redirect:/manage-course/courses";
     }
 
     /**
      * 课程删除
-     * @param id
+     * @param courseNum
      * @return
      */
-    @DeleteMapping("/course/{id}")
+    @DeleteMapping("/course/{courseNum}")
     @ResponseBody
-    //@PreAuthorize("hasAuthority('delete-course')")
-    public ResponseEntity<String> deleteCourse(@PathVariable("id")Long id){
-        System.out.println("has deleted");
-        courseService.deleteByPrimaryKey(id);
+    @PreAuthorize("hasAuthority('delete-course')")
+    public ResponseEntity<String> deleteCourse(@PathVariable("courseNum")Long courseNum){
+        Course condition =new Course();
+        condition.setCourseNum(courseNum);
+        courseService.delete(condition);
         return ResponseEntity.ok("success");
     }
     /**
      * 来到修改页面，查出当前信息，然后回显
-     * @param id
+     * @param courseNum
      * @param model
      * @return
      */
     @PreAuthorize("hasAuthority('update-course')")
-    @GetMapping("/course/{id}")
-    public String toEditPage(@PathVariable("id") Long id,Model model){
-        Course course = courseService.selectByPrimaryKey(id) ;
-        model.addAttribute("course",course);
+    @GetMapping("/course/{courseNum}")
+    public String toEditPage(@PathVariable("courseNum") Long courseNum,Model model){
+        Course condition=new Course();
+        condition.setCourseNum(courseNum);
+        List<Course> list = courseService.select(condition) ;
+        model.addAttribute("course",list.get(0));
         return "admin/course/course-detail";
     }
     /**
@@ -95,7 +100,7 @@ public class CourseController {
     @PutMapping("/course")
     public String updateCourse(Course course){
         System.out.println(course);
-        Integer flag=courseService.updateByPrimaryKey(course);
+        courseService.updateCourse(course);
         return "redirect:/manage-course/courses";
     }
     /**

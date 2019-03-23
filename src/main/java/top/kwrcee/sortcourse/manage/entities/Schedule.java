@@ -4,9 +4,12 @@ import io.choerodon.mybatis.annotation.ModifyAudit;
 import io.choerodon.mybatis.annotation.VersionAudit;
 import io.choerodon.mybatis.domain.AuditDomain;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import top.kwrcee.sortcourse.manage.mapper.CourseMapper;
 import top.kwrcee.sortcourse.manage.utils.Constants;
+import top.kwrcee.sortcourse.manage.vo.CourseVO;
+import top.kwrcee.sortcourse.manage.vo.Week;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,52 +23,44 @@ import javax.persistence.Transient;
  */
 @VersionAudit
 @ModifyAudit
-@Table(name = "course")
+@Table(name = "schedule")
 @ToString
 @Data
-public class Course extends AuditDomain {
+@NoArgsConstructor
+public class Schedule extends AuditDomain {
+    public static final String FIELD_TIME_ID = "timeId";
     public static final String FIELD_COURSE_ID = "courseId";
-    public static final String FIELD_COURSE_NAME = "courseName";
-    public static final String FIELD_COURSE_NUM = "courseNum";
-    public static final String FIELD_COURSE_QUANTITY = "courseQuantity";
-    public static final String FIELD_TEACHER_ID = "teacherId";
-    public static final String FIELD_ROOM_ID = "roomId";
-    public static final String FIELD_CLASS_ID = "classId";
+    public static final String FIELD_COURSE_TIME = "courseTime";
+    public static final String FIELD_COURSE_DAY = "courseDay";
     public static final String FIELD_USAGE_STATUS_FLAG = "usageStatusFlag";
-    public static final String FIELD_SORT_STATUS_FLAG = "sortStatusFlag";
-
 //
 // 业务方法(按public protected private顺序排列)
 // ------------------------------------------------------------------------------
-    public void saveLineNum(CourseMapper courseMapper){
-        //设置最大行号
-        Long lineNum=courseMapper.queryMaxLineNum();
-        if(lineNum==null){
-            courseNum=Constants.DefaultLongNumber.ONE;
-        }else{
-            courseNum=lineNum;
-        }
+
+    /**
+     * 构造方法
+     * @param week
+     */
+    public Schedule(Week week, CourseVO courseVO) {
+        courseTime = week.getTime();
+        courseDay = week.getDay();
+        courseId = courseVO.getCourseId();
     }
 //
 // 数据库字段
 // ------------------------------------------------------------------------------
     @Id
     @GeneratedValue
+    private Long timeId;
     private Long courseId;
-    private Long courseNum;
-    private String courseName;
-    private Integer courseQuantity;
-    private Long teacherId;
-    private Long roomId;
-    private Long classId;
+    private Integer courseTime;
+    private Integer courseDay;
     private Integer usageStatusFlag;
-    private Integer sortStatusFlag;
-
 //
 // 非数据库字段
 // ------------------------------------------------------------------------------
     @Transient
-    private Integer distinctFlag;
+    private String courseName;
 //
 // getter/setter
 // ------------------------------------------------------------------------------

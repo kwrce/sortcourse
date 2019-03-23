@@ -4,6 +4,8 @@ import io.choerodon.mybatis.annotation.ModifyAudit;
 import io.choerodon.mybatis.annotation.VersionAudit;
 import io.choerodon.mybatis.domain.AuditDomain;
 import lombok.Data;
+import lombok.ToString;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -17,6 +19,7 @@ import javax.persistence.Table;
 @ModifyAudit
 @Table(name = "teacher")
 @Data
+@ToString
 public class Teacher extends AuditDomain {
     public static final String FIELD_TEACHER_ID = "teacherId";
     public static final String FIELD_TEACHER_NAME = "teacherName";
@@ -48,14 +51,4 @@ public class Teacher extends AuditDomain {
 // getter/setter
 // ------------------------------------------------------------------------------
 
-    @Override
-    public String toString() {
-        return "Teacher{" +
-                "teacherId=" + teacherId +
-                ", teacherName='" + teacherName + '\'' +
-                ", gender='" + gender + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

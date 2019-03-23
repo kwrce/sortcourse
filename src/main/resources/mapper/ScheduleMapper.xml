@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.kwrcee.sortcourse.manage.mapper.ScheduleMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap id="BaseResultMap" type="top.kwrcee.sortcourse.manage.entities.Teacher">
+        <result column="time_id" property="timeId" jdbcType="DECIMAL"/>
+        <result column="course_id" property="courseId" jdbcType="DECIMAL"/>
+        <result column="course_day" property="courseDay" jdbcType="DECIMAL"/>
+        <result column="course_time" property="courseTime" jdbcType="DECIMAL"/>
+        <result column="usage_status_flag" property="usageStatusFlag" jdbcType="DECIMAL"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        rm
+    </sql>
+    <select id="selectBySchedule" resultType="top.kwrcee.sortcourse.manage.entities.Schedule">
+        select
+               sh.time_id,
+               sh.course_id,
+               co.course_name,
+               sh.course_day,
+               sh.course_time,
+               sh.usage_status_flag
+        from schedule sh
+        left join course co on co.course_id = sh.course_id
+        <where>
+            <if test="timeId != null">
+                and sh.time_id = #{timeId,jdbcType=DECIMAL}
+            </if>
+            <if test="courseName != null and courseName !='' ">
+                <bind name="courseName" value="'%'+ courseName +'%'"/>
+                and co.course_name like #{courseName,jdbcType=VARCHAR}
+            </if>
+            <if test="usageStatusFlag != null ">
+                and co.usage_status_flag = #{usageStatusFlag,jdbcType=DECIMAL}
+            </if>
+        </where>
+
+    </select>
+</mapper>

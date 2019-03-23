@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
@@ -7,60 +8,53 @@
     <meta name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
     <title>网站后台管理模版</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/admin/layui/css/layui.css}" href="../../../static/admin/layui/css/layui.css"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/admin.css}" href="../../../static/admin/css/admin.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/layui/css/layui.css}"
+          href="../../../static/admin/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/admin.css}"
+          href="../../../static/admin/css/admin.css"/>
 </head>
+
 <body>
 <div class="page-content-wrap">
-    <form class="layui-form" th:action="@{/manage-course/course}" method="post">
+    <form class="layui-form" th:action="@{/manage-schedule/schedule}" method="post">
+        <input type="hidden" th:name="_method" value="PUT">
+        <input type="hidden" name="objectVersionNumber" th:value="${schedule.objectVersionNumber}">
+        <input type="hidden" th:name="timeId" th:value="${schedule.timeId}">
         <div class="layui-tab" style="margin: 0;">
             <ul class="layui-tab-title">
-                <li><a th:href="@{/manage-course/courses}" href="article-list.html">课程列表</a></li>
-                <li class="layui-this">课程信息修改</li>
+                <li><a th:href="@{/manage-schedule/schedules}" href="article-list.html">教师列表</a></li>
+                <li class="layui-this">教师信息修改</li>
+
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item"></div>
                 <div class="layui-tab-item layui-show">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">课程名称：</label>
+                        <label class="layui-form-label">课程ID：</label>
                         <div class="layui-input-block">
-                            <input type="text" name="courseName" required lay-verify="required" placeholder="请输入课程名称"
-                                   autocomplete="off" class="layui-input">
+                            <input type="number" name="courseId" required lay-verify="required" placeholder="请输入课程ID"
+                                   autocomplete="off" class="layui-input" th:value="${schedule.courseId}">
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">班级：</label>
+                        <label class="layui-form-label">一周第几天：</label>
                         <div class="layui-input-block">
-                            <input type="number" name="classId"  placeholder="请输入班级编号"
-                                   autocomplete="off" class="layui-input" >
+                            <input type="number" name="courseDay"  placeholder="请输入天数"
+                                   autocomplete="off" class="layui-input" th:value="${schedule.courseDay}">
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">教室：</label>
+                        <label class="layui-form-label">一天第几节：</label>
                         <div class="layui-input-block">
-                            <input type="number" name="roomId"  placeholder="请输入教室编号"
-                                   autocomplete="off" class="layui-input" >
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">教师：</label>
-                        <div class="layui-input-block">
-                            <input type="number" name="teacherId"  placeholder="请输入教师编号"
-                                   autocomplete="off" class="layui-input" >
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">一周内的课程数：</label>
-                        <div class="layui-input-block">
-                            <input type="number" name="courseQuantity"  placeholder="请输入课程数"
-                                   autocomplete="off" class="layui-input" >
+                            <input type="number" name="courseTime"  placeholder="请输入节数"
+                                   autocomplete="off" class="layui-input" th:value="${schedule.courseTime}">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">启用：</label>
                         <div class="layui-input-block">
-                            <input type="radio" name="usageStatusFlag" checked value="1" title="正常">
-                            <input type="radio" name="usageStatusFlag" value="0" title="禁用">
+                            <input type="radio" name="usageStatusFlag" th:checked="${schedule!=null}?${schedule.usageStatusFlag==1}" value="1" title="正常">
+                            <input type="radio" name="usageStatusFlag" th:checked="${schedule!=null}?${schedule.usageStatusFlag==0}" value="0" title="禁用">
                         </div>
                     </div>
                 </div>
@@ -68,15 +62,30 @@
         </div>
         <div class="layui-form-item" style="padding-left: 10px;">
             <div class="layui-input-block">
-                <button class="layui-btn layui-btn-normal" id="formSubmit">提交</button>
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">保存</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
     </form>
 </div>
-<script src="../../../static/admin/layui/layui.js" th:src="@{/admin/layui/layui.js}" type="text/javascript" charset="utf-8"></script>
-<script src="../../../static/admin/js/common.js" th:src="@{/admin/js/common.js}" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+<script type="text/javascript">
+    var SCOPE = {
+        static: '/static',
+        index: '/admin/category/index.html',
+        add: 'add.html',
+        save: '/admin/category/save.html',
+        edit: 'add.html',
+        updateEdit: '/admin/category/updateedit.html',
+        status: '/admin/category/updatestatus.html',
+        del: '/admin/category/del.html',
+        delAll: '/admin/category/deleteall.html',
+        listOrderAll: '/admin/category/listorderall.html'
+    }
+</script>
+<script src="../../../static/admin/layui/layui.js" th:src="@{/admin/layui/layui.js}" type="text/javascript"
+        charset="utf-8"></script>
+<script src="../../../static/admin/js/common.js" th:src="@{/admin/js/common.js}" type="text/javascript"
+        charset="utf-8"></script>
 <script>
 
     layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog', 'element', 'upload', 'layedit'], function () {
@@ -124,21 +133,7 @@
             }
         });
     });
-
-    // /*点击保存后提交，关闭弹框*/
-    // $("#formSubmit").click(function () {
-    //     var url=$(this).parents("form").attr("action");
-    //     //console.log(url);
-    //     $.ajax({
-    //         type: "POST",
-    //         url: url,
-    //         data: {_method:"DELETE"},
-    //         dataType: "json",
-    //         success: function(){
-    //             layer.msg('确定了')
-    //         }
-    //     });
-    // });
 </script>
 </body>
+
 </html>

@@ -66,7 +66,7 @@ public class ClassDtoController {
      */
     @DeleteMapping("/classDto/{id}")
     @ResponseBody
-    //@PreAuthorize("hasAuthority('delete-classDto')")
+    @PreAuthorize("hasAuthority('delete-classDto')")
     public ResponseEntity<String> deleteClassDto(@PathVariable("id")Long id){
         System.out.println("has deleted");
         classDtoService.deleteByPrimaryKey(id);

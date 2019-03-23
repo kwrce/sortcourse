@@ -15,23 +15,22 @@
         <result column="usage_status_flag" property="usageStatusFlag" jdbcType="DECIMAL"/>
     </resultMap>
     <sql id="BaseColumnList">
-        rm
+        co.course_id,
+        co.course_name,
+        co.teacher_id,
+        co.room_id,
+        co.class_id,
+        co.usage_status_flag,
+        co.course_num,
+        co.course_quantity,
+        co.sort_status_flag,
+        co.OBJECT_VERSION_NUMBER
     </sql>
     <!--时间表查询-->
-    <select id="selectByCourse" parameterType="top.kwrcee.sortcourse.manage.entities.Course"
+    <select id="selectByCourseDistinct" parameterType="top.kwrcee.sortcourse.manage.entities.Course"
             resultType="top.kwrcee.sortcourse.manage.vo.CourseVO">
         select
-        <choose>
-            <!--前端显示的时候需要去重-->
-            <when test="distinctFlag != null">
-                distinct
-            </when>
-            <!--查询可以排课的课程信息-->
-            <otherwise>
-                co.course_id,
-                co.OBJECT_VERSION_NUMBER,
-            </otherwise>
-        </choose>
+        distinct
         co.course_name,
         co.teacher_id,
         co.room_id,
@@ -48,7 +47,52 @@
         left join teacher th on th.teacher_id=co.teacher_id
         left join classroom rm on rm.room_id = co.room_id
         left join class_dto cd on cd.class_id = co.class_id
+        left join schedule sh on co.course_id=sh.course_id
         <where>
+            <if test="courseId != null">
+                and co.course_id = #{courseId,jdbcType=DECIMAL}
+            </if>
+            <if test="courseName != null and courseName !='' ">
+                <bind name="courseName" value="'%'+ courseName +'%'"/>
+                and co.course_name like #{courseName,jdbcType=VARCHAR}
+            </if>
+            <if test="teacherId != null">
+                and co.teacher_id = #{teacherId,jdbcType=DECIMAL}
+            </if>
+            <if test="courseId != null">
+                and co.room_id = #{roomId,jdbcType=DECIMAL}
+            </if>
+            <if test="courseId != null">
+                and co.class_id = #{classId,jdbcType=DECIMAL}
+            </if>
+            <if test="usageStatusFlag != null ">
+                and co.usage_status_flag = #{usageStatusFlag,jdbcType=DECIMAL}
+            </if>
+            <if test="sortStatusFlag != null">
+                and co.sort_status_flag = #{sortStatusFlag,jdbcType=DECIMAL}
+            </if>
+        </where>
+    </select>
+    <select id="selectByCourse" parameterType="top.kwrcee.sortcourse.manage.entities.Course"
+            resultType="top.kwrcee.sortcourse.manage.vo.CourseVO">
+        select
+        sh.time_id,
+        sh.course_day,
+        sh.course_time,
+        th.teacher_name,
+        rm.room_num,
+        cd.class_name,
+        cd.major,
+        <include refid="BaseColumnList"/>
+        from course co
+        left join teacher th on th.teacher_id=co.teacher_id
+        left join classroom rm on rm.room_id = co.room_id
+        left join class_dto cd on cd.class_id = co.class_id
+        left join schedule sh on co.course_id=sh.course_id
+        <where>
+            th.usage_status_flag = 1
+            and rm.usage_status_flag = 1
+            and cd.usage_status_flag = 1
             <if test="courseId != null">
                 and co.course_id = #{courseId,jdbcType=DECIMAL}
             </if>
@@ -80,20 +124,11 @@
     <!--判断冲突的时候需要的查询-->
     <select id="selectTimeTable" resultType="top.kwrcee.sortcourse.manage.vo.CourseVO">
         select
-        co.course_id,
-        co.course_name,
-        co.teacher_id,
-        co.room_id,
-        co.class_id,
-        co.usage_status_flag,
         th.teacher_name,
         rm.room_num,
         cd.class_name,
         cd.major,
-        co.course_num,
-        co.course_quantity,
-        co.sort_status_flag,
-        co.OBJECT_VERSION_NUMBER
+        <include refid="BaseColumnList"/>
         from course co
         join schedule sh on co.course_id=sh.course_id
         left join teacher th on th.teacher_id=co.teacher_id

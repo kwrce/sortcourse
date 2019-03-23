@@ -17,6 +17,7 @@ logging:
         usingthymeleaf:
           mapper: DEBUG
     root: info
+    top.kwrcee.manage: debug
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss} [%thread][%level] %logger- %msg%n'
 

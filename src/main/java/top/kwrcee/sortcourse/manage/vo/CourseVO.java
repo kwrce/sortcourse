@@ -73,8 +73,7 @@ public class CourseVO extends AuditDomain {
                 Objects.equals(classId, courseVO.classId) &&
                 Objects.equals(usageStatusFlag, courseVO.usageStatusFlag);
     }
-
-    //
+ //
 // 数据库字段
 // ------------------------------------------------------------------------------
     private Long courseId;
@@ -90,6 +89,8 @@ public class CourseVO extends AuditDomain {
     private String teacherName;
     private String roomNum;
     private String className;
+    private Integer courseDay;
+    private Integer courseTime;
 
 
 

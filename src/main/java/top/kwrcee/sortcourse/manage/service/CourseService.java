@@ -12,10 +12,18 @@ public interface CourseService extends BaseService<Course> {
     /**
      * 分页汇总查询
      * @param pageRequest
-     * @param Course
+     * @param course
      * @return
      */
-    Page<CourseVO> pageCourseList(PageRequest pageRequest, Course Course);
+    Page<CourseVO> pageCourseList(PageRequest pageRequest, Course course);
+
+    /**
+     * 不分页汇总查询
+     * @param course
+     * @return
+     */
+    List<CourseVO> courseList(Course course);
+
 
     /**
      * 更新课程信息

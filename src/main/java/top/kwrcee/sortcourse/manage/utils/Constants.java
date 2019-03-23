@@ -10,6 +10,15 @@ public interface Constants {
          * 楼号
          */
         String BUILDING_NAME="building";
+        /**
+         * 一周上课的天数
+         */
+        String WEEK_DAY="week-day";
+        /**
+         * 一天上课的天数
+         */
+        String DAY_TIME="day-time";
+
     }
     interface AuthorityPermission{
         /**

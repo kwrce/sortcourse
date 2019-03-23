@@ -17,11 +17,18 @@ import java.util.List;
 
 public interface CourseMapper extends BaseMapper<Course> {
     /**
-     * 分页模糊查询教室信息
+     * 模糊查询教室信息
      * @param course
      * @return
      */
     List<CourseVO> selectByCourse(Course course);
+
+    /**
+     * 模糊查询教室信息（去重）
+     * @param course
+     * @return
+     */
+    List<CourseVO> selectByCourseDistinct(Course course);
 
     /**
      * 查询最大行号

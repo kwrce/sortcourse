@@ -5,19 +5,24 @@ import io.choerodon.mybatis.pagehelper.PageHelper;
 import io.choerodon.mybatis.pagehelper.domain.PageRequest;
 import io.choerodon.mybatis.service.BaseServiceImpl;
 import lombok.extern.java.Log;
+import net.sf.jsqlparser.expression.TimeValue;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.kwrcee.sortcourse.manage.entities.Course;
 import top.kwrcee.sortcourse.manage.entities.Schedule;
+import top.kwrcee.sortcourse.manage.entities.ValueSet;
 import top.kwrcee.sortcourse.manage.mapper.CourseMapper;
 import top.kwrcee.sortcourse.manage.service.CourseService;
 import top.kwrcee.sortcourse.manage.service.ScheduleService;
+import top.kwrcee.sortcourse.manage.service.ValueSetService;
 import top.kwrcee.sortcourse.manage.utils.Constants;
+import top.kwrcee.sortcourse.manage.utils.WeekUtils;
 import top.kwrcee.sortcourse.manage.vo.CourseVO;
 import top.kwrcee.sortcourse.manage.vo.Week;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,11 +35,19 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
     ScheduleService scheduleService;
     @Autowired
     CourseService courseService;
+    @Autowired
+    ValueSetService valueSetService;
+    @Autowired
+    WeekUtils weekUtils;
 
     @Override
     public Page<CourseVO> pageCourseList(PageRequest pageRequest, Course course) {
-        course.setDistinctFlag(Constants.Flag.YES);
-        return PageHelper.doPageAndSort(pageRequest,()->courseMapper.selectByCourse(course));
+        return PageHelper.doPageAndSort(pageRequest,()->courseMapper.selectByCourseDistinct(course));
+    }
+
+    @Override
+    public List<CourseVO> courseList(Course course) {
+        return courseMapper.selectByCourse(course);
     }
 
     @Override
@@ -71,11 +84,12 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
         condition.setSortStatusFlag(Constants.Flag.NO);
         List<CourseVO> list=courseMapper.selectByCourse(condition);
         List<CourseVO> sortedList=new ArrayList<>();
-        int arr[][] = new int[7][6];
+        //查询一周上课的天数和一天上课的天数
+        Week globalWeek=weekUtils.getGlobalWeek();
         List<Week> weeks=new ArrayList<>();
         //从值集中获取
-        for(int i = 0;i<7;i++){
-            for(int j = 0;j<6;j++){
+        for(int i = 0;i<globalWeek.getDay();i++){
+            for(int j = 0;j<globalWeek.getTime();j++){
                 Week week=new Week();
                 week.setDay(i+1);
                 week.setTime(j+1);
@@ -83,13 +97,13 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
             }
         }
         weeks.forEach(week -> {
-            //todo 再此可以完善指定日期不排课功能（某班，某老师，某教室）
-            log.info("当前时间是第"+week.getDay()+"天,第"+week.getTime()+"节课\n");
+            //todo 在此可以完善指定日期不排课功能（某班，某老师，某教室）
+            log.info("当前时间是第"+week.getDay()+"天,第"+week.getTime()+"节课");
             list.forEach(courseVO->{
                 //如果没有冲突并且不包含在已排课的list中，则插入时间表
                 if(courseVO.validateConflict(courseMapper,week)
                         &&!sortedList.contains(courseVO)){
-                    log.info(">>排课id为："+courseVO.getCourseId());
+                    log.info("\n>>排课id为："+courseVO.getCourseId());
                     scheduleService.insertSelective(new Schedule(week,courseVO));
                     sortedList.add(courseVO);
                     //课程的排课状态更新为 1

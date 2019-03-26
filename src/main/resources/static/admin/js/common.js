@@ -4,7 +4,21 @@ layui.config({
 }).extend({
 	dialog: 'dialog',
 });
-
+//加载动画
+var _index; //用来关闭遮罩
+var _lp_baseTime = 0;
+var _lp_startTime = 0;
+function updateLoadProgress() {
+    if (_lp_baseTime < 0) {
+        layer.close(_index);
+        return;
+    }
+    var dval = parseInt(new Date().valueOf())- parseInt(_lp_startTime);
+    var timeDifference = (dval / _lp_baseTime).toFixed(2);
+    var lp = timeDifference < 1 ? timeDifference * 100 : 99;
+    $("#loadProgress").html(parseInt(lp));
+    setTimeout(function () { updateLoadProgress(); return; }, 650);
+}
 layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element'], function() {
 	var form = layui.form(),
 		layer = layui.layer,
@@ -57,39 +71,39 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 	//顶部批量删除
 	$('.delBtn').click(function() {
 		var url=$(this).attr('data-url');
+        var token =$("meta[name='_csrf']").attr("content");
+        var header=$("meta[name='_csrf_header']").attr("content");
 		dialog.confirm({
 			message:'您确定要删除选中项',
 			success:function(){
 				var dataSource=[];
 				var change=[];
-				//执行批量删除操作
-				//console.log($("#table-list").find("input[name ='id']"));
-                //$("#table-list").find("input[name ='id']")
+				var i=0;
 				//获取所有id
                 $("#table-list").find("td[name ='id']").each(function () {
 					console.log($(this).attr("value"));
-					dataSource.push($(this).attr("value"));
+					i++;
+					dataSource.push(parseInt($(this).attr("value")));
                 });
-                // console.log(dataSource);
-                // //转换为json串
-				// change.push({rooms:dataSource});
-                var str=JSON.stringify(dataSource);
-                console.log("批量删除之前的数据："+str)
+                console.log("批量删除之前的数据："+dataSource);
+                $(document).ajaxSend(function(e,xhr,options){
+                    xhr.setRequestHeader(header, token);
+                });
                 $.ajax({
                     type: "POST",
                     url: url,
-                    data: str,
-                    dataType: "json",
+                    data: {"ids":dataSource},
+                    traditional: true,
+                    async: false,
                     success: function (data) {
-                        // $('#resText').empty();   //清空resText里面的所有内容
-                        // var html = '';
-                        // $.each(data, function (commentIndex, comment) {
-                        //     html += '<div class="comment"><h6>' + comment['username']
-                        //         + ':</h6><p class="para"' + comment['content']
-                        //         + '</p></div>';
-                        // });
-                        // $('#resText').html(html);
-                        layer.msg('删除了');
+                        layer.msg('已删除');
+                        window.setTimeout(function () {
+                            window.location.reload();
+                        },500)
+
+                    },
+                    error:function (data) {
+                        layer.msg('服务器出现错误，请联系管理员');
                     }
                 });
             },
@@ -122,6 +136,10 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 		dialog.confirm({
 			message:'您确定要进行删除吗？',
 			success:function(){
+                _index = layer.load(1, {
+                    content: "<div style='margin-left:-47px;padding-top:44px;width:120px;color:#FFF;text-align: center'>正在删除</div>",
+                    shade: [0.5, '#000']
+                });
 				//console.log(url)
                 $(document).ajaxSend(function(e,xhr,options){
                     xhr.setRequestHeader(header, token);
@@ -131,14 +149,20 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
                     url: url,
                     async: false,
                     data: {_method:"DELETE"},
-                    dataType: "json",
-                    success: function(){
-                        layer.msg('确定了')
+                    beforeSend:function(){
+                    },
+                    success: function(data){
+                        _lp_baseTime = -1;
+                        $("#loadProgress").html("100");layer.close(_index);
+                        layer.msg('已删除');
+                        window.setTimeout(function () {
+                            window.location.reload();
+                        },500)
+                    },
+                    error :function (data) {
+                        layer.msg(data)
                     }
                 });
-                layer.msg('已删除');
-				console.log('123'+url);
-                window.location.reload();
 			},
 			cancel:function(){
 				layer.msg('已取消')

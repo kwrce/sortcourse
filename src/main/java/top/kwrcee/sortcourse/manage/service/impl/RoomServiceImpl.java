@@ -20,9 +20,9 @@ public class RoomServiceImpl extends BaseServiceImpl<Room> implements RoomServic
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer deleteList(List<Long> ids) {
-        ids.forEach(id -> roomMapper.deleteByPrimaryKey(id));
-        return 1;
+    public String  deleteList(List<Long> ids) {
+        ids.forEach(id ->roomMapper.deleteByPrimaryKey(id));
+        return "success";
     }
 
     @Override

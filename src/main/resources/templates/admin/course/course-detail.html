@@ -20,6 +20,7 @@
         <input type="hidden" th:name="_method" value="PUT">
         <input type="hidden" name="objectVersionNumber" th:value="${course.objectVersionNumber}">
         <input type="hidden" th:name="courseId" th:value="${course.courseId}">
+        <input type="hidden" th:name="courseNum" th:value="${course.courseNum}">
         <div class="layui-tab" style="margin: 0;">
             <ul class="layui-tab-title">
                 <li><a th:href="@{/manage-course/courses}" href="article-list.html">教师列表</a></li>

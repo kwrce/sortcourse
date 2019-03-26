@@ -20,8 +20,6 @@ import java.util.List;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-//    @Autowired
-//    private UserService userService;
     @Autowired
     private SysUserService sysUserService;
     @Autowired

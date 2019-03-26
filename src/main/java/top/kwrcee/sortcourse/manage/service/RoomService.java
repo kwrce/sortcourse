@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface RoomService extends BaseService<Room> {
 
-    Integer deleteList(List<Long> ids);
+    String deleteList(List<Long> ids);
 
     Page<Room> pageRoomList(PageRequest pageRequest, Room room);
 }

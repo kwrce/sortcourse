@@ -12,7 +12,7 @@
 <body>
 <div style="position: fixed;right: 20px;top: 10px;" class="layui-inline tool-btn">
     <form th:action="@{/auto-sort/sort}" method="post">
-        <button class="layui-btn layui-btn-warm">一键排课</button>
+        <button class="layui-btn layui-btn-warm" id="submit-btn" onclick="shade()">一键排课</button>
     </form>
 
 </div>
@@ -20,7 +20,7 @@
     <tr th:each="i : ${#numbers.sequence(1,week.getTime())}">
         <td th:each="j :${#numbers.sequence(1,week.getDay())}" width="120" height="100">
             <div th:each="course:${sortedCourses}" style="text-align: center;font-size: 10px">
-                <div  th:text="${course.courseDay == j && course.courseTime == i}?${course.courseName}+'-'+${course.teacherName}+'-'+${course.className}">
+                <div  th:text="${course.courseDay == j && course.courseTime == i}?${course.courseName}+'-'+${course.teacherName}+'-'+${course.major}+'-'+${course.className}">
                     [[${j}]]--[[${i}]]
                 </div>
             </div>
@@ -29,5 +29,14 @@
 </table>
 <script src="../../../static/admin/layui/layui.js" th:src="@{/admin/layui/layui.js}" type="text/javascript" charset="utf-8"></script>
 <script src="../../../static/admin/js/common.js" th:src="@{/admin/js/common.js}" type="text/javascript" charset="utf-8"></script>
+<script>
+    function shade(){
+        _index = layer.load(1, {
+            content: "<div style='margin-left:-47px;padding-top:44px;width:120px;color:#FFF;text-align: center'>正在排课</div>",
+            shade: [0.5, '#000']
+        });
+    }
+
+</script>
 </body>
 </html>

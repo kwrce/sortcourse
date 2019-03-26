@@ -87,9 +87,11 @@ public class RoomController {
      */
     @PostMapping("/rooms/delete")
     @ResponseBody
-    public ResponseEntity<List<Long>> deleteRooms(List<Long> ids){
-        roomService.deleteList(ids);
-        return ResponseEntity.ok(ids);
+    @PreAuthorize("hasAuthority('delete-room')")
+    public ResponseEntity<String> deleteRooms(@RequestParam (value = "ids",required = false) List<Long> ids){
+        System.out.println(ids);
+        String status=roomService.deleteList(ids);
+        return ResponseEntity.ok(status);
     }
     /**
      * 来到修改页面，查出当前信息，然后回显

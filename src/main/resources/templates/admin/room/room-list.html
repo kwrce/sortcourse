@@ -94,47 +94,49 @@
 							<li th:if="${pageInfo.number == 0}"><span>◁</span></li>
 							<li th:if="${pageInfo.number > 0}"><a th:href="@{/manage-room/rooms(page=${pageInfo.number - 1})}">◁</a></li>
 							<!-- 首页 -->
-							<li th:if="${pageInfo.number == 0}" class="active"><span>1</span></li>
-							<li th:if="${pageInfo.number > 0}"><a th:href="@{/manage-room/rooms(page=0)}">1</a></li>
-							<th:block th:if="${pageInfo.totalPages>1 && pageInfo.totalPages<=10}"
+							<li flag="a" th:if="${pageInfo.number == 0}" class="active"><span>1</span></li>
+							<li flag="b" th:if="${pageInfo.number > 0}"><a th:href="@{/manage-room/rooms(page=0)}">1</a></li>
+							<th:block th:if="${pageInfo.totalPages>2 && pageInfo.totalPages<=10}"
 									  th:each="i : ${#numbers.sequence(2,pageInfo.totalPages -1)}">
-								<li th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
-								<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-room/rooms(page=${i -1})}"
+								<li flag="c" th:if="${pageInfo.number == (i -1)}" class="active"><span th:text="${i}">页码</span></li>
+								<li flag="d" th:if="${pageInfo.number != (i -1)}"><a th:href="@{/manage-room/rooms(page=${i -1})}"
 															  th:text="${i}">页码</a>
 								</li>
 							</th:block>
 							<th:block th:if="${pageInfo.totalPages > 10}">
 								<th:block th:if="${(pageInfo.number - (5/2)) <= 2}"
 										  th:each="i : ${#numbers.sequence(2,2 + 5 -1)}">
-									<li th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
-									<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-room/rooms(page=${i -1})}"
+									<li flag="1" th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
+									<li flag="2" th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-room/rooms(page=${i -1})}"
 																  th:text="${i}">页码</a></li>
-								</th:block> <!-- ... -->
-								<li th:if="${(pageInfo.number - (5/2))>2}"><span>...</span></li>
+								</th:block>
+								<!-- ... -->
+								<li flag="3" th:if="${(pageInfo.number - (5/2))>2}"><span>...</span></li>
 								<th:block
 										th:if="${((pageInfo.number - (5/2))>2) && ((pageInfo.number+(5/2)-(5%2==0?1:0)) < (pageInfo.totalPages -1))}"
 										th:each="i : ${#numbers.sequence(pageInfo.number - (5/2),pageInfo.number+(5/2)-(5%2==0?1:0))}">
-									<li th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
-									<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-room/rooms(page=${i -1})}"
+									<li flag="4" th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
+									<li flag="5"  th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-room/rooms(page=${i -1})}"
 																  th:text="${i}">页码</a></li>
-								</th:block> <!-- ... -->
-								<li th:if="${(pageInfo.number+(5/2)-(5%2==0?1:0)) < (pageInfo.totalPages - 1)}">
+								</th:block>
+								<!-- ... -->
+								<li flag="6" th:if="${(pageInfo.number+(5/2)-(5%2==0?1:0)) < (pageInfo.totalPages - 1)}">
 									<span>...</span></li>
 								<th:block
 										th:if="${(pageInfo.number+(5/2)-(5%2==0?1:0)) >= (pageInfo.totalPages - 1)}"
 										th:each="i : ${#numbers.sequence(pageInfo.totalPages - 5,pageInfo.totalPages -1)}">
-									<li th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
-									<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-room/rooms(page=${i -1})}"
+									<li flag="7" th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
+									<li flag="8" th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-room/rooms(page=${i -1})}"
 																  th:text="${i}">页码</a></li>
 								</th:block>
 							</th:block> <!-- 最后一页 -->
-							<li th:if="${pageInfo.totalPages>1 && pageInfo.number == pageInfo.totalPages -1}" class="active"><span
+							<li flag="9" th:if="${pageInfo.totalPages>1 && pageInfo.number == pageInfo.totalPages -1}" class="active"><span
 									th:text="${pageInfo.totalPages}">页码</span></li>
-							<li th:if="${pageInfo.totalPages>1 && pageInfo.number != pageInfo.totalPages -1}"><a
+							<li flag="10" th:if="${pageInfo.totalPages>1 && pageInfo.number != pageInfo.totalPages -1}"><a
 									th:href="@{/manage-room/rooms(page=${pageInfo.totalPages -1})}" th:text="${pageInfo.totalPages}">页码</a></li>
 							<!-- 下一页 -->
-							<li th:if="${pageInfo.number +1>= pageInfo.totalPages}"><span>▷</span></li>
-							<li th:if="${pageInfo.number +1< pageInfo.totalPages}"><a th:href="@{/manage-room/rooms(page=${pageInfo.number +1})}">▷</a>
+							<li flag="11" th:if="${pageInfo.number +1>= pageInfo.totalPages}"><span>▷</span></li>
+							<li flag="12" th:if="${pageInfo.number +1< pageInfo.totalPages}"><a th:href="@{/manage-room/rooms(page=${pageInfo.number +1})}">▷</a>
 							</li>
 						</ul>
 					</div>

@@ -56,6 +56,9 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
         Course condition =new Course();
         condition.setCourseNum(course.getCourseNum());
         //先删除存入的课程数
+        if(course.getCourseNum()==null){
+            throw new RuntimeException("Course Num can't be null!");
+        }
         courseMapper.delete(condition);
         //执行插入操作
         insertCourse(course);

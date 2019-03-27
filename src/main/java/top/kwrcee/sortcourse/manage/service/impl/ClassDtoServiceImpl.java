@@ -10,6 +10,8 @@ import top.kwrcee.sortcourse.manage.entities.ClassDto;
 import top.kwrcee.sortcourse.manage.mapper.ClassDtoMapper;
 import top.kwrcee.sortcourse.manage.service.ClassDtoService;
 
+import java.util.List;
+
 @Service
 public class ClassDtoServiceImpl extends BaseServiceImpl<ClassDto> implements ClassDtoService {
     @Autowired
@@ -18,5 +20,11 @@ public class ClassDtoServiceImpl extends BaseServiceImpl<ClassDto> implements Cl
     @Override
     public Page<ClassDto> pageClassDtoList(PageRequest pageRequest, ClassDto classDto) {
         return PageHelper.doPageAndSort(pageRequest,()->classDtoMapper.selectByClassDto(classDto));
+    }
+
+    @Override
+    public String deleteList(List<Long> ids) {
+        ids.forEach(id->classDtoMapper.deleteByPrimaryKey(id));
+        return "success";
     }
 }

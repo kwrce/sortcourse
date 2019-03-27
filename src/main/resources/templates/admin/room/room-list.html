@@ -68,7 +68,7 @@
 							</thead>
 							<tbody>
 								<tr th:each="room:${pageInfo.content}">
-									<td><input type="checkbox" name="" value="1" lay-skin="primary" data-id="1"></td>
+									<td class="box"><input type="checkbox" name="" value="1" lay-skin="primary" data-id="1"></td>
 									<td class="hidden-xs" th:name="id" th:value="${room.roomId}" th:text="${room.roomId}"></td>
 									<td class="hidden-xs" th:text="${room.roomName}"></td>
 									<td class="hidden-xs" th:text="${room.roomNum}">xxx</td>

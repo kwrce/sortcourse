@@ -16,6 +16,8 @@ import top.kwrcee.sortcourse.manage.service.ClassDtoService;
 import top.kwrcee.sortcourse.manage.service.ValueSetService;
 import top.kwrcee.sortcourse.manage.utils.Constants;
 
+import java.util.List;
+
 /**
  *  管理 API
  *
@@ -71,6 +73,19 @@ public class ClassDtoController {
         System.out.println("has deleted");
         classDtoService.deleteByPrimaryKey(id);
         return ResponseEntity.ok("success");
+    }
+    /**
+     * 班级批量删除
+     * @param ids
+     * @return list
+     */
+    @PostMapping("/classDtos/delete")
+    @ResponseBody
+    @PreAuthorize("hasAuthority('delete-classDto')")
+    public ResponseEntity<String> deleteClassDtos(@RequestParam (value = "ids",required = false) List<Long> ids){
+        System.out.println(ids);
+        String status=classDtoService.deleteList(ids);
+        return ResponseEntity.ok(status);
     }
     /**
      * 来到修改页面，查出当前信息，然后回显

@@ -21,4 +21,10 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher> implements Teac
     public Page<Teacher> pageTeacherList(PageRequest pageRequest, Teacher teacher) {
         return PageHelper.doPageAndSort(pageRequest,()->teacherMapper.selectByTeacher(teacher));
     }
+
+    @Override
+    public String deleteList(List<Long> ids) {
+        ids.forEach(id ->teacherMapper.deleteByPrimaryKey(id));
+        return "success";
+    }
 }

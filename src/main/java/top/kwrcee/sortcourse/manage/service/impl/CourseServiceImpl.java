@@ -119,4 +119,14 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
         });
         return list;
     }
+
+    @Override
+    public String deleteList(List<Long> nums) {
+        nums.forEach(num->{
+            Course course =new Course();
+            course.setCourseNum(num);
+            courseMapper.delete(course);
+        });
+        return "success";
+    }
 }

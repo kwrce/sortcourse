@@ -10,6 +10,8 @@ import top.kwrcee.sortcourse.manage.entities.Schedule;
 import top.kwrcee.sortcourse.manage.mapper.ScheduleMapper;
 import top.kwrcee.sortcourse.manage.service.ScheduleService;
 
+import java.util.List;
+
 @Service
 public class ScheduleServiceImpl extends BaseServiceImpl<Schedule> implements ScheduleService {
     @Autowired
@@ -17,5 +19,11 @@ public class ScheduleServiceImpl extends BaseServiceImpl<Schedule> implements Sc
     @Override
     public Page<Schedule> pageScheduleList(PageRequest pageRequest, Schedule schedule) {
         return PageHelper.doPageAndSort(pageRequest,()->scheduleMapper.selectBySchedule(schedule));
+    }
+
+    @Override
+    public String deleteList(List<Long> ids) {
+        ids.forEach(id->scheduleMapper.deleteByPrimaryKey(id));
+        return "success";
     }
 }

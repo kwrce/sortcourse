@@ -11,4 +11,11 @@ import java.util.List;
 public interface TeacherService extends BaseService<Teacher> {
 
     Page<Teacher> pageTeacherList(PageRequest pageRequest, Teacher teacher);
+
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    String deleteList(List<Long> ids);
 }

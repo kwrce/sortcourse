@@ -64,7 +64,7 @@
 							</thead>
 							<tbody>
 								<tr th:each="courseVO:${pageInfo.content}">
-									<td><input type="checkbox" name="" value="1" lay-skin="primary" data-id="1"></td>
+									<td class="box"><input type="checkbox" name="" value="1" lay-skin="primary" data-id="1"></td>
 									<td class="hidden-xs" th:name="id" th:value="${courseVO.courseNum}" th:text="${courseVO.courseNum}"></td>
 									<td th:text="${courseVO.courseName}"></td>
 									<td class="hidden-xs" th:text="${courseVO.major}"></td>
@@ -94,7 +94,7 @@
 							<!-- 首页 -->
 							<li th:if="${pageInfo.number == 0}" class="active"><span>1</span></li>
 							<li th:if="${pageInfo.number > 0}"><a th:href="@{/manage-course/courses(page=0)}">1</a></li>
-							<th:block th:if="${pageInfo.totalPages>1 && pageInfo.totalPages<=10}"
+							<th:block th:if="${pageInfo.totalPages>2 && pageInfo.totalPages<=10}"
 									  th:each="i : ${#numbers.sequence(2,pageInfo.totalPages -1)}">
 								<li th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
 								<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-course/courses(page=${i -1})}"

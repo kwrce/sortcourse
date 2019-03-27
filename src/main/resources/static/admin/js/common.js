@@ -82,8 +82,11 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 				//获取所有id
                 $("#table-list").find("td[name ='id']").each(function () {
 					console.log($(this).attr("value"));
-					i++;
-					dataSource.push(parseInt($(this).attr("value")));
+					console.log($(this).siblings(".box").find("div"))
+					if($(this).siblings(".box").find("div").attr("class")=="layui-unselect layui-form-checkbox layui-form-checked"){
+                        i++;
+                        dataSource.push(parseInt($(this).attr("value")));
+					}
                 });
                 console.log("批量删除之前的数据："+dataSource);
                 $(document).ajaxSend(function(e,xhr,options){

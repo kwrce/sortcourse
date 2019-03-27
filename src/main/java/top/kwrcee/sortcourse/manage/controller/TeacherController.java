@@ -75,6 +75,19 @@ public class TeacherController {
         return ResponseEntity.ok("success");
     }
     /**
+     * 教师批量删除
+     * @param ids
+     * @return list
+     */
+    @PostMapping("/teachers/delete")
+    @ResponseBody
+    @PreAuthorize("hasAuthority('delete-teacher')")
+    public ResponseEntity<String> deleteTeachers(@RequestParam (value = "ids",required = false) List<Long> ids){
+        System.out.println(ids);
+        String status=teacherService.deleteList(ids);
+        return ResponseEntity.ok(status);
+    }
+    /**
      * 来到修改页面，查出当前信息，然后回显
      * @param id
      * @param model

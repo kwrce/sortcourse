@@ -43,4 +43,11 @@ public interface CourseService extends BaseService<Course> {
      * @return
      */
     List<CourseVO> sortCourse();
+
+    /**
+     * 批量删除
+     * @param nums
+     * @return
+     */
+    String deleteList(List<Long> nums);
 }

@@ -15,6 +15,8 @@ import top.kwrcee.sortcourse.manage.entities.ValueSet;
 import top.kwrcee.sortcourse.manage.service.ScheduleService;
 import top.kwrcee.sortcourse.manage.service.ValueSetService;
 
+import java.util.List;
+
 /**
  *  管理 API
  *
@@ -70,6 +72,19 @@ public class ScheduleController {
         System.out.println("has deleted");
         scheduleService.deleteByPrimaryKey(id);
         return ResponseEntity.ok("success");
+    }
+    /**
+     * 教师批量删除
+     * @param ids
+     * @return list
+     */
+    @PostMapping("/schedules/delete")
+    @ResponseBody
+    @PreAuthorize("hasAuthority('delete-schedule')")
+    public ResponseEntity<String> deleteSchedules(@RequestParam (value = "ids",required = false) List<Long> ids){
+        System.out.println(ids);
+        String status=scheduleService.deleteList(ids);
+        return ResponseEntity.ok(status);
     }
     /**
      * 来到修改页面，查出当前信息，然后回显

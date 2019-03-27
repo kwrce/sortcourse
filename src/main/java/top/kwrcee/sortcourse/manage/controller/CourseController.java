@@ -77,6 +77,19 @@ public class CourseController {
         return ResponseEntity.ok("success");
     }
     /**
+     * 教室批量删除
+     * @param ids
+     * @return list
+     */
+    @PostMapping("/courses/delete")
+    @ResponseBody
+    @PreAuthorize("hasAuthority('delete-course')")
+    public ResponseEntity<String> deleteCourses(@RequestParam (value = "ids",required = false) List<Long> ids){
+        System.out.println(ids);
+        String status=courseService.deleteList(ids);
+        return ResponseEntity.ok(status);
+    }
+    /**
      * 来到修改页面，查出当前信息，然后回显
      * @param courseNum
      * @param model

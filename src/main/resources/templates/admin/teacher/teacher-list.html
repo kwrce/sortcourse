@@ -60,7 +60,7 @@
 							</thead>
 							<tbody>
 								<tr th:each="teacher:${pageInfo.content}">
-									<td><input type="checkbox" name="" value="1" lay-skin="primary" data-id="1"></td>
+									<td class="box"><input type="checkbox" name="" value="1" lay-skin="primary" data-id="1"></td>
 									<td class="hidden-xs" th:name="id" th:value="${teacher.teacherId}" th:text="${teacher.teacherId}"></td>
 									<td class="hidden-xs" th:text="${teacher.teacherName}"></td>
 									<td class="hidden-xs" th:text="${teacher.gender} ==1 ? '男' : '女'">xxx</td>
@@ -88,7 +88,7 @@
 							<!-- 首页 -->
 							<li th:if="${pageInfo.number == 0}" class="active"><span>1</span></li>
 							<li th:if="${pageInfo.number > 0}"><a th:href="@{/manage-teacher/teachers(page=0)}">1</a></li>
-							<th:block th:if="${pageInfo.totalPages>1 && pageInfo.totalPages<=10}"
+							<th:block th:if="${pageInfo.totalPages> 2 && pageInfo.totalPages<=10}"
 									  th:each="i : ${#numbers.sequence(2,pageInfo.totalPages -1)}">
 								<li th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
 								<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-teacher/teachers(page=${i -1})}"

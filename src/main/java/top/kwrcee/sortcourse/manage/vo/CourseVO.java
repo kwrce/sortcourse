@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.ToString;
 import top.kwrcee.sortcourse.manage.entities.Course;
 import top.kwrcee.sortcourse.manage.mapper.CourseMapper;
+import top.kwrcee.sortcourse.manage.utils.Constants;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -92,6 +94,31 @@ public class CourseVO extends AuditDomain {
     private Integer courseDay;
     private Integer courseTime;
 
+    /**
+     * 计算排课状态
+     */
+    public void calculateSortFlag(CourseMapper courseMapper) {
+        Course condition=new Course();
+        condition.setCourseNum(courseNum);
+        List<Course> list=courseMapper.select(condition);
+        Boolean allYES=true;
+        Boolean allNO =true;
+        for (Course course : list) {
+            if (Constants.Flag.YES.equals(course.getSortStatusFlag())) {
+                allYES = false;
+            } else {
+                allNO = false;
+            }
+        }
+        if(allYES){
+            sortStatusFlag = Constants.Flag.NO;
+        }else if(allNO){
+            sortStatusFlag = Constants.Flag.YES;
+        }
+        else{
+            sortStatusFlag = -1;
+        }
+    }
 
 
 //

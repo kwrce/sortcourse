@@ -12,8 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import top.kwrcee.sortcourse.manage.entities.Schedule;
 import top.kwrcee.sortcourse.manage.entities.ValueSet;
+import top.kwrcee.sortcourse.manage.service.CourseService;
 import top.kwrcee.sortcourse.manage.service.ScheduleService;
 import top.kwrcee.sortcourse.manage.service.ValueSetService;
+import top.kwrcee.sortcourse.manage.utils.WeekHelper;
+import top.kwrcee.sortcourse.manage.vo.Week;
 
 import java.util.List;
 
@@ -31,7 +34,10 @@ public class ScheduleController {
     private ScheduleService scheduleService;
     @Autowired
     private ValueSetService valueSetService;
-
+    @Autowired
+    private CourseService courseService;
+    @Autowired
+    private WeekHelper weekHelper;
     /**
      * 查询时间表列表
      * @param model
@@ -56,7 +62,7 @@ public class ScheduleController {
     @PreAuthorize("hasAuthority('add-schedule')")
     @PostMapping("/schedule")
     public String addSchedule(Schedule schedule){
-        scheduleService.insert(schedule);
+        scheduleService.insertSchedule(schedule);
         return "redirect:/manage-schedule/schedules";
     }
 
@@ -69,8 +75,7 @@ public class ScheduleController {
     @ResponseBody
     @PreAuthorize("hasAuthority('delete-schedule')")
     public ResponseEntity<String> deleteSchedule(@PathVariable("id")Long id){
-        System.out.println("has deleted");
-        scheduleService.deleteByPrimaryKey(id);
+        scheduleService.deleteSchedule(id);
         return ResponseEntity.ok("success");
     }
     /**
@@ -97,6 +102,8 @@ public class ScheduleController {
     public String toEditPage(@PathVariable("id") Long id,Model model){
         Schedule schedule = scheduleService.selectByPrimaryKey(id) ;
         model.addAttribute("schedule",schedule);
+        Week week =weekHelper.getGlobalWeek();
+        model.addAttribute("week",week);
         return "admin/schedule/schedule-detail";
     }
     /**
@@ -107,8 +114,7 @@ public class ScheduleController {
     @PreAuthorize("hasAuthority('update-schedule')")
     @PutMapping("/schedule")
     public String updateSchedule(Schedule schedule){
-        System.out.println(schedule);
-        Integer flag=scheduleService.updateByPrimaryKey(schedule);
+        scheduleService.updateSchedule(schedule);
         return "redirect:/manage-schedule/schedules";
     }
     /**
@@ -119,7 +125,8 @@ public class ScheduleController {
     @PreAuthorize("hasAuthority('add-schedule')")
     @GetMapping("/schedule")
     public String toAddPage(Model model){
-        ValueSet valueSet =new ValueSet();
+        Week week =weekHelper.getGlobalWeek();
+        model.addAttribute("week",week);
         return "admin/schedule/schedule-add";
     }
 

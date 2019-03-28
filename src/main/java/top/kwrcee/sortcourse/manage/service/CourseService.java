@@ -10,6 +10,12 @@ import java.util.List;
 
 public interface CourseService extends BaseService<Course> {
     /**
+     * 刷新课程排课状态
+     * @param courseId
+     */
+    void resetCourseSortFlag(Long courseId,Integer flag);
+
+    /**
      * 分页汇总查询
      * @param pageRequest
      * @param course

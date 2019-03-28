@@ -17,15 +17,31 @@
 
 </div>
 <table border="1">
-    <tr th:each="i : ${#numbers.sequence(1,week.getTime())}">
-        <td th:each="j :${#numbers.sequence(1,week.getDay())}" width="120" height="100">
-            <div th:each="course:${sortedCourses}" style="text-align: center;font-size: 10px">
-                <div  th:text="${course.courseDay == j && course.courseTime == i}?${course.courseName}+'-'+${course.teacherName}+'-'+${course.major}+'-'+${course.className}">
-                    [[${j}]]--[[${i}]]
+    <thead>
+        <tr>
+            <th width="20"></th>
+            <th>星期一</th>
+            <th>星期二</th>
+            <th>星期三</th>
+            <th>星期四</th>
+            <th>星期五</th>
+            <th>星期六</th>
+            <th>星期日</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="i : ${#numbers.sequence(1,week.getTime())}">
+            <td th:text="${i}" style="text-align: center"></td>
+            <td th:each="j :${#numbers.sequence(1,week.getDay())}" width="140" height="100">
+                <div th:each="course:${sortedCourses}" style="text-align: center;font-size: 10px">
+                    <div  th:text="${course.courseDay == j && course.courseTime == i}?${course.courseName}+'-'+${course.teacherName}+'-'+${course.major}+'-'+${course.className}+'|'+${course.roomNum}">
+                        [[${j}]]--[[${i}]]
+                    </div>
                 </div>
-            </div>
-        </td>
-    </tr>
+            </td>
+        </tr>
+    </tbody>
+
 </table>
 <script src="../../../static/admin/layui/layui.js" th:src="@{/admin/layui/layui.js}" type="text/javascript" charset="utf-8"></script>
 <script src="../../../static/admin/js/common.js" th:src="@{/admin/js/common.js}" type="text/javascript" charset="utf-8"></script>

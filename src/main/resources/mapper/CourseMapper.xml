@@ -41,8 +41,7 @@
         cd.class_name,
         cd.major,
         co.course_num,
-        co.course_quantity,
-        co.sort_status_flag
+        co.course_quantity
         from course co
         left join teacher th on th.teacher_id=co.teacher_id
         left join classroom rm on rm.room_id = co.room_id
@@ -93,6 +92,7 @@
             th.usage_status_flag = 1
             and rm.usage_status_flag = 1
             and cd.usage_status_flag = 1
+            and co.usage_status_flag = 1
             <if test="courseId != null">
                 and co.course_id = #{courseId,jdbcType=DECIMAL}
             </if>

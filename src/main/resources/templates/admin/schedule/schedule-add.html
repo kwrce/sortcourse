@@ -28,19 +28,25 @@
                                    autocomplete="off" class="layui-input">
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">一周第几天：</label>
-                        <div class="layui-input-block">
-                            <input type="number" name="courseDay"  placeholder="请输入天数"
-                                   autocomplete="off" class="layui-input" >
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">一天第几节：</label>
-                        <div class="layui-input-block">
-                            <input type="number" name="courseTime"  placeholder="请输入节数"
-                                   autocomplete="off" class="layui-input" >
-                        </div>
+                    <div class="layui-input-block">
+                        <table border="1" style="text-align: center">
+                            <tr>
+                                <td width="20px"></td>
+                                <td>星期一</td>
+                                <td>星期二</td>
+                                <td>星期三</td>
+                                <td>星期四</td>
+                                <td>星期五</td>
+                                <td>星期六</td>
+                                <td>星期日</td>
+                            </tr>
+                            <tr th:each="i : ${#numbers.sequence(1,week.getTime())}">
+                                <td>[[${i}]]</td>
+                                <td th:each="j :${#numbers.sequence(1,week.getDay())}" style="padding-left: 30px">
+                                    <input type="radio" name="weekMeaning" th:value="${j}+'-'+${i}" title=" ">
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">启用：</label>

@@ -37,13 +37,14 @@
 					<div class="layui-form" id="table-list">
 						<table class="layui-table" lay-even lay-skin="nob">
 							<colgroup>
-								<col width="50">
-								<col class="hidden-xs" width="50">
-								<col width="150">
+								<col width="35">
+								<col class="hidden-xs" width="35">
+								<col width="75">
+								<col width="100">
 								<col class="hidden-xs" width="125">
 								<col width="70">
 								<col width="70">
-								<col class="hidden-xs" width="100">
+								<col class="hidden-xs" width="80">
 								<col class="hidden-xs" width="80">
 								<col class="hidden-xs" width="50">
 								<col width="100">
@@ -52,6 +53,7 @@
 								<tr>
 									<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
 									<th class="hidden-xs">NUM</th>
+									<th>排课状态</th>
 									<th>课程名称</th>
 									<th class="hidden-xs">专业</th>
 									<th>班级</th>
@@ -66,6 +68,11 @@
 								<tr th:each="courseVO:${pageInfo.content}">
 									<td class="box"><input type="checkbox" name="" value="1" lay-skin="primary" data-id="1"></td>
 									<td class="hidden-xs" th:name="id" th:value="${courseVO.courseNum}" th:text="${courseVO.courseNum}"></td>
+									<td>
+										<button th:if="${courseVO.sortStatusFlag==1}" class="layui-btn layui-btn-mini layui-btn-normal">已排课</button>
+										<button th:if="${courseVO.sortStatusFlag==0}" class="layui-btn layui-btn-mini layui-btn-danger">未排课</button>
+										<button th:if="${courseVO.sortStatusFlag==-1}" class="layui-btn layui-btn-mini layui-btn-warm">部分排课</button>
+									</td>
 									<td th:text="${courseVO.courseName}"></td>
 									<td class="hidden-xs" th:text="${courseVO.major}"></td>
 									<td th:text="${courseVO.className}">xxx</td>

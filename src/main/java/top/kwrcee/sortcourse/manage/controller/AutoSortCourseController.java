@@ -1,7 +1,6 @@
 package top.kwrcee.sortcourse.manage.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import top.kwrcee.sortcourse.manage.entities.Course;
 import top.kwrcee.sortcourse.manage.service.CourseService;
-import top.kwrcee.sortcourse.manage.utils.WeekUtils;
+import top.kwrcee.sortcourse.manage.utils.WeekHelper;
 import top.kwrcee.sortcourse.manage.vo.CourseVO;
 import top.kwrcee.sortcourse.manage.vo.Week;
 
@@ -22,7 +21,7 @@ public class AutoSortCourseController {
     @Autowired
     CourseService courseService;
     @Autowired
-    WeekUtils weekUtils;
+    WeekHelper weekHelper;
 
     @PreAuthorize("hasAuthority('list-course')")
     @PostMapping("/sort")
@@ -34,7 +33,7 @@ public class AutoSortCourseController {
     @PreAuthorize("hasAuthority('list-course')")
     @GetMapping("/course-sorted")
     public String listSorted(Model model){
-        Week week =weekUtils.getGlobalWeek();
+        Week week = weekHelper.getGlobalWeek();
         List<CourseVO> list = courseService.courseList(new Course());
         model.addAttribute("week",week);
         model.addAttribute("sortedCourses",list);

@@ -6,7 +6,9 @@ import io.choerodon.mybatis.domain.AuditDomain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.util.StringUtils;
 import top.kwrcee.sortcourse.manage.mapper.CourseMapper;
+import top.kwrcee.sortcourse.manage.service.CourseService;
 import top.kwrcee.sortcourse.manage.utils.Constants;
 import top.kwrcee.sortcourse.manage.vo.CourseVO;
 import top.kwrcee.sortcourse.manage.vo.Week;
@@ -36,7 +38,6 @@ public class Schedule extends AuditDomain {
 //
 // 业务方法(按public protected private顺序排列)
 // ------------------------------------------------------------------------------
-
     /**
      * 构造方法
      * @param week
@@ -45,6 +46,18 @@ public class Schedule extends AuditDomain {
         courseTime = week.getTime();
         courseDay = week.getDay();
         courseId = courseVO.getCourseId();
+    }
+
+    /**
+     * 将前端的weekMeaning值转换为 courseDay 和 courseTime
+     */
+    public void convertToWeek(){
+        if(StringUtils.isEmpty(weekMeaning)){
+            return;
+        }
+        String[] clips = StringUtils.split(weekMeaning, "-");
+        courseDay = Integer.valueOf(clips[0]);
+        courseTime = Integer.valueOf(clips[1]);
     }
 //
 // 数据库字段
@@ -61,6 +74,8 @@ public class Schedule extends AuditDomain {
 // ------------------------------------------------------------------------------
     @Transient
     private String courseName;
+    @Transient
+    private String weekMeaning;
 //
 // getter/setter
 // ------------------------------------------------------------------------------

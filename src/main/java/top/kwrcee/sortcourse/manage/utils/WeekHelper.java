@@ -10,7 +10,7 @@ import top.kwrcee.sortcourse.manage.vo.Week;
  * 获取值集数据中一周上课的天数课一天上课的节数
  */
 @Component
-public class WeekUtils {
+public class WeekHelper {
     @Autowired
     private ValueSetService valueSetService;
     public Week getGlobalWeek(){

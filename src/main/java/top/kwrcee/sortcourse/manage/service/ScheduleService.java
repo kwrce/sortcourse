@@ -22,4 +22,22 @@ public interface ScheduleService extends BaseService<Schedule> {
      * @return
      */
     String deleteList(List<Long> ids);
+
+    /**
+     * 时间表插入
+     * @param schedule
+     */
+    void insertSchedule(Schedule schedule);
+
+    /**
+     * 时间表更新
+     * @param schedule
+     */
+    void updateSchedule(Schedule schedule);
+
+    /**
+     * 删除时间表
+     * @param id
+     */
+    void deleteSchedule(Long id);
 }

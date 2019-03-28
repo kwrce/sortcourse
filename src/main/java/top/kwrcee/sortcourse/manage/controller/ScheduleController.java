@@ -11,10 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import top.kwrcee.sortcourse.manage.entities.Schedule;
-import top.kwrcee.sortcourse.manage.entities.ValueSet;
-import top.kwrcee.sortcourse.manage.service.CourseService;
 import top.kwrcee.sortcourse.manage.service.ScheduleService;
-import top.kwrcee.sortcourse.manage.service.ValueSetService;
+import top.kwrcee.sortcourse.manage.utils.ValueSetHelper;
 import top.kwrcee.sortcourse.manage.utils.WeekHelper;
 import top.kwrcee.sortcourse.manage.vo.Week;
 
@@ -33,9 +31,7 @@ public class ScheduleController {
     @Autowired
     private ScheduleService scheduleService;
     @Autowired
-    private ValueSetService valueSetService;
-    @Autowired
-    private CourseService courseService;
+    private ValueSetHelper valueSetHelper;
     @Autowired
     private WeekHelper weekHelper;
     /**

@@ -14,12 +14,10 @@ import top.kwrcee.sortcourse.manage.entities.Schedule;
 import top.kwrcee.sortcourse.manage.mapper.CourseMapper;
 import top.kwrcee.sortcourse.manage.service.CourseService;
 import top.kwrcee.sortcourse.manage.service.ScheduleService;
-import top.kwrcee.sortcourse.manage.service.ValueSetService;
 import top.kwrcee.sortcourse.manage.utils.Constants;
 import top.kwrcee.sortcourse.manage.utils.WeekHelper;
 import top.kwrcee.sortcourse.manage.vo.CourseVO;
 import top.kwrcee.sortcourse.manage.vo.Week;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +28,6 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
     CourseMapper courseMapper;
     @Autowired
     ScheduleService scheduleService;
-    @Autowired
-    ValueSetService valueSetService;
     @Autowired
     WeekHelper weekHelper;
 

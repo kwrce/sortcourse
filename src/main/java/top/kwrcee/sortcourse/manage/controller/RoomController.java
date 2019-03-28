@@ -1,7 +1,5 @@
 package top.kwrcee.sortcourse.manage.controller;
 
-import java.util.Date;
-import java.util.List;
 import io.choerodon.core.domain.Page;
 import io.choerodon.mybatis.pagehelper.annotation.SortDefault;
 import io.choerodon.mybatis.pagehelper.domain.PageRequest;
@@ -13,12 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import top.kwrcee.sortcourse.manage.entities.Room;
-import top.kwrcee.sortcourse.manage.entities.ValueSet;
 import top.kwrcee.sortcourse.manage.service.RoomService;
-import top.kwrcee.sortcourse.manage.service.ValueSetService;
 import top.kwrcee.sortcourse.manage.utils.Constants;
+import top.kwrcee.sortcourse.manage.utils.ValueSetHelper;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 
 /**
  *  管理 API
@@ -33,7 +31,7 @@ public class RoomController {
     @Autowired
     private RoomService roomService;
     @Autowired
-    private ValueSetService valueSetService;
+    private ValueSetHelper valueSetHelper;
 
     /**
      * 查询教室列表
@@ -50,9 +48,7 @@ public class RoomController {
         Page<Room> pageInfo=roomService.pageRoomList(pageRequest,room);
         model.addAttribute("pageInfo",pageInfo);
         //查询楼号的值集
-        ValueSet valueSet =new ValueSet();
-        valueSet.setName(Constants.ValueSet.BUILDING_NAME);
-        model.addAttribute("buildings",valueSetService.select(valueSet));
+        model.addAttribute("buildings",valueSetHelper.getValueList(ValueSetHelper.BUILDING_NAME));
         return "admin/room/room-list";
     }
     /**
@@ -105,9 +101,7 @@ public class RoomController {
         Room room = roomService.selectByPrimaryKey(id) ;
         model.addAttribute("room",room);
         //查询楼层的值集
-        ValueSet valueSet =new ValueSet();
-        valueSet.setName(Constants.ValueSet.BUILDING_NAME);
-        model.addAttribute("buildings",valueSetService.select(valueSet));
+        model.addAttribute("buildings",valueSetHelper.getValueList(ValueSetHelper.BUILDING_NAME));
         return "admin/room/room-detail";
     }
     /**
@@ -130,10 +124,8 @@ public class RoomController {
     @PreAuthorize("hasAuthority('add-room')")
     @GetMapping("/room")
     public String toAddPage(Model model){
-        ValueSet valueSet =new ValueSet();
         //查询楼层值集
-        valueSet.setName(Constants.ValueSet.BUILDING_NAME);
-        model.addAttribute("buildings",valueSetService.select(valueSet));
+        model.addAttribute("buildings",valueSetHelper.getValueList(ValueSetHelper.BUILDING_NAME));
         return "admin/room/room-add";
     }
 

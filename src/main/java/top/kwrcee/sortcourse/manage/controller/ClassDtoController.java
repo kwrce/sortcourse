@@ -11,10 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import top.kwrcee.sortcourse.manage.entities.ClassDto;
-import top.kwrcee.sortcourse.manage.entities.ValueSet;
 import top.kwrcee.sortcourse.manage.service.ClassDtoService;
-import top.kwrcee.sortcourse.manage.service.ValueSetService;
-import top.kwrcee.sortcourse.manage.utils.Constants;
+import top.kwrcee.sortcourse.manage.utils.ValueSetHelper;
 
 import java.util.List;
 
@@ -31,7 +29,7 @@ public class ClassDtoController {
     @Autowired
     private ClassDtoService classDtoService;
     @Autowired
-    private ValueSetService valueSetService;
+    private ValueSetHelper valueSetHelper;
 
     /**
      * 查询班级列表
@@ -46,6 +44,7 @@ public class ClassDtoController {
             direction = Sort.Direction.DESC) PageRequest pageRequest, ClassDto classDto){
         pageRequest.setSize(10);
         Page<ClassDto> pageInfo=classDtoService.pageClassDtoList(pageRequest,classDto);
+        model.addAttribute("grades",valueSetHelper.getValueList(ValueSetHelper.GRADE));
         model.addAttribute("pageInfo",pageInfo);
         return "admin/classDto/classDto-list";
     }
@@ -98,6 +97,7 @@ public class ClassDtoController {
     public String toEditPage(@PathVariable("id") Long id,Model model){
         ClassDto classDto = classDtoService.selectByPrimaryKey(id) ;
         model.addAttribute("classDto",classDto);
+        model.addAttribute("grades",valueSetHelper.getValueList(ValueSetHelper.GRADE));
         return "admin/classDto/classDto-detail";
     }
     /**
@@ -109,7 +109,7 @@ public class ClassDtoController {
     @PutMapping("/classDto")
     public String updateClassDto(ClassDto classDto){
         System.out.println(classDto);
-        Integer flag=classDtoService.updateByPrimaryKey(classDto);
+        classDtoService.updateByPrimaryKey(classDto);
         return "redirect:/manage-classDto/classDtos";
     }
     /**
@@ -120,10 +120,8 @@ public class ClassDtoController {
     @PreAuthorize("hasAuthority('add-classDto')")
     @GetMapping("/classDto")
     public String toAddPage(Model model){
-        ValueSet valueSet =new ValueSet();
-        //查询楼层值集
-        valueSet.setName(Constants.ValueSet.BUILDING_NAME);
-        model.addAttribute("buildings",valueSetService.select(valueSet));
+        //查询年级值集
+        model.addAttribute("grades",valueSetHelper.getValueList(ValueSetHelper.GRADE));
         return "admin/classDto/classDto-add";
     }
 

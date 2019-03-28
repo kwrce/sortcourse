@@ -12,6 +12,7 @@
         <result column="class_master" property="classMaster" jdbcType="VARCHAR"/>
         <result column="student_quantity" property="studentQuantity" jdbcType="DECIMAL"/>
         <result column="usage_status_flag" property="usageStatusFlag" jdbcType="DECIMAL"/>
+        <result column="grade" property="grade" jdbcType="DECIMAL"/>
     </resultMap>
     <sql id="BaseColumnList">
         rm
@@ -24,6 +25,7 @@
                cd.institute,
                cd.class_master,
                cd.student_quantity,
+               cd.grade,
                cd.usage_status_flag
         from class_dto cd
         <where>

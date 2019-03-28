@@ -11,7 +11,7 @@
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 28/03/2019 19:55:19
+ Date: 28/03/2019 21:53:22
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,7 @@ CREATE TABLE `class_dto`  (
   `major` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '专业',
   `class_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '班级名称',
   `institute` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所在学院',
-  `grade` varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '年级',
+  `grade` int(5) NULL DEFAULT NULL COMMENT '年级',
   `class_master` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '班主任',
   `student_quantity` int(5) NULL DEFAULT NULL COMMENT '班级人数',
   `usage_status_flag` int(2) NULL DEFAULT 1 COMMENT '启用标识',
@@ -36,15 +36,16 @@ CREATE TABLE `class_dto`  (
   `LAST_UPDATED_BY` bigint(20) NULL DEFAULT -1,
   `LAST_UPDATE_DATE` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`class_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '班级表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '班级表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of class_dto
 -- ----------------------------
-INSERT INTO `class_dto` VALUES (1, '18数字媒体技术', '2班', '数字媒体技术学院', NULL, '赵一娇', 35, 1, 2, -1, '2019-03-18 09:56:04', NULL, '2019-03-25 06:36:58');
-INSERT INTO `class_dto` VALUES (2, '17数字媒体技术', '3班', '数字媒体技术学院', NULL, '赵旭媛', 33, 1, 5, NULL, '2019-03-18 06:25:22', NULL, '2019-03-25 06:36:53');
-INSERT INTO `class_dto` VALUES (6, '15数字媒体技术', '1班', '数字媒体技术', NULL, '石宝明', 32, 1, 2, NULL, '2019-03-20 02:55:41', NULL, '2019-03-25 06:36:49');
-INSERT INTO `class_dto` VALUES (7, '16软件工程', '1班', '数字媒体技术', NULL, '马少斌', 44, 1, 3, NULL, '2019-03-20 02:56:28', NULL, '2019-03-25 06:36:39');
+INSERT INTO `class_dto` VALUES (1, '18数字媒体技术', '2班', '数字媒体技术学院', 138, '赵一娇', 35, 1, 2, -1, '2019-03-18 09:56:04', NULL, '2019-03-25 06:36:58');
+INSERT INTO `class_dto` VALUES (2, '17数字媒体技术', '3班', '数字媒体技术学院', 135, '赵旭媛', 33, 1, 5, NULL, '2019-03-18 06:25:22', NULL, '2019-03-25 06:36:53');
+INSERT INTO `class_dto` VALUES (6, '15数字媒体技术', '1班', '数字媒体技术', 137, '石宝明', 32, 1, 2, NULL, '2019-03-20 02:55:41', NULL, '2019-03-25 06:36:49');
+INSERT INTO `class_dto` VALUES (7, '16软件工程', '1班', '数字媒体技术', 137, '马少斌', 44, 1, 6, NULL, '2019-03-20 02:56:28', NULL, '2019-03-28 13:40:52');
+INSERT INTO `class_dto` VALUES (10, '大数据', '1班', '数字媒体就技术', 136, '无名', 33, 1, 1, NULL, '2019-03-28 13:43:25', NULL, '2019-03-28 13:43:25');
 
 -- ----------------------------
 -- Table structure for classroom
@@ -386,7 +387,7 @@ CREATE TABLE `value_set`  (
   `LAST_UPDATED_BY` bigint(20) NULL DEFAULT -1,
   `LAST_UPDATE_DATE` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 135 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '值集表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 139 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '值集表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of value_set
@@ -396,7 +397,11 @@ INSERT INTO `value_set` VALUES (129, 'building', '一号楼', '楼号', 1, -1, '
 INSERT INTO `value_set` VALUES (130, 'building', '二号楼', '楼号', 1, -1, '2019-03-11 10:56:55', -1, '2019-03-11 10:56:55');
 INSERT INTO `value_set` VALUES (131, 'building', '三号楼', '楼号', 1, -1, '2019-03-11 10:57:09', -1, '2019-03-11 10:57:09');
 INSERT INTO `value_set` VALUES (132, 'building', '四号楼', '楼号', 1, -1, '2019-03-11 10:57:18', -1, '2019-03-11 10:57:18');
-INSERT INTO `value_set` VALUES (133, 'week-day', '7', '一周课天数', 1, -1, '2019-03-11 11:22:54', -1, '2019-03-11 11:22:54');
+INSERT INTO `value_set` VALUES (133, 'week-day', '7', '一周上课天数', 1, -1, '2019-03-11 11:22:54', -1, '2019-03-11 11:22:54');
 INSERT INTO `value_set` VALUES (134, 'day-time', '6', '一天上课节数', 1, -1, '2019-03-23 14:16:59', -1, '2019-03-23 14:16:59');
+INSERT INTO `value_set` VALUES (135, 'grade', '16级', '2016级', 1, -1, '2019-03-28 20:47:21', -1, '2019-03-28 20:47:21');
+INSERT INTO `value_set` VALUES (136, 'grade', '17级', '2017级', 1, -1, '2019-03-28 20:48:06', -1, '2019-03-28 20:48:06');
+INSERT INTO `value_set` VALUES (137, 'grade', '18级', '2018级', 1, -1, '2019-03-28 20:48:21', -1, '2019-03-28 20:48:21');
+INSERT INTO `value_set` VALUES (138, 'grade', '19级', '2019级', 1, -1, '2019-03-28 20:48:34', -1, '2019-03-28 20:48:34');
 
 SET FOREIGN_KEY_CHECKS = 1;

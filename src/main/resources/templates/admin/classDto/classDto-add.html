@@ -7,8 +7,10 @@
     <meta name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
     <title>网站后台管理模版</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/admin/layui/css/layui.css}" href="../../../static/admin/layui/css/layui.css"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/admin.css}" href="../../../static/admin/css/admin.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/layui/css/layui.css}"
+          href="../../../static/admin/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/admin.css}"
+          href="../../../static/admin/css/admin.css"/>
 </head>
 <body>
 <div class="page-content-wrap">
@@ -20,20 +22,18 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item"></div>
-                <div class="layui-tab-item layui-show">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">专业名称：</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="major" required lay-verify="required" placeholder="请输入专业名称"
-                                   autocomplete="off" class="layui-input">
-                        </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">专业名称：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="major" required lay-verify="required" placeholder="请输入专业名称"
+                               autocomplete="off" class="layui-input">
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">班级名称：</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="className" required lay-verify="required" placeholder="请输入班级名称"
-                                   autocomplete="off" class="layui-input">
-                        </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">班级名称：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="className" required lay-verify="required" placeholder="请输入班级名称"
+                               autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -44,7 +44,20 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">班主任姓名：</label>
+                    <label class="layui-form-label">年级：</label>
+                    <div class="layui-input-block">
+                        <select name="grade" lay-verify="required">
+                            <option>请选择年级</option>
+                            <optgroup label="">
+                                <option th:each="grade : ${grades}" th:value="${grade.id}"
+                                        th:text="${grade.value}">
+                                </option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">班主任：</label>
                     <div class="layui-input-block">
                         <input type="text" name="classMaster" placeholder="请输入班主任姓名"
                                autocomplete="off" class="layui-input">
@@ -74,9 +87,12 @@
         </div>
     </form>
 </div>
-<script src="../../../static/admin/layui/layui.js" th:src="@{/admin/layui/layui.js}" type="text/javascript" charset="utf-8"></script>
-<script src="../../../static/admin/js/common.js" th:src="@{/admin/js/common.js}" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+<script src="../../../static/admin/layui/layui.js" th:src="@{/admin/layui/layui.js}" type="text/javascript"
+        charset="utf-8"></script>
+<script src="../../../static/admin/js/common.js" th:src="@{/admin/js/common.js}" type="text/javascript"
+        charset="utf-8"></script>
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"
+        th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
 <script>
 
     layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog', 'element', 'upload', 'layedit'], function () {

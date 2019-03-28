@@ -29,20 +29,32 @@
             <div class="layui-tab-content">
                 <div class="layui-tab-item"></div>
                 <div class="layui-tab-item layui-show">
-                    <div class="layui-tab-item layui-show">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">专业名称：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="major" required lay-verify="required" placeholder="请输入专业名称"
-                                       autocomplete="off" class="layui-input" th:value="${classDto.major}">
-                            </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">专业名称：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="major" required lay-verify="required" placeholder="请输入专业名称"
+                                   autocomplete="off" class="layui-input" th:value="${classDto.major}">
                         </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">班级名称：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="className" required lay-verify="required" placeholder="请输入班级名称"
-                                       autocomplete="off" class="layui-input" th:value="${classDto.className}">
-                            </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">班级名称：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="className" required lay-verify="required" placeholder="请输入班级名称"
+                                   autocomplete="off" class="layui-input" th:value="${classDto.className}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">年级：</label>
+                        <div class="layui-input-block">
+                            <select name="grade" lay-verify="required">
+                                <option>请选择年级</option>
+                                <optgroup label="">
+                                    <option th:each="grade : ${grades}" th:value="${grade.id}"
+                                            th:text="${grade.value}"
+                                            th:attr="selected=${classDto!=null}?${classDto.grade==grade.id}:false">
+                                    </option>
+                                </optgroup>
+                            </select>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -53,7 +65,7 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">班主任姓名：</label>
+                        <label class="layui-form-label">班主任：</label>
                         <div class="layui-input-block">
                             <input type="text" name="classMaster" placeholder="请输入班主任姓名"
                                    autocomplete="off" class="layui-input" th:value="${classDto.classMaster}">
@@ -69,8 +81,10 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">启用：</label>
                         <div class="layui-input-block">
-                            <input type="radio" name="usageStatusFlag" th:checked="${classDto!=null}?${classDto.usageStatusFlag==1}" value="1" title="正常">
-                            <input type="radio" name="usageStatusFlag" th:checked="${classDto!=null}?${classDto.usageStatusFlag==0}" value="0" title="禁用">
+                            <input type="radio" name="usageStatusFlag"
+                                   th:checked="${classDto!=null}?${classDto.usageStatusFlag==1}" value="1" title="正常">
+                            <input type="radio" name="usageStatusFlag"
+                                   th:checked="${classDto!=null}?${classDto.usageStatusFlag==0}" value="0" title="禁用">
                         </div>
                     </div>
                 </div>

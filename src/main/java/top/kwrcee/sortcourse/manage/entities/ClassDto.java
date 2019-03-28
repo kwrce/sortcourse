@@ -28,6 +28,7 @@ public class ClassDto extends AuditDomain {
     public static final String FIELD_CLASS_MASTER = "classMaster";
     public static final String FIELD_STUDENT_QUANTITY = "studentQuantity";
     public static final String FIELD_USAGE_STATUS_FLAG = "usageStatusFlag";
+    public static final String FIELD_GRADE = "grade";
 
 //
 // 业务方法(按public protected private顺序排列)
@@ -45,6 +46,7 @@ public class ClassDto extends AuditDomain {
     private String classMaster;
     private Integer studentQuantity;
     private Integer usageStatusFlag;
+    private Integer grade;
 
 //
 // 非数据库字段

@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import top.kwrcee.sortcourse.manage.entities.Teacher;
 import top.kwrcee.sortcourse.manage.entities.ValueSet;
 import top.kwrcee.sortcourse.manage.service.TeacherService;
-import top.kwrcee.sortcourse.manage.service.ValueSetService;
-import top.kwrcee.sortcourse.manage.utils.Constants;
 
 import java.util.List;
 
@@ -30,8 +28,6 @@ public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
-    @Autowired
-    private ValueSetService valueSetService;
 
     /**
      * 查询教师列表

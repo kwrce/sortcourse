@@ -17,14 +17,14 @@ import java.util.List;
 
 public interface CourseMapper extends BaseMapper<Course> {
     /**
-     * 模糊查询教室信息
+     * 模糊查询课程信息
      * @param course
      * @return
      */
     List<CourseVO> selectByCourse(Course course);
 
     /**
-     * 模糊查询教室信息（去重）
+     * 模糊查询课程信息（去重）
      * @param course
      * @return
      */

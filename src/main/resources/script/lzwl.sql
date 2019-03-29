@@ -11,7 +11,7 @@
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 28/03/2019 21:53:22
+ Date: 29/03/2019 15:50:54
 */
 
 SET NAMES utf8mb4;
@@ -41,10 +41,10 @@ CREATE TABLE `class_dto`  (
 -- ----------------------------
 -- Records of class_dto
 -- ----------------------------
-INSERT INTO `class_dto` VALUES (1, '18数字媒体技术', '2班', '数字媒体技术学院', 138, '赵一娇', 35, 1, 2, -1, '2019-03-18 09:56:04', NULL, '2019-03-25 06:36:58');
-INSERT INTO `class_dto` VALUES (2, '17数字媒体技术', '3班', '数字媒体技术学院', 135, '赵旭媛', 33, 1, 5, NULL, '2019-03-18 06:25:22', NULL, '2019-03-25 06:36:53');
-INSERT INTO `class_dto` VALUES (6, '15数字媒体技术', '1班', '数字媒体技术', 137, '石宝明', 32, 1, 2, NULL, '2019-03-20 02:55:41', NULL, '2019-03-25 06:36:49');
-INSERT INTO `class_dto` VALUES (7, '16软件工程', '1班', '数字媒体技术', 137, '马少斌', 44, 1, 6, NULL, '2019-03-20 02:56:28', NULL, '2019-03-28 13:40:52');
+INSERT INTO `class_dto` VALUES (1, '数字媒体技术', '2班', '数字媒体技术学院', 138, '赵一娇', 35, 1, 3, -1, '2019-03-18 09:56:04', NULL, '2019-03-29 02:14:36');
+INSERT INTO `class_dto` VALUES (2, '数字媒体技术', '3班', '数字媒体技术学院', 136, '赵旭媛', 33, 1, 8, NULL, '2019-03-18 06:25:22', NULL, '2019-03-29 02:15:33');
+INSERT INTO `class_dto` VALUES (6, '数字媒体技术', '1班', '数字媒体技术', 135, '石宝明', 32, 1, 3, NULL, '2019-03-20 02:55:41', NULL, '2019-03-29 02:14:24');
+INSERT INTO `class_dto` VALUES (7, '软件工程', '1班', '数字媒体技术', 135, '马少斌', 44, 1, 7, NULL, '2019-03-20 02:56:28', NULL, '2019-03-29 02:14:15');
 INSERT INTO `class_dto` VALUES (10, '大数据', '1班', '数字媒体就技术', 136, '无名', 33, 1, 1, NULL, '2019-03-28 13:43:25', NULL, '2019-03-28 13:43:25');
 
 -- ----------------------------
@@ -172,26 +172,26 @@ CREATE TABLE `course`  (
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES (66, 1, '数字媒体导论', 4, 10, 348, 7, 1, 1, 11, NULL, '2019-03-27 06:59:37', NULL, '2019-03-28 10:10:13');
-INSERT INTO `course` VALUES (67, 1, '数字媒体导论', 4, 10, 348, 7, 1, 1, 11, NULL, '2019-03-27 06:59:37', NULL, '2019-03-28 10:10:13');
-INSERT INTO `course` VALUES (68, 1, '数字媒体导论', 4, 10, 348, 7, 1, 1, 11, NULL, '2019-03-27 06:59:37', NULL, '2019-03-28 10:10:13');
-INSERT INTO `course` VALUES (69, 1, '数字媒体导论', 4, 10, 348, 7, 1, 1, 11, NULL, '2019-03-27 06:59:37', NULL, '2019-03-28 10:10:13');
-INSERT INTO `course` VALUES (70, 2, 'HTML', 4, 7, 347, 7, 1, 1, 11, NULL, '2019-03-27 07:01:00', NULL, '2019-03-28 10:10:14');
-INSERT INTO `course` VALUES (71, 2, 'HTML', 4, 7, 347, 7, 1, 1, 11, NULL, '2019-03-27 07:01:00', NULL, '2019-03-28 10:10:14');
-INSERT INTO `course` VALUES (72, 2, 'HTML', 4, 7, 347, 7, 1, 1, 11, NULL, '2019-03-27 07:01:00', NULL, '2019-03-28 10:10:14');
-INSERT INTO `course` VALUES (73, 2, 'HTML', 4, 7, 347, 7, 1, 1, 13, NULL, '2019-03-27 07:01:00', NULL, '2019-03-28 10:10:14');
-INSERT INTO `course` VALUES (74, 3, 'Android', 4, 7, 346, 6, 1, 1, 11, NULL, '2019-03-27 07:04:39', NULL, '2019-03-28 10:10:13');
-INSERT INTO `course` VALUES (75, 3, 'Android', 4, 7, 346, 6, 1, 1, 11, NULL, '2019-03-27 07:04:39', NULL, '2019-03-28 10:10:13');
-INSERT INTO `course` VALUES (76, 3, 'Android', 4, 7, 346, 6, 1, 1, 11, NULL, '2019-03-27 07:04:39', NULL, '2019-03-28 10:10:13');
-INSERT INTO `course` VALUES (77, 3, 'Android', 4, 7, 346, 6, 1, 1, 11, NULL, '2019-03-27 07:04:39', NULL, '2019-03-28 10:10:14');
-INSERT INTO `course` VALUES (86, 4, '毛概', 2, 6, 346, 2, 1, 1, 13, NULL, '2019-03-27 08:20:12', NULL, '2019-03-28 10:10:14');
-INSERT INTO `course` VALUES (87, 4, '毛概', 2, 6, 346, 2, 1, 1, 13, NULL, '2019-03-27 08:20:12', NULL, '2019-03-28 10:10:14');
-INSERT INTO `course` VALUES (92, 5, 'c语言', 4, 10, 345, 7, 1, 1, 10, NULL, '2019-03-28 06:01:06', NULL, '2019-03-28 10:10:14');
-INSERT INTO `course` VALUES (93, 5, 'c语言', 4, 10, 345, 7, 1, 1, 5, NULL, '2019-03-28 06:01:06', NULL, '2019-03-28 10:10:14');
-INSERT INTO `course` VALUES (94, 5, 'c语言', 4, 10, 345, 7, 1, 1, 10, NULL, '2019-03-28 06:01:06', NULL, '2019-03-28 10:10:14');
-INSERT INTO `course` VALUES (95, 5, 'c语言', 4, 10, 345, 7, 1, 1, 5, NULL, '2019-03-28 06:01:06', NULL, '2019-03-28 10:10:14');
-INSERT INTO `course` VALUES (98, 6, '前端技术', 2, 10, 348, 7, 1, 1, 3, NULL, '2019-03-28 06:09:32', NULL, '2019-03-28 10:10:14');
-INSERT INTO `course` VALUES (99, 6, '前端技术', 2, 10, 348, 7, 1, 1, 5, NULL, '2019-03-28 06:09:32', NULL, '2019-03-28 10:11:14');
+INSERT INTO `course` VALUES (66, 1, '数字媒体导论', 4, 10, 348, 7, 1, 1, 13, NULL, '2019-03-27 06:59:37', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (67, 1, '数字媒体导论', 4, 10, 348, 7, 1, 1, 13, NULL, '2019-03-27 06:59:37', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (68, 1, '数字媒体导论', 4, 10, 348, 7, 1, 1, 13, NULL, '2019-03-27 06:59:37', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (69, 1, '数字媒体导论', 4, 10, 348, 7, 1, 1, 13, NULL, '2019-03-27 06:59:37', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (70, 2, 'HTML', 4, 7, 347, 7, 1, 1, 13, NULL, '2019-03-27 07:01:00', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (71, 2, 'HTML', 4, 7, 347, 7, 1, 1, 13, NULL, '2019-03-27 07:01:00', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (72, 2, 'HTML', 4, 7, 347, 7, 1, 1, 13, NULL, '2019-03-27 07:01:00', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (73, 2, 'HTML', 4, 7, 347, 7, 1, 1, 15, NULL, '2019-03-27 07:01:00', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (74, 3, 'Android', 4, 7, 346, 6, 1, 1, 13, NULL, '2019-03-27 07:04:39', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (75, 3, 'Android', 4, 7, 346, 6, 1, 1, 13, NULL, '2019-03-27 07:04:39', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (76, 3, 'Android', 4, 7, 346, 6, 1, 1, 13, NULL, '2019-03-27 07:04:39', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (77, 3, 'Android', 4, 7, 346, 6, 1, 1, 13, NULL, '2019-03-27 07:04:39', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (86, 4, '毛概', 2, 6, 346, 2, 1, 1, 15, NULL, '2019-03-27 08:20:12', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (87, 4, '毛概', 2, 6, 346, 2, 1, 1, 15, NULL, '2019-03-27 08:20:12', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (92, 5, 'c语言', 4, 10, 345, 7, 1, 1, 12, NULL, '2019-03-28 06:01:06', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (93, 5, 'c语言', 4, 10, 345, 7, 1, 1, 7, NULL, '2019-03-28 06:01:06', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (94, 5, 'c语言', 4, 10, 345, 7, 1, 1, 12, NULL, '2019-03-28 06:01:06', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (95, 5, 'c语言', 4, 10, 345, 7, 1, 1, 7, NULL, '2019-03-28 06:01:06', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (98, 6, '前端技术', 2, 10, 348, 7, 1, 1, 5, NULL, '2019-03-28 06:09:32', NULL, '2019-03-29 02:00:56');
+INSERT INTO `course` VALUES (99, 6, '前端技术', 2, 10, 348, 7, 1, 1, 9, NULL, '2019-03-28 06:09:32', NULL, '2019-03-29 02:02:54');
 
 -- ----------------------------
 -- Table structure for schedule
@@ -210,31 +210,31 @@ CREATE TABLE `schedule`  (
   `LAST_UPDATE_DATE` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`time_id`) USING BTREE,
   UNIQUE INDEX `UK_schedule_course_id`(`course_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 309 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '时间表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 330 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '时间表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of schedule
 -- ----------------------------
-INSERT INTO `schedule` VALUES (288, 66, 1, 1, 1, 1, NULL, '2019-03-28 10:10:13', NULL, '2019-03-28 10:10:13');
-INSERT INTO `schedule` VALUES (289, 74, 1, 1, 1, 1, NULL, '2019-03-28 10:10:13', NULL, '2019-03-28 10:10:13');
-INSERT INTO `schedule` VALUES (290, 67, 1, 2, 1, 1, NULL, '2019-03-28 10:10:13', NULL, '2019-03-28 10:10:13');
-INSERT INTO `schedule` VALUES (291, 75, 1, 2, 1, 1, NULL, '2019-03-28 10:10:13', NULL, '2019-03-28 10:10:13');
-INSERT INTO `schedule` VALUES (292, 68, 1, 3, 1, 1, NULL, '2019-03-28 10:10:13', NULL, '2019-03-28 10:10:13');
-INSERT INTO `schedule` VALUES (293, 76, 1, 3, 1, 1, NULL, '2019-03-28 10:10:13', NULL, '2019-03-28 10:10:13');
-INSERT INTO `schedule` VALUES (294, 69, 1, 4, 1, 1, NULL, '2019-03-28 10:10:13', NULL, '2019-03-28 10:10:13');
-INSERT INTO `schedule` VALUES (295, 77, 1, 4, 1, 1, NULL, '2019-03-28 10:10:14', NULL, '2019-03-28 10:10:14');
-INSERT INTO `schedule` VALUES (296, 70, 1, 5, 1, 1, NULL, '2019-03-28 10:10:14', NULL, '2019-03-28 10:10:14');
-INSERT INTO `schedule` VALUES (297, 86, 1, 5, 1, 1, NULL, '2019-03-28 10:10:14', NULL, '2019-03-28 10:10:14');
-INSERT INTO `schedule` VALUES (298, 71, 1, 6, 1, 1, NULL, '2019-03-28 10:10:14', NULL, '2019-03-28 10:10:14');
-INSERT INTO `schedule` VALUES (299, 87, 5, 1, 1, 3, NULL, '2019-03-28 10:10:14', NULL, '2019-03-28 11:04:30');
-INSERT INTO `schedule` VALUES (300, 72, 2, 1, 1, 1, NULL, '2019-03-28 10:10:14', NULL, '2019-03-28 10:10:14');
-INSERT INTO `schedule` VALUES (301, 73, 2, 2, 1, 1, NULL, '2019-03-28 10:10:14', NULL, '2019-03-28 10:10:14');
-INSERT INTO `schedule` VALUES (302, 92, 5, 1, 1, 2, NULL, '2019-03-28 10:10:14', NULL, '2019-03-28 11:04:17');
-INSERT INTO `schedule` VALUES (303, 93, 4, 4, 1, 2, NULL, '2019-03-28 10:10:14', NULL, '2019-03-28 11:04:40');
-INSERT INTO `schedule` VALUES (304, 94, 4, 3, 1, 2, NULL, '2019-03-28 10:10:14', NULL, '2019-03-28 11:04:06');
-INSERT INTO `schedule` VALUES (305, 95, 2, 6, 1, 1, NULL, '2019-03-28 10:10:14', NULL, '2019-03-28 10:10:14');
-INSERT INTO `schedule` VALUES (307, 98, 5, 2, 1, 3, NULL, '2019-03-28 10:10:14', NULL, '2019-03-28 10:58:38');
-INSERT INTO `schedule` VALUES (308, 99, 3, 1, 1, 1, NULL, '2019-03-28 10:11:14', NULL, '2019-03-28 10:11:14');
+INSERT INTO `schedule` VALUES (309, 66, 1, 1, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (310, 74, 1, 1, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (311, 67, 1, 2, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (312, 75, 1, 2, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (313, 68, 1, 3, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (314, 76, 1, 3, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (315, 69, 1, 4, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (316, 77, 1, 4, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (317, 70, 1, 5, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (318, 86, 1, 5, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (319, 71, 1, 6, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (320, 87, 1, 6, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (321, 72, 2, 1, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (322, 73, 2, 2, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (323, 92, 2, 3, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (324, 93, 2, 4, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (325, 94, 2, 5, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (326, 95, 2, 6, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (327, 98, 3, 1, 1, 1, NULL, '2019-03-29 02:00:56', NULL, '2019-03-29 02:00:56');
+INSERT INTO `schedule` VALUES (329, 99, 3, 2, 1, 3, NULL, '2019-03-29 02:02:54', NULL, '2019-03-29 03:16:36');
 
 -- ----------------------------
 -- Table structure for student
@@ -387,7 +387,7 @@ CREATE TABLE `value_set`  (
   `LAST_UPDATED_BY` bigint(20) NULL DEFAULT -1,
   `LAST_UPDATE_DATE` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 139 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '值集表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 143 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '值集表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of value_set
@@ -403,5 +403,8 @@ INSERT INTO `value_set` VALUES (135, 'grade', '16级', '2016级', 1, -1, '2019-0
 INSERT INTO `value_set` VALUES (136, 'grade', '17级', '2017级', 1, -1, '2019-03-28 20:48:06', -1, '2019-03-28 20:48:06');
 INSERT INTO `value_set` VALUES (137, 'grade', '18级', '2018级', 1, -1, '2019-03-28 20:48:21', -1, '2019-03-28 20:48:21');
 INSERT INTO `value_set` VALUES (138, 'grade', '19级', '2019级', 1, -1, '2019-03-28 20:48:34', -1, '2019-03-28 20:48:34');
+INSERT INTO `value_set` VALUES (139, 'sort-condition', '教师ID', '教师ID', 1, -1, '2019-03-29 12:05:30', -1, '2019-03-29 12:05:30');
+INSERT INTO `value_set` VALUES (140, 'sort-condition', '班级ID', '专业ID', 1, -1, '2019-03-29 12:05:56', -1, '2019-03-29 12:05:56');
+INSERT INTO `value_set` VALUES (141, 'sort-condition', '教室ID', '教室ID', 1, -1, '2019-03-29 12:07:21', -1, '2019-03-29 12:07:21');
 
 SET FOREIGN_KEY_CHECKS = 1;

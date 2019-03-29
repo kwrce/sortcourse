@@ -73,8 +73,14 @@
 										<button th:if="${courseVO.sortStatusFlag==0}" class="layui-btn layui-btn-mini layui-btn-danger">未排课</button>
 										<button th:if="${courseVO.sortStatusFlag==-1}" class="layui-btn layui-btn-mini layui-btn-warm">部分排课</button>
 									</td>
-									<td th:text="${courseVO.courseName}"></td>
-									<td class="hidden-xs" th:text="${courseVO.major}"></td>
+									<td th:text="${courseVO.courseName}">
+									</td>
+									<td class="hidden-xs">
+										<th:block th:each="gra : ${grades}">
+											<th:block th:if="${gra.id == courseVO.grade}" th:text="${#strings.concat(gra.value,courseVO.major)}">
+											</th:block>
+										</th:block>
+									</td>
 									<td th:text="${courseVO.className}">xxx</td>
 									<td th:text="${courseVO.courseQuantity}">xxx</td>
 									<td class="hidden-xs" th:text="${courseVO.roomNum}"></td>

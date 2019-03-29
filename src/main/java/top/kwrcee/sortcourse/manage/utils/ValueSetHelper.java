@@ -28,6 +28,10 @@ public class ValueSetHelper {
      * 年级
      */
     public static final String GRADE = "grade";
+    /**
+     * 排课条件查询
+     */
+    public static final String SORT_CONDITION = "sort-condition";
 
     @Autowired
     ValueSetService valueSetService;

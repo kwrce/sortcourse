@@ -26,7 +26,7 @@
         co.sort_status_flag,
         co.OBJECT_VERSION_NUMBER
     </sql>
-    <!--时间表查询-->
+    <!--课程表去重查询-->
     <select id="selectByCourseDistinct" parameterType="top.kwrcee.sortcourse.manage.entities.Course"
             resultType="top.kwrcee.sortcourse.manage.vo.CourseVO">
         select
@@ -41,7 +41,8 @@
         cd.class_name,
         cd.major,
         co.course_num,
-        co.course_quantity
+        co.course_quantity,
+        cd.grade
         from course co
         left join teacher th on th.teacher_id=co.teacher_id
         left join classroom rm on rm.room_id = co.room_id
@@ -72,6 +73,7 @@
             </if>
         </where>
     </select>
+    <!--汇总查询课程信息-->
     <select id="selectByCourse" parameterType="top.kwrcee.sortcourse.manage.entities.Course"
             resultType="top.kwrcee.sortcourse.manage.vo.CourseVO">
         select
@@ -82,6 +84,7 @@
         rm.room_num,
         cd.class_name,
         cd.major,
+        cd.grade,
         <include refid="BaseColumnList"/>
         from course co
         left join teacher th on th.teacher_id=co.teacher_id
@@ -103,11 +106,14 @@
             <if test="teacherId != null">
                 and co.teacher_id = #{teacherId,jdbcType=DECIMAL}
             </if>
-            <if test="courseId != null">
+            <if test="roomId != null">
                 and co.room_id = #{roomId,jdbcType=DECIMAL}
             </if>
-            <if test="courseId != null">
+            <if test="classId != null">
                 and co.class_id = #{classId,jdbcType=DECIMAL}
+            </if>
+            <if test="grade != null">
+                and cd.grade = #{grade,jdbcType=DECIMAL}
             </if>
             <if test="usageStatusFlag != null ">
                 and co.usage_status_flag = #{usageStatusFlag,jdbcType=DECIMAL}

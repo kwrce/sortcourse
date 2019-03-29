@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import top.kwrcee.sortcourse.manage.entities.Course;
 import top.kwrcee.sortcourse.manage.entities.ValueSet;
 import top.kwrcee.sortcourse.manage.service.CourseService;
+import top.kwrcee.sortcourse.manage.utils.ValueSetHelper;
 import top.kwrcee.sortcourse.manage.vo.CourseVO;
 
 import java.util.List;
@@ -29,6 +30,8 @@ public class CourseController {
 
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private ValueSetHelper valueSetHelper;
 
     /**
      * 查询课程列表
@@ -44,6 +47,7 @@ public class CourseController {
         pageRequest.setSize(10);
         Page<CourseVO> pageInfo=courseService.pageCourseList(pageRequest,course);
         model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("grades",valueSetHelper.getValueList(ValueSetHelper.GRADE));
         return "admin/course/course-list";
     }
     /**

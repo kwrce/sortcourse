@@ -94,7 +94,7 @@ public class CourseVO extends AuditDomain {
     private String className;
     private Integer courseDay;
     private Integer courseTime;
-    private Integer grade;
+    private Long grade;
     private String condition;
     private String conditionType;
 

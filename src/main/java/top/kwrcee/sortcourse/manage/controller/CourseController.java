@@ -73,7 +73,7 @@ public class CourseController {
     public ResponseEntity<String> deleteCourse(@PathVariable("courseNum")Long courseNum){
         Course condition =new Course();
         condition.setCourseNum(courseNum);
-        courseService.delete(condition);
+        courseService.deleteCourse(condition);
         return ResponseEntity.ok("success");
     }
     /**

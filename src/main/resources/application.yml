@@ -17,7 +17,7 @@ logging:
         usingthymeleaf:
           mapper: DEBUG
     root: info
-    top.kwrcee.manage: debug
+    top.kwrcee.sortcourse.manage: debug
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss} [%thread][%level] %logger- %msg%n'
 
@@ -33,7 +33,7 @@ spring:
       enabled: ALWAYS
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: root
+    password: 123
     url: jdbc:mysql://localhost:3306/lzwl?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE&serverTimezone=UTC&useLegacyDatetimeCode=false
     username: root
   http:
@@ -57,3 +57,4 @@ spring:
     port: 6379
     database: 5
 console-available: true
+

@@ -36,6 +36,19 @@ public interface CourseMapper extends BaseMapper<Course> {
      */
     Long queryMaxLineNum();
 
+    /**
+     * 判断冲突时需要进行的查询
+     * @param course
+     * @param week
+     * @return
+     */
     List<CourseVO> selectTimeTable(@Param("course") Course course,@Param("week")Week week);
+
+    /**
+     * 按年级计算每天的课程数
+     * @return
+     * @param day
+     */
+    List<Integer> selectCourseAmountAsDay(Integer day);
 }
 

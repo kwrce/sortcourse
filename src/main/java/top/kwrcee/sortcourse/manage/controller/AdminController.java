@@ -9,12 +9,15 @@ import top.kwrcee.sortcourse.manage.dao.DepartmentDao;
 import top.kwrcee.sortcourse.manage.dao.EmployeeDao;
 import top.kwrcee.sortcourse.manage.entities.Department;
 import top.kwrcee.sortcourse.manage.entities.Employee;
+import top.kwrcee.sortcourse.manage.service.CourseService;
 
 import java.util.Collection;
 
 @Controller
 public class AdminController {
-    //查询员工列表
+    @Autowired
+    CourseService courseService;
+
     @GetMapping("/admin")
     public String list (Model model){
         return "admin/index/index";
@@ -24,6 +27,7 @@ public class AdminController {
      */
     @GetMapping("/welcome")
     public String welcome (Model model){
+        courseService.countCourse(model);
         return "admin/index/welcome";
     }
 }

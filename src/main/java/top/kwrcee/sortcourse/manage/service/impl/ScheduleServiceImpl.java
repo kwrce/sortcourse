@@ -27,13 +27,20 @@ public class ScheduleServiceImpl extends BaseServiceImpl<Schedule> implements Sc
         return PageHelper.doPageAndSort(pageRequest,()->scheduleMapper.selectBySchedule(schedule));
     }
 
+    /**
+     * 时间表信息批量删除
+     * @param ids
+     * @return
+     */
     @Override
     public String deleteList(List<Long> ids) {
         ids.forEach(id->{
             Schedule schedule = scheduleMapper.selectByPrimaryKey(id);
             Course course=courseService.selectByPrimaryKey(schedule.getCourseId());
-            course.setSortStatusFlag(Constants.Flag.NO);
-            courseService.updateOptional(course,Course.FIELD_SORT_STATUS_FLAG);
+            if(course!=null){
+                course.setSortStatusFlag(Constants.Flag.NO);
+                courseService.updateOptional(course,Course.FIELD_SORT_STATUS_FLAG);
+            }
             scheduleMapper.deleteByPrimaryKey(id);
         });
         return "success";
@@ -77,7 +84,12 @@ public class ScheduleServiceImpl extends BaseServiceImpl<Schedule> implements Sc
         scheduleMapper.updateByPrimaryKey(schedule);
     }
 
+    /**
+     * 删除时间表信息， 同时将课程表中的排课标识置为0
+     * @param id
+     */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteSchedule(Long id) {
         //删除时间表的时候将数据库中课程的排课表示置为 0
         Schedule schedule = scheduleMapper.selectByPrimaryKey(id);

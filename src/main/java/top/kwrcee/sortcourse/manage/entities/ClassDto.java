@@ -46,7 +46,7 @@ public class ClassDto extends AuditDomain {
     private String classMaster;
     private Integer studentQuantity;
     private Integer usageStatusFlag;
-    private Integer grade;
+    private Long grade;
 
 //
 // 非数据库字段

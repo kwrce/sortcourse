@@ -70,8 +70,8 @@
     <tbody>
     <tr th:each="i : ${#numbers.sequence(1,week.getTime())}">
         <td th:text="${i}" style="text-align: center"></td>
-        <td th:each="j :${#numbers.sequence(1,week.getDay())}" width="140" height="100">
-            <div th:each="course:${sortedCourses}" style="text-align: center;font-size: 10px">
+        <td th:each="j :${#numbers.sequence(1,week.getDay())}" width="200" height="100">
+            <div th:each="course:${sortedCourses}" style="text-align: center;font-size: 15px">
                 <th:block th:each="gra : ${grades}">
                     <th:block th:if="${gra.id == course.grade}">
                         <div th:text="${course.courseDay == j && course.courseTime == i}?${course.courseName}+'-'+${course.teacherName}+'-'+${#strings.concat(gra.value,course.major)}+'-'+${course.className}+'|'+${course.roomNum}">

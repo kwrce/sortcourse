@@ -67,7 +67,7 @@ public class Course extends AuditDomain {
     @Transient
     private Integer distinctFlag;
     @Transient
-    private Integer grade;
+    private Long grade;
 //
 // getter/setter
 // ------------------------------------------------------------------------------

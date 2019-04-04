@@ -29,6 +29,11 @@ public class AutoSortCourseController {
     @Autowired
     ValueSetHelper valueSetHelper;
 
+    /**
+     * 排课
+     * @param model
+     * @return
+     */
     @PreAuthorize("hasAuthority('list-course')")
     @PostMapping("/sort")
     public String sortCourse(Model model){
@@ -36,6 +41,13 @@ public class AutoSortCourseController {
         model.addAttribute("list",list);
         return "redirect:/auto-sort/course-sorted";
     }
+
+    /**
+     * 课表查询
+     * @param model
+     * @param courseVO
+     * @return
+     */
     @PreAuthorize("hasAuthority('list-course')")
     @GetMapping("/course-sorted")
     public String listSorted(Model model,CourseVO courseVO){

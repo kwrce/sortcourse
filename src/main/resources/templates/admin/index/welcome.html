@@ -15,36 +15,47 @@
 				<div class="welcome-left-container col-lg-9">
 					<div class="data-show">
 						<ul class="clearfix">
-							<li class="col-sm-12 col-md-4 col-xs-12">
+							<li class="col-sm-12 col-md-3 col-xs-12">
 								<a href="javascript:;" class="clearfix">
 									<div class="icon-bg bg-org f-l">
 										<span class="iconfont">&#xe606;</span>
 									</div>
 									<div class="right-text-con">
-										<p class="name">会员数</p>
+										<p class="name">16级课程数</p>
 										<p><span class="color-org">89</span>数据<span class="iconfont">&#xe628;</span></p>
 									</div>
 								</a>
 							</li>
-							<li class="col-sm-12 col-md-4 col-xs-12">
+							<li class="col-sm-12 col-md-3 col-xs-12">
 								<a href="javascript:;" class="clearfix">
 									<div class="icon-bg bg-blue f-l">
 										<span class="iconfont">&#xe602;</span>
 									</div>
 									<div class="right-text-con">
-										<p class="name">文章数</p>
+										<p class="name">17级课程数</p>
 										<p><span class="color-blue">189</span>数据<span class="iconfont">&#xe628;</span></p>
 									</div>
 								</a>
 							</li>
-							<li class="col-sm-12 col-md-4 col-xs-12">
+							<li class="col-sm-12 col-md-3 col-xs-12">
 								<a href="javascript:;" class="clearfix">
 									<div class="icon-bg bg-green f-l">
 										<span class="iconfont">&#xe605;</span>
 									</div>
 									<div class="right-text-con">
-										<p class="name">评论数</p>
+										<p class="name">18级课程数</p>
 										<p><span class="color-green">221</span>数据<span class="iconfont">&#xe60f;</span></p>
+									</div>
+								</a>
+							</li>
+							<li class="col-sm-12 col-md-3 col-xs-12">
+								<a href="javascript:;" class="clearfix">
+									<div class="icon-bg bg-green f-l">
+										<span class="iconfont">&#xe605;</span>
+									</div>
+									<div class="right-text-con">
+										<p class="name">19级课程数</p>
+										<p><span class="color-green">321</span>数据<span class="iconfont">&#xe60f;</span></p>
 									</div>
 								</a>
 							</li>
@@ -96,7 +107,7 @@
 								  <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="http://static.h-ui.net/h-ui/images/ucnter/avatar-default.jpg"></i></a>
 								    <div class="comment-main">
 								      <header class="comment-header">
-								        <div class="comment-meta"><a class="comment-author" href="#">慕枫</a> 评论于
+								        <div class="comment-meta"><a class="comment-author" href="#">慕枫</a> 18级于
 								          <time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time>
 								        </div>
 								      </header>
@@ -108,7 +119,7 @@
 								  <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="http://static.h-ui.net/h-ui/images/ucnter/avatar-default.jpg"></i></a>
 								    <div class="comment-main">
 								      <header class="comment-header">
-								        <div class="comment-meta"><a class="comment-author" href="#">慕枫</a> 评论于
+								        <div class="comment-meta"><a class="comment-author" href="#">慕枫</a> 18级于
 								          <time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time>
 								        </div>
 								      </header>
@@ -120,7 +131,7 @@
 								   <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="http://static.h-ui.net/h-ui/images/ucnter/avatar-default.jpg"></i></a>
 								    <div class="comment-main">
 								      <header class="comment-header">
-								        <div class="comment-meta"><a class="comment-author" href="#">慕枫</a> 评论于
+								        <div class="comment-meta"><a class="comment-author" href="#">慕枫</a> 18级于
 								          <time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time>
 								        </div>
 								      </header>
@@ -132,7 +143,7 @@
 								  <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="http://static.h-ui.net/h-ui/images/ucnter/avatar-default.jpg"></i></a>
 								    <div class="comment-main">
 								      <header class="comment-header">
-								        <div class="comment-meta"><a class="comment-author" href="#">慕枫</a> 评论于
+								        <div class="comment-meta"><a class="comment-author" href="#">慕枫</a> 18级于
 								          <time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time>
 								        </div>
 								      </header>
@@ -162,6 +173,7 @@
 		<script src="../../../static/admin/layui/layui.js" th:src="@{/admin/layui/layui.js}" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../static/admin/lib/echarts/echarts.js" th:src="@{/admin/lib/echarts/echarts.js}"></script>
 		<script type="text/javascript">
+
 			layui.use(['layer','jquery'], function(){
 				var layer 	= layui.layer;
 				var $=layui.jquery;
@@ -197,7 +209,7 @@
 						        trigger: "axis"
 						    },
 						    legend: {
-						        data: ["会员", "文章", "评论"],
+						        data: ["16级", "17级", "18级", "19级"],
 						        selectedMode: false,
 						    },
 						    toolbox: {
@@ -241,7 +253,7 @@
 						    },
 						    series: [
 						        {
-						            name: "会员",
+						            name: "16级",
 						            type: "line",
 						            smooth: true,
 						            itemStyle: {
@@ -251,10 +263,10 @@
 						                    }
 						                }
 						            },
-						            data: [10, 12, 21, 54, 260, 830, 710]
+						            data: [[${collage135}]]
 						        },
 						        {
-						            name: "文章",
+						            name: "17级",
 						            type: "line",
 						            smooth: true,
 						            itemStyle: {
@@ -264,22 +276,36 @@
 						                    }
 						                }
 						            },
-						            data: [30, 182, 434, 791, 390, 30, 10]
+						            data: [[${collage136}]]
 						        },
-						        {
-						            name: "评论",
-						            type: "line",
-						            smooth: true,
-						            itemStyle: {
-						                normal: {
-						                    areaStyle: {
-						                        type: "default"
-						                    },
-						                    color: "rgb(110, 211, 199)"
-						                }
-						            },
-						            data: [1320, 1132, 601, 234, 120, 90, 20]
-						        }
+								{
+									name: "18级",
+									type: "line",
+									smooth: true,
+									itemStyle: {
+										normal: {
+											areaStyle: {
+												type: "default"
+											},
+											color: "rgb(110, 211, 199)"
+										}
+									},
+									data: [[${collage137}]]
+								},
+								{
+									name: "19级",
+									type: "line",
+									smooth: true,
+									itemStyle: {
+										normal: {
+											areaStyle: {
+												type: "default"
+											},
+											color: "rgb(110, 11, 99)"
+										}
+									},
+									data: [[${collage138}]]
+								}
 						    ]
 						}
 				        );

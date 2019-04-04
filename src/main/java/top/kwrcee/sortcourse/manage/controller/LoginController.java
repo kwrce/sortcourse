@@ -6,15 +6,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import top.kwrcee.sortcourse.manage.entities.SysUser;
 import top.kwrcee.sortcourse.manage.service.SysPermissionService;
 import top.kwrcee.sortcourse.manage.service.SysRoleService;
 import top.kwrcee.sortcourse.manage.service.SysUserService;
-
-import javax.servlet.http.HttpSession;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/")

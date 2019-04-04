@@ -3,6 +3,7 @@ package top.kwrcee.sortcourse.manage.service;
 import io.choerodon.core.domain.Page;
 import io.choerodon.mybatis.pagehelper.domain.PageRequest;
 import io.choerodon.mybatis.service.BaseService;
+import org.springframework.ui.Model;
 import top.kwrcee.sortcourse.manage.entities.Course;
 import top.kwrcee.sortcourse.manage.vo.CourseVO;
 
@@ -56,4 +57,16 @@ public interface CourseService extends BaseService<Course> {
      * @return
      */
     String deleteList(List<Long> nums);
+
+    /**
+     * 按照年级计算每天的课程数
+     * @param model
+     */
+    void countCourse(Model model);
+
+    /**
+     * 删除课程信息
+     * @param condition
+     */
+    void deleteCourse(Course condition);
 }

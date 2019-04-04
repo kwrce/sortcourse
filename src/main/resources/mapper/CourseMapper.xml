@@ -158,7 +158,19 @@
             and sh.course_time = #{week.time,jdbcType=DECIMAL}
         </if>
         <if test="course.sortStatusFlag">
-            and co.sort_status_flag = #{co.sortStatusFlag,jdbcType=DECIMAL}
+            and co.sort_status_flag = #{course.sortStatusFlag,jdbcType=DECIMAL}
         </if>
+        <if test="course.grade">
+            and cd.grade = #{course.grade,jdbcType=DECIMAL}
+        </if>
+    </select>
+    <select id="selectCourseAmountAsDay" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(sh.course_day)
+        from course co
+        left join class_dto cl on cl.class_id = co.class_id
+        left join value_set vs on vs.id = cl.grade
+        left join `schedule` sh on sh.course_id = co.course_id
+        GROUP BY sh.course_day
+        order by sh.course_day
     </select>
 </mapper>

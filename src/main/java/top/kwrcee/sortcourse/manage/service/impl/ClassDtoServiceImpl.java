@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import top.kwrcee.sortcourse.manage.entities.ClassDto;
 import top.kwrcee.sortcourse.manage.mapper.ClassDtoMapper;
 import top.kwrcee.sortcourse.manage.service.ClassDtoService;
+import top.kwrcee.sortcourse.manage.service.CourseService;
 
 import java.util.List;
 
@@ -16,10 +17,19 @@ import java.util.List;
 public class ClassDtoServiceImpl extends BaseServiceImpl<ClassDto> implements ClassDtoService {
     @Autowired
     ClassDtoMapper classDtoMapper;
+    @Autowired
+    CourseService courseService;
 
     @Override
     public Page<ClassDto> pageClassDtoList(PageRequest pageRequest, ClassDto classDto) {
-        return PageHelper.doPageAndSort(pageRequest,()->classDtoMapper.selectByClassDto(classDto));
+        return PageHelper.doPageAndSort(pageRequest,()->{
+            List<ClassDto> classDtos = classDtoMapper.selectByClassDto(classDto);
+            //设置班级实体中的排课标识
+            classDtos.forEach(cl->{
+                cl.computeSortFlag(courseService);
+            });
+            return classDtos;
+        });
     }
 
     @Override

@@ -6,6 +6,7 @@ import io.choerodon.mybatis.domain.AuditDomain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import top.kwrcee.sortcourse.manage.mapper.CourseMapper;
 import top.kwrcee.sortcourse.manage.service.CourseService;
@@ -68,6 +69,7 @@ public class Schedule extends AuditDomain {
     private Long courseId;
     private Integer courseTime;
     private Integer courseDay;
+    @Value("1")
     private Integer usageStatusFlag;
 //
 // 非数据库字段

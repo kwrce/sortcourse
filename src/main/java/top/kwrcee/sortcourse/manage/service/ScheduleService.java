@@ -4,6 +4,7 @@ import io.choerodon.core.domain.Page;
 import io.choerodon.mybatis.pagehelper.domain.PageRequest;
 import io.choerodon.mybatis.service.BaseService;
 import top.kwrcee.sortcourse.manage.entities.Schedule;
+import top.kwrcee.sortcourse.manage.vo.Week;
 
 import java.util.List;
 
@@ -40,4 +41,12 @@ public interface ScheduleService extends BaseService<Schedule> {
      * @param id
      */
     void deleteSchedule(Long id);
+
+    /**
+     * 判断判断当前课程当前时间是否存在冲突
+     * @param courseId
+     * @param week
+     * @return
+     */
+    Boolean validateConflict(Long courseId, Week week);
 }

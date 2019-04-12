@@ -4,15 +4,19 @@ import io.choerodon.core.domain.Page;
 import io.choerodon.mybatis.pagehelper.PageHelper;
 import io.choerodon.mybatis.pagehelper.domain.PageRequest;
 import io.choerodon.mybatis.service.BaseServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.kwrcee.sortcourse.manage.entities.Course;
 import top.kwrcee.sortcourse.manage.entities.Schedule;
+import top.kwrcee.sortcourse.manage.mapper.CourseMapper;
 import top.kwrcee.sortcourse.manage.mapper.ScheduleMapper;
 import top.kwrcee.sortcourse.manage.service.CourseService;
 import top.kwrcee.sortcourse.manage.service.ScheduleService;
 import top.kwrcee.sortcourse.manage.utils.Constants;
+import top.kwrcee.sortcourse.manage.vo.CourseVO;
+import top.kwrcee.sortcourse.manage.vo.Week;
 
 import java.util.List;
 
@@ -22,6 +26,8 @@ public class ScheduleServiceImpl extends BaseServiceImpl<Schedule> implements Sc
     ScheduleMapper scheduleMapper;
     @Autowired
     CourseService courseService;
+    @Autowired
+    CourseMapper courseMapper;
     @Override
     public Page<Schedule> pageScheduleList(PageRequest pageRequest, Schedule schedule) {
         return PageHelper.doPageAndSort(pageRequest,()->scheduleMapper.selectBySchedule(schedule));
@@ -60,6 +66,7 @@ public class ScheduleServiceImpl extends BaseServiceImpl<Schedule> implements Sc
             course.setSortStatusFlag(Constants.Flag.YES);
             courseService.updateOptional(course,Course.FIELD_SORT_STATUS_FLAG);
         }
+        schedule.setUsageStatusFlag(Constants.Flag.YES);
         scheduleMapper.insert(schedule);
     }
 
@@ -76,7 +83,7 @@ public class ScheduleServiceImpl extends BaseServiceImpl<Schedule> implements Sc
         Course course = courseService.selectByPrimaryKey(schedule.getCourseId());
         Schedule oldDate=scheduleMapper.selectByPrimaryKey(schedule);
         //如果更改的不是当前的课程
-        if(course!=null && course.getCourseId()!=oldDate.getCourseId()){
+        if(course!=null && (course.getCourseId().longValue()!=oldDate.getCourseId().longValue())){
             delSchedule.setCourseId(course.getCourseId());
             courseService.resetCourseSortFlag(oldDate.getCourseId(),Constants.Flag.NO);
             scheduleMapper.delete(delSchedule);
@@ -95,5 +102,19 @@ public class ScheduleServiceImpl extends BaseServiceImpl<Schedule> implements Sc
         Schedule schedule = scheduleMapper.selectByPrimaryKey(id);
         courseService.resetCourseSortFlag(schedule.getCourseId(),Constants.Flag.NO);
         scheduleMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 判断当前课程当前时间是否存在冲突
+     * @param courseId
+     * @param week
+     * @return
+     */
+    @Override
+    public Boolean validateConflict(Long courseId, Week week) {
+        Course course = courseService.selectByPrimaryKey(courseId);
+        CourseVO courseVO = new CourseVO();
+        BeanUtils.copyProperties(course,courseVO);
+        return courseVO.validateConflict(courseMapper,week);
     }
 }

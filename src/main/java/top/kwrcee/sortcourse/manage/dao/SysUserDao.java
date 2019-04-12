@@ -43,6 +43,15 @@ public class SysUserDao {
         return user;
     }
 
+    /**
+     * 注册用户
+     * @param user
+     */
+    public SysUser addUser(SysUser user) {
+        sysUserMapper.insert(user);
+        return user;
+    }
+
 
     //-------------------------------------------------------------------------
 

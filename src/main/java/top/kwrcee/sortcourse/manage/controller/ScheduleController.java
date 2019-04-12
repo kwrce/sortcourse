@@ -75,7 +75,7 @@ public class ScheduleController {
         return ResponseEntity.ok("success");
     }
     /**
-     * 教师批量删除
+     * 时间表批量删除
      * @param ids
      * @return list
      */

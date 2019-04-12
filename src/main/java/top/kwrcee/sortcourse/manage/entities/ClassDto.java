@@ -5,10 +5,16 @@ import io.choerodon.mybatis.annotation.VersionAudit;
 import io.choerodon.mybatis.domain.AuditDomain;
 import lombok.Data;
 import lombok.ToString;
+import top.kwrcee.sortcourse.manage.mapper.CourseMapper;
+import top.kwrcee.sortcourse.manage.service.CourseService;
+import top.kwrcee.sortcourse.manage.utils.Constants;
+import top.kwrcee.sortcourse.manage.vo.CourseVO;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.List;
 
 /**
  * 
@@ -51,7 +57,34 @@ public class ClassDto extends AuditDomain {
 //
 // 非数据库字段
 // ------------------------------------------------------------------------------
+    @Transient
+    private Integer sortStatusFlag;
 
+    /**
+     * 计算班级排课状态
+     * @param courseService
+     */
+    public void computeSortFlag(CourseService courseService) {
+        Course course = new Course();
+        course.setClassId(classId);
+        List<Course> list = courseService.select(course);
+        Boolean allYES = true;
+        Boolean allNO = true;
+        for (Course co : list) {
+            if (Constants.Flag.YES.equals(co.getSortStatusFlag())) {
+                allYES = false;
+            } else {
+                allNO = false;
+            }
+        }
+        if (allYES) {
+            sortStatusFlag = Constants.Flag.NO;
+        } else if (allNO) {
+            sortStatusFlag = Constants.Flag.YES;
+        } else {
+            sortStatusFlag = -1;
+        }
+    }
 //
 // getter/setter
 // ------------------------------------------------------------------------------

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="iframe-h" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="_csrf" th:content="${_csrf.token}"/>
+		<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+		<title>网站后台管理模版</title>
+		<link rel="stylesheet" type="text/css" href="../../../static/admin/layui/css/layui.css" th:href="@{/admin/layui/css/layui.css}" />
+		<link rel="stylesheet" type="text/css" href="../../../static/admin/css/admin.css" th:href="@{/admin/css/admin.css}"/>
+
+	</head>
+
+	<body>
+		<div class="wrap-container clearfix">
+				<div class="column-content-detail">
+					<form class="layui-form" id="showForm" th:action="@{/auto-sort/classDtos}">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<input type="text" th:value="${classDto!=null}?${classDto.major}" name="major" placeholder="专业名称" autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-inline">
+								<input type="text" th:value="${classDto!=null}?${classDto.classMaster}" name="classMaster" placeholder="请输入班主任名称" autocomplete="off" class="layui-input">
+							</div>
+							<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+							<button class="layui-btn layui-btn-warm" type="reset">重置</button>
+						</div>
+					</form>
+					<div class="layui-form" id="table-list">
+						<table class="layui-table" lay-even lay-skin="nob">
+							<colgroup>
+								<col width="50">
+								<col width="50">
+								<col class="hidden-xs" width="50">
+								<col  width="60">
+								<col  width="100">
+								<col  width="100">
+								<col  width="150">
+								<col class="hidden-xs" width="100">
+								<col width="80">
+								<col width="150">
+							</colgroup>
+							<thead>
+								<tr>
+									<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
+									<th>排课状态</th>
+									<th class="hidden-xs">ID</th>
+									<th>年级</th>
+									<th>专业</th>
+									<th>班级名</th>
+									<th class="hidden-xs">学院</th>
+									<th class="hidden-xs">班主任</th>
+									<th>状态</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="classDto:${pageInfo.content}">
+									<td class="box"><input type="checkbox" name="" value="1" lay-skin="primary" data-id="1"></td>
+									<td th:name="id" th:value="${classDto.classId}" th:text="${classDto.classId}"></td>
+									<td>
+										<button th:if="${classDto.sortStatusFlag==1}" class="layui-btn layui-btn-mini layui-btn-normal">已排课</button>
+										<button th:if="${classDto.sortStatusFlag==0}" class="layui-btn layui-btn-mini layui-btn-danger">未排课</button>
+										<button th:if="${classDto.sortStatusFlag==-1}" class="layui-btn layui-btn-mini layui-btn-warm">部分排课</button></td>
+									<td>
+										<th:block th:each="gra:${grades}">
+											<th:block th:if="${gra.id==classDto.grade}">
+												[[${gra.value}]]
+											</th:block>
+										</th:block>
+									</td>
+									<td th:text="${classDto.major}"></td>
+									<td th:text="${classDto.className}"></td>
+									<td class="hidden-xs" th:text="${classDto.institute}">xxx</td>
+									<td class="hidden-xs" th:text="${classDto.classMaster}"></td>
+									<td>
+										<button th:if="${classDto.usageStatusFlag==1}" class="layui-btn layui-btn-mini layui-btn-normal">正常</button>
+										<button th:if="${classDto.usageStatusFlag==0}" class="layui-btn layui-btn-mini layui-btn-danger">禁用</button>
+									</td>
+									<td>
+										<div class="layui-inline" >
+											<button title="班级排课" class="layui-btn layui-btn-small layui-btn-warm go-btn" th:attr="data-id=${classDto.classId},data-list=@{/manage-classDto/classDtos},data-url= @{/auto-sort/classDto/} + ${classDto.classId}" data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe62a;</i></button>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="pager layui-clear" style="text-align: center;">
+						<ul class="pagination"> <!-- 上一页 -->
+							<li th:if="${pageInfo.number == 0}"><span>◁</span></li>
+							<li th:if="${pageInfo.number > 0}"><a th:href="@{/manage-classDto/classDtos(page=${pageInfo.number - 1})}">◁</a></li>
+							<!-- 首页 -->
+							<li th:if="${pageInfo.number == 0}" class="active"><span>1</span></li>
+							<li th:if="${pageInfo.number > 0}"><a th:href="@{/manage-classDto/classDtos(page=0)}">1</a></li>
+							<th:block th:if="${pageInfo.totalPages>2 && pageInfo.totalPages<=10}"
+									  th:each="i : ${#numbers.sequence(2,pageInfo.totalPages -1)}">
+								<li th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
+								<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-classDto/classDtos(page=${i -1})}"
+															  th:text="${i}">页码</a>
+								</li>
+							</th:block>
+							<th:block th:if="${pageInfo.totalPages > 10}">
+								<th:block th:if="${(pageInfo.number - (5/2)) <= 2}"
+										  th:each="i : ${#numbers.sequence(2,2 + 5 -1)}">
+									<li th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
+									<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-classDto/classDtos(page=${i -1})}"
+																  th:text="${i}">页码</a></li>
+								</th:block> <!-- ... -->
+								<li th:if="${(pageInfo.number - (5/2))>2}"><span>...</span></li>
+								<th:block
+										th:if="${((pageInfo.number - (5/2))>2) && ((pageInfo.number+(5/2)-(5%2==0?1:0)) < (pageInfo.totalPages -1))}"
+										th:each="i : ${#numbers.sequence(pageInfo.number - (5/2),pageInfo.number+(5/2)-(5%2==0?1:0))}">
+									<li th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
+									<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-classDto/classDtos(page=${i -1})}"
+																  th:text="${i}">页码</a></li>
+								</th:block> <!-- ... -->
+								<li th:if="${(pageInfo.number+(5/2)-(5%2==0?1:0)) < (pageInfo.totalPages - 1)}">
+									<span>...</span></li>
+								<th:block
+										th:if="${(pageInfo.number+(5/2)-(5%2==0?1:0)) >= (pageInfo.totalPages - 1)}"
+										th:each="i : ${#numbers.sequence(pageInfo.totalPages - 5,pageInfo.totalPages -1)}">
+									<li th:if="${pageInfo.number == i -1}" class="active"><span th:text="${i}">页码</span></li>
+									<li th:if="${pageInfo.number != i -1}"><a th:href="@{/manage-classDto/classDtos(page=${i -1})}"
+																  th:text="${i}">页码</a></li>
+								</th:block>
+							</th:block> <!-- 最后一页 -->
+							<li th:if="${pageInfo.totalPages>1 && pageInfo.number == pageInfo.totalPages -1}" class="active"><span
+									th:text="${pageInfo.totalPages}">页码</span></li>
+							<li th:if="${pageInfo.totalPages>1 && pageInfo.number != pageInfo.totalPages -1}"><a
+									th:href="@{/manage-classDto/classDtos(page=${pageInfo.totalPages -1})}" th:text="${pageInfo.totalPages}">页码</a></li>
+							<!-- 下一页 -->
+							<li th:if="${pageInfo.number +1>= pageInfo.totalPages}"><span>▷</span></li>
+							<li th:if="${pageInfo.number +1< pageInfo.totalPages}"><a th:href="@{/manage-classDto/classDtos(page=${pageInfo.number +1})}">▷</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+		</div>
+		<script src="../../../static/admin/layui/layui.js" th:src="@{/admin/layui/layui.js}" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../static/admin/js/common.js" th:src="@{/admin/js/common.js}" type="text/javascript" charset="utf-8"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" type="text/css" href="../../../static/admin/layui/css/layui.css"
+          th:href="@{/admin/layui/css/layui.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../../static/admin/css/admin.css"
+          th:href="@{/admin/css/admin.css}"/>
+    <style type="text/css">
+        .from-set {
+            box-shadow: 3px 3px 3px #888888;
+            margin: 10px;
+            float: left;
+        }
+
+        .layui-form-radio span {
+            font-size: 18px;
+        }
+        .enableBack {
+            color:#4476A7;
+            margin: 0 auto;
+            width: 95%;
+            height: 100%;
+            background: #4bffc1;
+            border: 3px solid white;
+            border-radius: 10px;
+            line-height: 100px;
+            cursor:pointer;
+        }
+        .enableBack:hover{
+            background: #fff3cd;
+        }
+        .disableBack{
+            position:relative;
+            margin: 0 auto;
+            width: 95%;
+            height: 100%;
+            background: #d09b7f;
+            border: 3px solid white;
+            border-radius: 10px;
+        }
+        .disableTdBack{
+            background: #bcc6d0;
+        }
+        .foot-tab{
+            width: 600px;
+            height: 20px;
+            margin: 20px 100px;
+            float: left;
+        }
+        .tab1{
+            float: left;
+            width: 15%;
+            height: 100%;
+            background-color: #bcc6d0;
+        }
+        .tab2{
+            float: left;
+            width: 15%;
+            height: 100%;
+            background-color: #4bffc1;
+        }
+        .tab3{
+            float: left;
+            width: 15%;
+            height: 100%;
+            background-color: #d09b7f;
+        }
+        .foot-text{
+            float: left;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-tab" style="margin-bottom: 20px;">
+    <ul class="layui-tab-title">
+        <li><a th:href="@{/auto-sort/classDtos}">班级列表</a></li>
+        <li class="layui-this">班级排课</li>
+
+    </ul>
+</div>
+<table id="table-list" border="1" style="float: left; margin-left: 20px;">
+    <thead>
+    <tr>
+        <th width="20"></th>
+        <th>星期一</th>
+        <th>星期二</th>
+        <th>星期三</th>
+        <th>星期四</th>
+        <th>星期五</th>
+        <th>星期六</th>
+        <th>星期日</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="i : ${#numbers.sequence(1,week.getTime())}">
+        <td th:text="${i}" style="text-align: center"></td>
+        <td class="disableTdBack" th:each="j :${#numbers.sequence(1,week.getDay())}" width="170" height="100"
+            style="text-align: center;font-size: 15px">
+            <th:block th:each="enableFlag:${noConflictWeek}">
+                <th:block th:if="${enableFlag.day == j && enableFlag.time == i}">
+                    <div class="enableBack" th:attr="weekDay=${j},weekTime=${i}" onclick="submitClick(this)">点击将课程排在这里</div>
+                </th:block>
+            </th:block>
+            <th:block th:each="course:${sortedCourses}">
+                <th:block th:each="gra : ${grades}">
+                    <th:block th:if="${gra.id == course.grade && (course.courseDay == j && course.courseTime == i)}">
+                        <div class="disableBack">
+                            <br>
+                            [[${course.courseName}+'-'+${course.teacherName}+'-'
+                            +${#strings.concat(gra.value,course.major)}+'-'
+                            +${course.className}+'|'+${course.roomNum}]]
+                            <br>
+                            <div style="float: bottom">
+                                <button class="layui-btn layui-btn-small layui-btn-danger del-btn";
+                                        th:attr="data-id=${i},data-url= @{/auto-sort/schedule/} + ${course.courseId}"
+                                        data-id="1" data-url="article-detail.html"><i class="layui-icon">&#xe640;</i>
+                                </button>
+                            </div>
+                        </div>
+                    </th:block>
+                </th:block>
+            </th:block>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<form class="layui-form" id="searchForm" method="get" th:attr="data-url=@{/auto-sort/schedule}" th:action="@{/auto-sort/no-conflict-week}">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+    <input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}">
+    <input type="hidden" name="id" th:value="${id}">
+    <input type="hidden" id="weekMeaning" name="weekMeaning">
+    <div style="width:300px;float:right;margin-right:80px;border: 1px solid black;font-size:20px">
+        <div style="border-bottom: 1px solid black;text-align: center"><b>待排课列表</b></div>
+        <div style="height: 607px;overflow-x: hidden; overflow-y: scroll;">
+            <ul th:each="course:${sortedCourses}">
+                <li onclick="submitSelf()" th:if="${course.sortStatusFlag == 0}"
+                    style="padding-left: 10px;border-bottom: 1px solid black;">
+                    <input th:type="radio" name="courseId" th:value="${course.courseId}"
+                           th:title="${course.courseName}+'-'+${course.teacherName}+'|'+${course.roomNum}" th:checked="${courseId!=null}?${course.courseId==courseId}">
+                </li>
+            </ul>
+        </div>
+    </div>
+</form>
+<div class="foot-tab">
+    <div class="tab1"></div><div class="foot-text">冲突的时间</div>
+    <div class="tab2"></div><div class="foot-text">可以排课</div>
+    <div class="tab3"></div><div class="foot-text">可以修改</div>
+</div>
+<script src="../../../static/admin/layui/layui.js" th:src="@{/admin/layui/layui.js}" type="text/javascript"
+        charset="utf-8"></script>
+<script src="../../../static/admin/js/common.js" th:src="@{/admin/js/common.js}" type="text/javascript"
+        charset="utf-8"></script>
+<script>
+    function shade() {
+        _index = layer.load(1, {
+            content: "<div style='margin-left:-47px;padding-top:44px;width:120px;color:#FFF;text-align: center'>正在排课</div>",
+            shade: [0.5, '#000']
+        });
+    }
+
+    function submitSelf() {
+        document.getElementById("searchForm").submit()
+    }
+
+    function submitClick(obj) {
+        document.getElementById("weekMeaning").value=obj.getAttribute('weekDay')+"-"+obj.getAttribute('weekTime');
+        document.getElementById("searchForm").action=document.getElementById("searchForm").getAttribute("data-url");
+        document.getElementById("searchForm").method="post";
+        submitSelf();
+    }
+
+</script>
+</body>
+</html>

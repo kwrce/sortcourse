@@ -52,9 +52,9 @@
     <form class="layui-form" th:action="@{/auto-sort/sort}" method="post">
         <button class="layui-btn layui-btn-warm from-set" onclick="shade()">一键排课</button>
     </form>
-
+    <button style="width: 90px" id="btn" class="layui-btn layui-btn-normal from-set">导出excel</button>
 </div>
-<table border="1">
+<table border="1" class="table2excel">
     <thead>
     <tr>
         <th width="20"></th>
@@ -70,25 +70,27 @@
     <tbody>
     <tr th:each="i : ${#numbers.sequence(1,week.getTime())}">
         <td th:text="${i}" style="text-align: center"></td>
-        <td th:each="j :${#numbers.sequence(1,week.getDay())}" width="200" height="100">
-            <div th:each="course:${sortedCourses}" style="text-align: center;font-size: 15px">
+        <td th:each="j :${#numbers.sequence(1,week.getDay())}" width="200" height="100" style="text-align: center;font-size: 15px">
+            <th:block th:each="course:${sortedCourses}">
                 <th:block th:each="gra : ${grades}">
-                    <th:block th:if="${gra.id == course.grade}">
-                        <div th:text="${course.courseDay == j && course.courseTime == i}?${course.courseName}+'-'+${course.teacherName}+'-'+${#strings.concat(gra.value,course.major)}+'-'+${course.className}+'|'+${course.roomNum}">
-                            [[${j}]]--[[${i}]]
-                        </div>
+                    <th:block th:if="${gra.id == course.grade && (course.courseDay == j && course.courseTime == i)}" >
+                        <th:block th:text="${course.courseName}+'-'+${course.teacherName}+'-'+${#strings.concat(gra.value,course.major)}+'-'+${course.className}+'|'+${course.roomNum}"></th:block>
+                        <br>
                     </th:block>
                 </th:block>
-            </div>
+            </th:block>
         </td>
     </tr>
     </tbody>
-
 </table>
+
 <script src="../../../static/admin/layui/layui.js" th:src="@{/admin/layui/layui.js}" type="text/javascript"
         charset="utf-8"></script>
 <script src="../../../static/admin/js/common.js" th:src="@{/admin/js/common.js}" type="text/javascript"
         charset="utf-8"></script>
+<script type="text/javascript"th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+<script type="text/javascript"th:src="@{/admin/js/table2excel.js}"></script>
+
 <script>
     function shade() {
         _index = layer.load(1, {
@@ -97,6 +99,19 @@
         });
     }
 
+    $(function() {
+        $("#btn").click(function(){
+            $(".table2excel").table2excel({
+                exclude: ".noExl",
+                name: "Excel Document Name",
+                filename: "课表导出",
+                exclude_img: true,
+                exclude_links: true,
+                exclude_inputs: true
+            });
+        });
+
+    });
 </script>
 </body>
 </html>

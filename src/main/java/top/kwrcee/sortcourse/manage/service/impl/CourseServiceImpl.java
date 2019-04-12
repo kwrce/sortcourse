@@ -119,17 +119,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
         List<CourseVO> list = courseMapper.selectByCourse(condition);
         List<CourseVO> sortedList = new ArrayList<>();
         //查询一周上课的天数和一天上课的天数
-        Week globalWeek = weekHelper.getGlobalWeek();
-        List<Week> weeks = new ArrayList<>();
-        //从值集中获取一周的课程数  遍历week集合
-        for (int i = 0; i < globalWeek.getDay(); i++) {
-            for (int j = 0; j < globalWeek.getTime(); j++) {
-                Week week = new Week();
-                week.setDay(i + 1);
-                week.setTime(j + 1);
-                weeks.add(week);
-            }
-        }
+        List<Week> weeks = weekHelper.getGlobalWeeks();
         weeks.forEach(week -> {
             //todo 在此可以完善指定日期不排课功能（某班，某老师，某教室）
             log.info("当前时间是第" + week.getDay() + "天,第" + week.getTime() + "节课");

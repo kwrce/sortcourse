@@ -92,17 +92,27 @@
             <version>3.3.1</version>
         </dependency>
         <!--choerodon-->
+<!--        <dependency>-->
+<!--            <groupId>io.choerodon</groupId>-->
+<!--            <artifactId>choerodon-starter-mybatis</artifactId>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/lib/choerodon-starter-mybatis-0.9.3.RELEASE.jar</systemPath>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>io.choerodon</groupId>
             <artifactId>choerodon-starter-mybatis</artifactId>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/choerodon-starter-mybatis-0.9.3.RELEASE.jar</systemPath>
+            <version>0.9.3.RELEASE</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.choerodon</groupId>-->
+<!--            <artifactId>choerodon-starter-mybatis-mapper</artifactId>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/lib/choerodon-starter-mybatis-mapper-0.9.3.RELEASE.jar</systemPath>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>io.choerodon</groupId>
             <artifactId>choerodon-starter-mybatis-mapper</artifactId>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/choerodon-starter-mybatis-mapper-0.9.3.RELEASE.jar</systemPath>
+            <version>0.9.3.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>javax.persistence</groupId>
@@ -131,6 +141,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>top.kwrcee.sortcourse.SortcourseApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

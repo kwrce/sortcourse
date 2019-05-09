@@ -1,37 +1,55 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<title>Signin Template for Bootstrap</title>
-		<!-- Bootstrap core CSS -->
-		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
-		<!-- Custom styles for this template -->
-		<link href="asserts/css/signin.css" th:href="@{/asserts/css/signin.css}" rel="stylesheet">
-	</head>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>SHUM排课系统登录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
-	<body class="text-center">
-		<form class="form-signin" th:action="@{/login}" method="post" action="dashboard.html">
-			<img class="mb-4" th:src="@{/asserts/img/bootstrap-solid.svg}" src="asserts/img/bootstrap-solid.svg" alt="" width="72" height="72">
-			<h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">Please sign in</h1>
-			<p style="color: red;" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
-			<label class="sr-only" th:text="#{login.username}">Username</label>
-			<input type="text" name="username" class="form-control" th:placeholder="#{login.username}" placeholder="Username" required="" autofocus="">
-			<label class="sr-only" th:text="#{login.password}">Password</label>
-			<input type="password" name="password" class="form-control" th:placeholder="#{login.password}" placeholder="Password" required="">
-			<div class="checkbox mb-3">
-				<label>
-          <input type="checkbox" value="remember-me" > [[#{login.remember}]]
-        </label>
-			</div>
-			<button class="btn btn-lg btn-primary btn-block" th:text="#{login.btn}" type="submit">Sign in</button>
-			<p class="mt-5 mb-3 text-muted">© 2017-2018</p>
-			<a class="btn btn-sm" th:href="@{/index.html(l='zh_CN')}">中文</a>
-			<a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">English</a>
-		</form>
+        body {
+            overflow: hidden;
+        }
+    </style>
+    <link href="css/font.css" rel="stylesheet" th:href="@{/asserts/css/font.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/asserts/css/style.css}">
+    <link rel="stylesheet" href="css/style-search.css"  th:href="@{/asserts/css/style-search.css}" media="screen" type="text/css"/>
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/signin.css" th:href="@{/asserts/css/signin.css}" rel="stylesheet">
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script>
+        function c() {
+            location.href = "http://www.baidu.com/s?wd=" + $("#input").val();
+        }
+    </script>
+</head>
 
-	</body>
+<body>
+<canvas id="canvas" width="100%" height="1200"> 您的浏览器不支持canvas标签，请您更换浏览器</canvas>
+<script src="js/word.js" th:src="@{/asserts/js/word.js}"></script>
+<p id="offscreen-text" class="offscreen-text"></p>
+<p id="text" class="text"></p>
+<!--<svg id="svg" > </svg>-->
 
+<div id="d" class="webdesigntuts-workshop"> <span>
+  <form class="form-signin" th:action="@{/login}" method="post" action="dashboard.html">
+    <img class="mb-4" th:src="@{/asserts/img/logo.png}" src="asserts/img/bootstrap-solid.svg" alt="" width="150" height="150">
+    <h1 class="h3 mb-3 font-weight-normal" style="color: white" th:text="#{login.tip}">Please sign in</h1>
+    <p style="color: red;" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+    <button  th:text="#{login.username}">Username</button>
+    <input type="text" name="username" style="margin-bottom: 10px" class="form-control" th:placeholder="#{login.username}" placeholder="Username" required="" autofocus="">
+    <button th:text="#{login.password}">Password</button>
+    <input type="password" name="password" class="form-control" th:placeholder="#{login.password}" placeholder="Password" required="">
+    <button class="btn btn-lg btn-primary btn-block" th:text="#{login.btn}" type="submit" style="margin:0 auto;width: 280px !important">登录</button>
+    <p class="mt-5 mb-3 text-muted">© 2018-2019</p>
+</form>
+    </span>
+</div>
+
+
+<script src='js/index.js' th:src="@{/asserts/js/index.js}" ></script>
+</body>
 </html>

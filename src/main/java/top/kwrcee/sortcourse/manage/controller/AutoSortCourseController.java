@@ -105,6 +105,7 @@ public class AutoSortCourseController {
         List<Week> noConflictWeeks =new ArrayList<>();
         List<Week> weeks=weekHelper.getGlobalWeeks();
         weeks.forEach(week -> {
+            //如果没有冲突，加入需要返回的集合之中
             if(scheduleService.validateConflict(courseId,week)){
                 noConflictWeeks.add(week);
             }

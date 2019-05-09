@@ -65,6 +65,7 @@
                 }
             }
             fullTemplate += e.template.foot;
+            var value =table[0];
             for (i in table) {
                 e.ctx["table" + i] = table[i];
             }
@@ -72,6 +73,9 @@
             if (typeof msie !== "undefined" && msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
                 if (typeof Blob !== "undefined") {
                     fullTemplate = [fullTemplate];
+                    var fullStr ="\""+fullTemplate.toString()+"\"";
+                    fullStr = fullStr.replace("{table0}",value);
+                    var full=new Array(fullStr);
                     var blob1 = new Blob(fullTemplate, {type: "text/html"});
                     window.navigator.msSaveBlob(blob1, getFileName(e.settings));
                 } else {

@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/**/*.svg",
                 "/**/*.ttf",
                 "/**/*.jpg",
+                "/**/*.png",
                 "/**/*.woff", //字体文件
                 "/**/*.map", //bootstrap 文件
                 "/admin/fonts/**",

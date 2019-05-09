@@ -151,6 +151,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
         Course course = new Course();
         Integer nameFlag=1;
         grades.forEach(grade -> {
+            int sum=0;
             List<Integer> dayCourses = new ArrayList<>();
             course.setGrade(grade.getId());
             for (int i = 1; i <= Integer.valueOf(week.getDay()); i++) {
@@ -161,8 +162,10 @@ public class CourseServiceImpl extends BaseServiceImpl<Course> implements Course
                     dayCourses.add(0);
                 } else {
                     dayCourses.add(courseVOS.size());
+                    sum+=courseVOS.size();
                 }
             }
+            model.addAttribute("collageCount"+grade.getId(),sum);
             model.addAttribute("collage"+grade.getId(),dayCourses);
         });
     }

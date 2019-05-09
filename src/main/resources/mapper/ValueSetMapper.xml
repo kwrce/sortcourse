@@ -2,6 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="top.kwrcee.sortcourse.manage.mapper.ValueSetMapper">
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap id="BaseResultMap" type="top.kwrcee.sortcourse.manage.entities.ValueSet">
+        <result column="id" property="id" jdbcType="DECIMAL"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="meaning" property="meaning" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        vs
+    </sql>
+    <select id="selectByValueSet" resultMap="BaseResultMap">
+        select
+        vs.id,
+        vs.name,
+        vs.`value`,
+        vs.meaning
+        from value_set vs
+        <where>
+            <if test="name != null and name !='' ">
+                <bind name="name" value="'%'+ name +'%'"/>
+                and vs.name like #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="value != null and value !='' ">
+                <bind name="value" value="'%'+ value +'%'"/>
+                and vs.value like #{value,jdbcType=VARCHAR}
+            </if>
+            <if test="meaning != null and meaning !='' ">
+                <bind name="meaning" value="'%'+ meaning +'%'"/>
+                and vs.meaning like #{meaning,jdbcType=VARCHAR}
+            </if>
+        </where>
 
+    </select>
 
 </mapper>

@@ -2,8 +2,10 @@ package top.kwrcee.sortcourse.manage.mapper;
 
 
 import io.choerodon.mybatis.common.BaseMapper;
-import top.kwrcee.sortcourse.manage.entities.Room;
 import top.kwrcee.sortcourse.manage.entities.ValueSet;
+import top.kwrcee.sortcourse.manage.entities.ValueSet;
+
+import java.util.List;
 
 /**
  * Mapper
@@ -12,6 +14,11 @@ import top.kwrcee.sortcourse.manage.entities.ValueSet;
  */
 
 public interface ValueSetMapper extends BaseMapper<ValueSet> {
-
+    /**
+     * 分页模糊查询值集信息
+     * @param valueSet
+     * @return
+     */
+    List<ValueSet> selectByValueSet(ValueSet valueSet);
 }
 
